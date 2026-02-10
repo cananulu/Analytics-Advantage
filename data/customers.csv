@@ -1,0 +1,501 @@
+customer_id,gender,age,state,region,income_bracket,acquisition_channel,product_category,order_amount,num_orders,first_order_date,last_order_date,lifetime_value,loyalty_member,satisfaction_score
+CUST-0001,Female,37,New York,Northeast,$50K-$75K,Web,Kitchen,180.05,1,2024-03-08,2024-03-08,146.33,Yes,3
+CUST-0002,Male,67,California,West,$75K-$100K,Email,Apparel,148.82,5,2023-01-07,2024-06-12,803.07,Yes,3
+CUST-0003,Male,46,Illinois,Midwest,$30K-$50K,Phone,Kitchen,131.45,5,2024-07-03,2024-05-07,781.63,No,4
+CUST-0004,Male,67,Oregon,West,$30K-$50K,Web,Kitchen,157.81,6,2023-04-14,2025-01-24,862.77,No,4
+CUST-0005,Male,64,Michigan,Midwest,$50K-$75K,Referral,Kitchen,127.69,1,2023-09-08,2023-09-08,110.5,No,5
+CUST-0006,Female,75,Washington,West,$100K-$150K,Direct Mail,Outdoor,245.9,2,2023-03-09,2024-08-04,573.07,No,5
+CUST-0007,Female,63,Virginia,Southeast,$75K-$100K,Direct Mail,Apparel,142.62,2,2024-08-21,2025-03-14,330.63,No,3
+CUST-0008,Female,27,Tennessee,Southeast,$100K-$150K,Phone,Apparel,66.9,4,2024-09-02,2024-03-06,255.27,No,4
+CUST-0009,Male,65,Indiana,Midwest,$100K-$150K,Web,Electronics,96.54,4,2023-04-25,2024-10-27,376.08,No,5
+CUST-0010,Male,54,Indiana,Midwest,Over $150K,Phone,Home & Garden,266.41,4,2023-06-06,2025-01-17,1177.54,No,5
+CUST-0011,Female,53,California,West,Under $30K,Referral,Outdoor,101.31,2,2023-03-01,2024-09-03,233.26,No,2
+CUST-0012,Male,30,Texas,Southwest,$75K-$100K,Referral,Apparel,135.14,4,2023-08-05,2025-07-06,595.75,No,5
+CUST-0013,Female,55,New Mexico,Southwest,$75K-$100K,Direct Mail,Apparel,22.67,3,2024-08-25,2024-08-13,54.6,No,2
+CUST-0014,Female,26,New York,Northeast,$75K-$100K,Direct Mail,Electronics,137.71,5,2024-08-07,2025-08-13,681.02,No,5
+CUST-0015,Male,64,Florida,Southeast,$50K-$75K,Email,Electronics,149.88,4,2024-10-23,2024-04-10,494.15,No,5
+CUST-0016,Male,34,Massachusetts,Northeast,$75K-$100K,Direct Mail,Apparel,120.7,6,2023-03-19,2025-03-29,813.43,No,2
+CUST-0017,Male,70,California,West,$100K-$150K,Direct Mail,Electronics,81.81,2,2023-03-02,2024-06-17,155.7,No,3
+CUST-0018,Female,66,New Mexico,Southwest,Over $150K,Referral,Electronics,295.81,1,2023-10-31,2023-10-31,262.41,Yes,5
+CUST-0019,Male,25,Pennsylvania,Northeast,$75K-$100K,Email,Outdoor,52.95,8,2023-03-24,2024-07-09,350.49,Yes,5
+CUST-0020,Male,59,Texas,Southwest,$75K-$100K,Web,Home & Garden,147.58,3,2023-09-25,2024-07-28,472.8,Yes,3
+CUST-0021,Female,42,North Carolina,Southeast,Over $150K,Referral,Apparel,259.83,3,2023-04-13,2024-03-16,791.22,No,3
+CUST-0022,Male,45,Illinois,Midwest,$50K-$75K,Email,Electronics,70.97,9,2024-10-31,2025-06-25,512.98,No,3
+CUST-0023,Female,29,Massachusetts,Northeast,$100K-$150K,Web,Apparel,100.69,1,2023-12-18,2023-12-18,88.75,No,3
+CUST-0024,Male,27,New Mexico,Southwest,$75K-$100K,Phone,Apparel,92.05,1,2023-09-26,2023-09-26,79.59,No,5
+CUST-0025,Male,26,California,West,Over $150K,Web,Apparel,43.33,2,2024-07-19,2024-05-31,84.23,Yes,4
+CUST-0026,Male,65,Pennsylvania,Northeast,$50K-$75K,Direct Mail,Outdoor,178.56,2,2024-09-27,2024-06-07,417.94,Yes,3
+CUST-0027,Male,33,Virginia,Southeast,$100K-$150K,Email,Books & Media,245.12,6,2023-09-12,2024-09-30,1270.23,No,4
+CUST-0028,Male,34,Connecticut,Northeast,$100K-$150K,Email,Home & Garden,243.21,1,2023-01-25,2023-01-25,258.78,No,3
+CUST-0029,Female,63,Pennsylvania,Northeast,$75K-$100K,Web,Outdoor,91.52,1,2023-09-25,2023-09-25,79.75,No,3
+CUST-0030,Female,44,New Jersey,Northeast,$100K-$150K,Email,Kitchen,164.42,2,2024-08-13,2024-07-13,296.58,No,1
+CUST-0031,Female,49,Washington,West,$30K-$50K,Web,Home & Garden,58.46,6,2023-11-04,2025-06-03,324.0,No,4
+CUST-0032,Male,34,Indiana,Midwest,$50K-$75K,Referral,Kitchen,182.02,4,2023-11-05,2025-02-19,742.04,Yes,3
+CUST-0033,Female,51,Colorado,Southwest,$50K-$75K,Web,Electronics,161.84,8,2023-06-23,2025-11-05,1079.69,No,4
+CUST-0034,Male,65,Illinois,Midwest,$50K-$75K,Phone,Apparel,23.55,9,2024-09-17,2024-03-15,208.17,No,4
+CUST-0035,Female,37,Oklahoma,Southwest,$30K-$50K,Web,Outdoor,139.35,6,2024-03-11,2024-08-12,727.7,No,4
+CUST-0036,Male,29,New Jersey,Northeast,$75K-$100K,Phone,Kitchen,237.31,3,2024-03-29,2025-09-19,801.64,No,4
+CUST-0037,Male,69,Nevada,West,$100K-$150K,Email,Kitchen,255.56,2,2024-06-17,2025-05-11,537.03,Yes,2
+CUST-0038,Female,43,Ohio,Midwest,$50K-$75K,Email,Apparel,57.78,4,2024-12-24,2024-08-07,190.83,No,4
+CUST-0039,Male,75,Texas,Southwest,$50K-$75K,Referral,Electronics,143.67,6,2024-08-12,2025-01-24,854.08,No,3
+CUST-0040,Male,53,Oklahoma,Southwest,$50K-$75K,Email,Apparel,77.18,4,2024-02-19,2024-06-18,350.77,No,5
+CUST-0041,Female,59,California,West,$75K-$100K,Direct Mail,Kitchen,48.13,3,2023-02-21,2024-09-23,137.41,Yes,4
+CUST-0042,Female,38,New Mexico,Southwest,$100K-$150K,Email,Kitchen,36.95,8,2023-08-18,2025-10-27,244.59,No,2
+CUST-0043,Male,75,Massachusetts,Northeast,Under $30K,Direct Mail,Apparel,83.31,3,2023-08-12,2025-04-21,269.87,No,3
+CUST-0044,Male,41,California,West,$30K-$50K,Direct Mail,Home & Garden,112.25,8,2024-02-11,2024-07-22,745.7,No,4
+CUST-0045,Male,72,Pennsylvania,Northeast,Over $150K,Phone,Home & Garden,188.5,2,2024-06-02,2025-10-25,353.06,No,5
+CUST-0046,Female,62,Connecticut,Northeast,$100K-$150K,Email,Apparel,71.38,3,2024-10-28,2024-10-03,224.07,No,5
+CUST-0047,Female,42,Oklahoma,Southwest,$100K-$150K,Phone,Apparel,267.15,1,2024-04-20,2024-04-20,274.61,No,4
+CUST-0048,Male,53,New Mexico,Southwest,$50K-$75K,Phone,Home & Garden,177.86,4,2023-10-10,2025-07-23,572.04,No,2
+CUST-0049,Male,66,Oklahoma,Southwest,$75K-$100K,Web,Home & Garden,21.83,2,2024-02-19,2025-12-09,39.18,No,4
+CUST-0050,Female,49,Utah,West,Over $150K,Web,Home & Garden,197.89,2,2023-08-25,2024-05-03,430.81,Yes,5
+CUST-0051,Male,69,Georgia,Southeast,$75K-$100K,Web,Books & Media,134.47,2,2023-04-13,2024-07-17,247.02,No,4
+CUST-0052,Female,24,Washington,West,Over $150K,Web,Kitchen,76.72,6,2024-05-17,2024-04-15,528.95,No,4
+CUST-0053,Male,25,New Mexico,Southwest,$50K-$75K,Phone,Apparel,27.09,3,2024-08-13,2025-10-06,87.33,Yes,5
+CUST-0054,Male,29,Illinois,Midwest,$75K-$100K,Email,Electronics,155.29,5,2024-01-25,2025-04-06,903.32,Yes,4
+CUST-0055,Male,61,New Mexico,Southwest,Over $150K,Direct Mail,Kitchen,261.44,2,2023-03-25,2024-06-09,468.47,No,3
+CUST-0056,Female,40,Oklahoma,Southwest,Under $30K,Direct Mail,Home & Garden,104.42,1,2023-08-28,2023-08-28,122.13,No,4
+CUST-0057,Male,56,Virginia,Southeast,$50K-$75K,Direct Mail,Home & Garden,41.31,1,2023-11-11,2023-11-11,42.88,No,5
+CUST-0058,Female,66,Texas,Southwest,$50K-$75K,Email,Home & Garden,114.9,2,2024-09-04,2024-02-10,265.6,No,4
+CUST-0059,Male,65,New York,Northeast,$100K-$150K,Web,Books & Media,299.88,4,2023-10-03,2025-08-13,978.92,No,4
+CUST-0060,Male,59,New Mexico,Southwest,$50K-$75K,Phone,Books & Media,101.95,2,2023-11-25,2025-11-17,171.65,Yes,4
+CUST-0061,Female,74,New Mexico,Southwest,$100K-$150K,Direct Mail,Apparel,92.54,1,2024-02-18,2024-02-18,106.05,No,1
+CUST-0062,Female,25,Nevada,West,$30K-$50K,Email,Kitchen,104.56,5,2023-07-28,2024-09-30,533.09,No,4
+CUST-0063,Male,62,Texas,Southwest,$75K-$100K,Direct Mail,Apparel,140.29,3,2023-04-06,2024-08-18,503.74,No,4
+CUST-0064,Female,67,Massachusetts,Northeast,$50K-$75K,Web,Home & Garden,104.26,3,2024-04-12,2025-07-18,268.32,Yes,4
+CUST-0065,Female,71,Florida,Southeast,$100K-$150K,Email,Books & Media,163.4,6,2023-10-17,2024-11-01,1112.74,No,4
+CUST-0066,Female,44,Virginia,Southeast,$50K-$75K,Phone,Home & Garden,187.58,6,2024-12-15,2024-09-01,1157.8,Yes,5
+CUST-0067,Female,67,Pennsylvania,Northeast,Over $150K,Email,Books & Media,323.19,4,2023-06-05,2025-05-22,1533.12,Yes,5
+CUST-0068,Female,28,Illinois,Midwest,$75K-$100K,Email,Kitchen,109.02,4,2023-06-08,2024-03-17,430.76,No,4
+CUST-0069,Female,65,Texas,Southwest,$100K-$150K,Email,Home & Garden,221.94,5,2024-07-08,2024-02-06,1161.84,Yes,4
+CUST-0070,Male,49,Ohio,Midwest,Over $150K,Phone,Kitchen,67.19,1,2023-11-03,2023-11-03,78.03,Yes,5
+CUST-0071,Female,49,Michigan,Midwest,$30K-$50K,Email,Electronics,129.29,1,2023-03-22,2023-03-22,134.95,No,4
+CUST-0072,Male,36,Colorado,Southwest,$75K-$100K,Direct Mail,Home & Garden,20.09,5,2023-10-22,2025-11-24,102.32,Yes,5
+CUST-0073,Female,66,Oregon,West,$50K-$75K,Phone,Apparel,86.17,3,2023-08-31,2025-01-25,265.95,No,5
+CUST-0074,Female,39,Illinois,Midwest,Under $30K,Phone,Kitchen,117.07,7,2024-05-23,2024-10-20,909.88,Yes,5
+CUST-0075,Female,65,Georgia,Southeast,$100K-$150K,Phone,Kitchen,60.46,1,2024-10-04,2024-10-04,64.0,Yes,4
+CUST-0076,Male,27,Oregon,West,Over $150K,Email,Home & Garden,104.29,5,2024-01-10,2025-06-27,521.82,Yes,3
+CUST-0077,Female,73,New Mexico,Southwest,$30K-$50K,Referral,Apparel,155.04,6,2024-11-21,2025-02-10,1104.11,No,4
+CUST-0078,Female,56,Texas,Southwest,$30K-$50K,Email,Kitchen,50.8,2,2024-10-15,2025-01-15,85.68,Yes,1
+CUST-0079,Male,63,Oregon,West,$30K-$50K,Phone,Books & Media,56.72,2,2023-05-24,2024-02-16,133.69,Yes,4
+CUST-0080,Male,46,Massachusetts,Northeast,$75K-$100K,Web,Kitchen,228.01,2,2023-06-08,2025-02-28,484.28,No,4
+CUST-0081,Female,35,Illinois,Midwest,$50K-$75K,Referral,Outdoor,33.38,4,2024-07-11,2025-10-22,125.97,No,3
+CUST-0082,Male,64,Connecticut,Northeast,$50K-$75K,Web,Books & Media,24.36,2,2023-05-09,2025-08-01,42.98,No,4
+CUST-0083,Male,43,Washington,West,$100K-$150K,Phone,Electronics,99.44,9,2023-05-14,2025-07-07,805.7,Yes,4
+CUST-0084,Male,44,Massachusetts,Northeast,$100K-$150K,Direct Mail,Home & Garden,70.85,1,2024-03-07,2024-03-07,71.59,No,4
+CUST-0085,Male,50,Indiana,Midwest,$75K-$100K,Referral,Apparel,191.88,6,2024-06-17,2024-11-04,1131.96,No,2
+CUST-0086,Female,65,Oklahoma,Southwest,$30K-$50K,Web,Home & Garden,145.09,2,2023-06-01,2024-03-08,246.79,No,4
+CUST-0087,Female,51,Minnesota,Midwest,$75K-$100K,Email,Outdoor,43.4,4,2024-07-18,2024-08-08,168.74,No,4
+CUST-0088,Female,68,Oklahoma,Southwest,$30K-$50K,Email,Kitchen,67.4,1,2024-04-30,2024-04-30,55.73,No,2
+CUST-0089,Male,57,Pennsylvania,Northeast,$30K-$50K,Referral,Electronics,111.16,2,2024-11-12,2025-03-09,255.05,No,5
+CUST-0090,Female,28,Oregon,West,$75K-$100K,Direct Mail,Kitchen,67.78,1,2024-07-23,2024-07-23,64.19,No,4
+CUST-0091,Male,60,Colorado,Southwest,Over $150K,Phone,Home & Garden,96.75,4,2023-11-13,2024-12-13,363.94,Yes,3
+CUST-0092,Male,69,Texas,Southwest,$75K-$100K,Direct Mail,Kitchen,65.76,2,2023-12-16,2024-06-10,124.68,No,5
+CUST-0093,Male,25,Utah,West,$30K-$50K,Phone,Apparel,24.07,2,2024-03-10,2025-05-12,50.2,No,3
+CUST-0094,Female,49,California,West,$30K-$50K,Web,Electronics,89.99,2,2023-08-14,2025-02-08,214.86,Yes,3
+CUST-0095,Female,40,Georgia,Southeast,$50K-$75K,Direct Mail,Kitchen,47.5,2,2024-12-21,2024-08-23,95.01,No,5
+CUST-0096,Male,49,Connecticut,Northeast,Under $30K,Referral,Outdoor,72.91,3,2024-12-27,2025-10-17,211.53,Yes,1
+CUST-0097,Female,75,Ohio,Midwest,$75K-$100K,Email,Home & Garden,41.5,2,2024-02-15,2025-06-20,69.01,No,5
+CUST-0098,Male,26,North Carolina,Southeast,$75K-$100K,Direct Mail,Electronics,219.11,2,2024-10-22,2024-05-31,391.99,Yes,3
+CUST-0099,Male,33,Washington,West,Over $150K,Web,Electronics,238.58,3,2024-11-28,2025-08-01,756.68,No,4
+CUST-0100,Female,26,Ohio,Midwest,$75K-$100K,Web,Outdoor,149.3,2,2023-03-17,2024-11-13,294.03,Yes,4
+CUST-0101,Male,61,Illinois,Midwest,$75K-$100K,Email,Electronics,229.84,5,2023-02-12,2025-04-05,1337.23,No,3
+CUST-0102,Male,25,Nevada,West,$75K-$100K,Phone,Outdoor,236.09,1,2024-10-23,2024-10-23,205.17,Yes,4
+CUST-0103,Male,45,Colorado,Southwest,$50K-$75K,Direct Mail,Home & Garden,77.6,3,2024-10-08,2025-10-24,217.4,Yes,4
+CUST-0104,Female,68,New Mexico,Southwest,$100K-$150K,Referral,Kitchen,64.23,1,2024-11-10,2024-11-10,55.02,Yes,5
+CUST-0105,Male,41,Arizona,Southwest,$75K-$100K,Web,Home & Garden,46.37,4,2024-12-02,2025-06-23,155.32,No,4
+CUST-0106,Female,33,Pennsylvania,Northeast,Over $150K,Email,Kitchen,101.04,10,2023-06-08,2024-03-20,927.87,No,4
+CUST-0107,Male,64,Utah,West,$50K-$75K,Phone,Apparel,84.69,1,2024-12-10,2024-12-10,93.87,No,3
+CUST-0108,Female,45,Texas,Southwest,$75K-$100K,Direct Mail,Home & Garden,81.25,5,2024-04-04,2024-08-27,411.78,Yes,5
+CUST-0109,Female,65,Arizona,Southwest,Over $150K,Referral,Electronics,134.26,2,2024-06-24,2025-03-04,318.6,No,5
+CUST-0110,Male,63,North Carolina,Southeast,$75K-$100K,Email,Books & Media,175.93,3,2023-05-08,2024-10-18,439.94,Yes,4
+CUST-0111,Female,27,Washington,West,Over $150K,Direct Mail,Electronics,159.35,1,2023-02-24,2023-02-24,152.75,No,4
+CUST-0112,Male,23,Pennsylvania,Northeast,$50K-$75K,Direct Mail,Kitchen,77.03,1,2023-02-09,2023-02-09,70.46,No,4
+CUST-0113,Female,61,Virginia,Southeast,Under $30K,Direct Mail,Home & Garden,101.68,3,2024-09-15,2025-06-24,295.68,No,3
+CUST-0114,Male,48,New York,Northeast,$75K-$100K,Web,Apparel,203.74,3,2024-07-02,2024-01-17,643.48,No,5
+CUST-0115,Male,61,Minnesota,Midwest,$50K-$75K,Web,Apparel,138.62,3,2024-01-05,2024-03-10,491.28,No,5
+CUST-0116,Male,46,Utah,West,$100K-$150K,Direct Mail,Home & Garden,126.09,5,2024-01-01,2024-03-10,591.31,No,4
+CUST-0117,Male,24,Oregon,West,$50K-$75K,Email,Kitchen,168.62,4,2024-12-13,2025-05-05,710.02,No,2
+CUST-0118,Female,34,Texas,Southwest,Under $30K,Direct Mail,Apparel,112.6,3,2024-07-10,2025-04-29,304.47,No,3
+CUST-0119,Female,39,Illinois,Midwest,$30K-$50K,Email,Outdoor,122.01,7,2024-01-31,2024-12-13,1015.91,No,4
+CUST-0120,Male,68,Oregon,West,$50K-$75K,Email,Books & Media,48.38,2,2023-04-16,2024-03-22,90.1,Yes,4
+CUST-0121,Female,44,Arizona,Southwest,$50K-$75K,Web,Books & Media,128.75,2,2024-10-16,2024-02-28,213.73,No,4
+CUST-0122,Male,60,Florida,Southeast,$75K-$100K,Email,Apparel,70.39,4,2024-01-06,2025-01-27,332.18,Yes,3
+CUST-0123,Female,50,New Mexico,Southwest,$100K-$150K,Web,Electronics,132.95,4,2023-09-13,2024-04-26,430.95,Yes,4
+CUST-0124,Female,71,California,West,$50K-$75K,Email,Books & Media,67.83,7,2024-05-17,2024-07-23,403.14,No,4
+CUST-0125,Female,64,Texas,Southwest,$50K-$75K,Direct Mail,Electronics,179.9,6,2024-12-29,2025-12-27,1263.9,No,5
+CUST-0126,Male,34,Washington,West,$100K-$150K,Direct Mail,Electronics,122.65,3,2024-04-23,2025-07-18,313.46,No,2
+CUST-0127,Female,71,Oklahoma,Southwest,$50K-$75K,Web,Apparel,73.65,1,2024-04-22,2024-04-22,78.96,Yes,5
+CUST-0128,Male,71,Utah,West,Over $150K,Email,Books & Media,50.5,1,2023-06-06,2023-06-06,46.54,Yes,5
+CUST-0129,Female,27,North Carolina,Southeast,$50K-$75K,Web,Electronics,38.16,2,2024-06-30,2024-04-05,76.4,Yes,5
+CUST-0130,Female,75,Georgia,Southeast,Over $150K,Direct Mail,Outdoor,60.05,8,2024-08-13,2024-09-28,509.44,No,4
+CUST-0131,Female,63,Connecticut,Northeast,Over $150K,Email,Outdoor,283.45,2,2023-03-16,2025-12-06,467.11,No,4
+CUST-0132,Male,42,North Carolina,Southeast,$100K-$150K,Email,Books & Media,118.34,2,2024-01-15,2025-06-11,242.52,Yes,4
+CUST-0133,Male,31,Minnesota,Midwest,$30K-$50K,Direct Mail,Home & Garden,103.08,1,2023-06-13,2023-06-13,116.01,No,5
+CUST-0134,Female,54,Georgia,Southeast,$75K-$100K,Phone,Electronics,37.99,2,2024-04-13,2024-09-03,67.32,No,2
+CUST-0135,Female,40,Colorado,Southwest,$75K-$100K,Phone,Home & Garden,213.91,5,2024-02-17,2025-01-09,875.0,Yes,4
+CUST-0136,Female,26,Indiana,Midwest,$50K-$75K,Email,Electronics,167.68,4,2024-09-17,2024-05-01,571.09,Yes,4
+CUST-0137,Female,70,Indiana,Midwest,$30K-$50K,Web,Home & Garden,17.96,1,2024-12-31,2024-12-31,16.76,No,4
+CUST-0138,Male,42,Utah,West,Over $150K,Email,Home & Garden,258.11,6,2024-08-30,2024-12-10,1553.19,No,4
+CUST-0139,Female,74,Oregon,West,Under $30K,Email,Apparel,55.24,2,2024-12-05,2025-10-06,89.56,No,5
+CUST-0140,Male,68,Utah,West,$30K-$50K,Email,Electronics,118.74,5,2024-01-25,2024-05-31,670.09,Yes,4
+CUST-0141,Male,50,Massachusetts,Northeast,$50K-$75K,Direct Mail,Kitchen,90.92,5,2024-04-27,2024-03-04,492.02,No,4
+CUST-0142,Female,42,Colorado,Southwest,Over $150K,Email,Electronics,232.12,4,2024-11-28,2025-10-20,1041.25,Yes,4
+CUST-0143,Female,36,North Carolina,Southeast,Over $150K,Referral,Kitchen,290.81,4,2024-05-15,2024-11-20,1153.84,No,5
+CUST-0144,Male,58,Michigan,Midwest,$75K-$100K,Email,Books & Media,199.68,8,2023-05-30,2024-10-24,1304.83,No,2
+CUST-0145,Female,35,New Mexico,Southwest,$50K-$75K,Email,Books & Media,143.79,1,2024-09-22,2024-09-22,157.65,Yes,2
+CUST-0146,Male,25,Washington,West,$30K-$50K,Email,Electronics,112.82,1,2024-07-17,2024-07-17,134.39,Yes,4
+CUST-0147,Male,70,Oklahoma,Southwest,Over $150K,Email,Kitchen,365.94,1,2024-08-10,2024-08-10,326.74,No,5
+CUST-0148,Female,75,Massachusetts,Northeast,$30K-$50K,Referral,Books & Media,70.76,3,2023-10-24,2024-02-08,170.61,No,3
+CUST-0149,Female,63,Michigan,Midwest,$75K-$100K,Email,Books & Media,206.94,3,2023-07-17,2024-04-25,578.77,No,4
+CUST-0150,Female,72,Florida,Southeast,$50K-$75K,Web,Apparel,128.03,4,2024-02-20,2025-03-13,515.25,Yes,4
+CUST-0151,Female,42,Georgia,Southeast,Over $150K,Direct Mail,Home & Garden,195.29,2,2023-12-04,2024-11-05,403.46,No,3
+CUST-0152,Male,64,Ohio,Midwest,$30K-$50K,Email,Home & Garden,86.37,7,2024-12-21,2024-11-14,650.61,No,5
+CUST-0153,Male,36,Indiana,Midwest,Over $150K,Email,Electronics,395.87,2,2024-12-19,2025-07-16,922.47,No,5
+CUST-0154,Male,55,Georgia,Southeast,$50K-$75K,Web,Apparel,119.37,1,2024-07-14,2024-07-14,138.61,Yes,4
+CUST-0155,Female,29,North Carolina,Southeast,$75K-$100K,Web,Electronics,217.55,2,2023-02-26,2025-04-09,371.04,No,4
+CUST-0156,Female,68,Nevada,West,Under $30K,Direct Mail,Apparel,33.19,1,2024-03-09,2024-03-09,31.13,Yes,5
+CUST-0157,Male,40,Connecticut,Northeast,$50K-$75K,Phone,Kitchen,195.99,4,2024-03-06,2025-01-18,938.51,No,5
+CUST-0158,Male,65,Oklahoma,Southwest,Over $150K,Phone,Apparel,348.31,1,2024-07-04,2024-07-04,333.41,Yes,5
+CUST-0159,Female,51,New York,Northeast,$75K-$100K,Email,Electronics,200.79,1,2023-12-21,2023-12-21,173.09,Yes,5
+CUST-0160,Female,61,New York,Northeast,$100K-$150K,Phone,Apparel,79.69,1,2023-02-04,2023-02-04,77.98,No,5
+CUST-0161,Female,50,Florida,Southeast,$50K-$75K,Direct Mail,Outdoor,25.44,3,2023-10-24,2024-08-27,85.96,No,4
+CUST-0162,Male,41,Oregon,West,$100K-$150K,Referral,Electronics,137.26,2,2024-07-24,2025-08-28,316.22,No,4
+CUST-0163,Female,25,Colorado,Southwest,Over $150K,Referral,Kitchen,320.75,2,2024-03-02,2025-02-22,551.49,No,5
+CUST-0164,Male,41,Arizona,Southwest,$100K-$150K,Direct Mail,Electronics,38.49,2,2024-03-02,2025-07-24,77.9,No,3
+CUST-0165,Female,45,Illinois,Midwest,$30K-$50K,Web,Apparel,51.73,4,2024-09-09,2024-02-10,237.84,Yes,5
+CUST-0166,Female,35,Washington,West,$100K-$150K,Email,Books & Media,26.76,7,2023-05-01,2025-05-05,218.37,No,5
+CUST-0167,Female,71,Arizona,Southwest,$50K-$75K,Email,Kitchen,72.06,2,2024-05-24,2025-04-22,120.98,No,4
+CUST-0168,Female,42,Ohio,Midwest,$50K-$75K,Web,Apparel,42.0,2,2024-08-21,2025-08-16,91.39,Yes,3
+CUST-0169,Male,53,Virginia,Southeast,$75K-$100K,Referral,Home & Garden,187.47,3,2024-10-19,2025-05-17,553.6,No,4
+CUST-0170,Female,33,Tennessee,Southeast,Over $150K,Email,Kitchen,51.73,1,2023-03-18,2023-03-18,60.94,No,5
+CUST-0171,Male,26,Arizona,Southwest,$100K-$150K,Direct Mail,Electronics,126.06,4,2024-11-13,2025-09-23,587.49,No,1
+CUST-0172,Female,22,Utah,West,Under $30K,Web,Electronics,40.82,3,2024-12-15,2025-11-21,119.06,No,3
+CUST-0173,Male,37,New Jersey,Northeast,$30K-$50K,Email,Outdoor,51.56,2,2024-01-18,2025-02-19,101.43,Yes,4
+CUST-0174,Male,27,Illinois,Midwest,$50K-$75K,Email,Electronics,132.8,4,2023-03-26,2025-05-26,604.58,No,4
+CUST-0175,Male,36,New Jersey,Northeast,$50K-$75K,Phone,Outdoor,102.97,1,2023-03-18,2023-03-18,110.57,Yes,4
+CUST-0176,Female,23,Massachusetts,Northeast,Over $150K,Web,Kitchen,293.7,2,2023-03-20,2024-11-02,508.09,Yes,5
+CUST-0177,Female,46,Colorado,Southwest,$100K-$150K,Direct Mail,Books & Media,223.46,3,2023-12-21,2024-02-24,562.5,Yes,2
+CUST-0178,Female,71,Utah,West,$50K-$75K,Web,Outdoor,98.35,1,2024-07-20,2024-07-20,115.7,No,4
+CUST-0179,Female,73,Texas,Southwest,$50K-$75K,Direct Mail,Home & Garden,85.3,5,2023-06-07,2025-02-02,395.23,Yes,1
+CUST-0180,Female,70,Minnesota,Midwest,$50K-$75K,Direct Mail,Apparel,98.04,3,2024-02-22,2024-04-15,238.39,No,2
+CUST-0181,Female,22,Oregon,West,$50K-$75K,Email,Apparel,181.71,7,2023-09-06,2025-08-08,1282.71,No,3
+CUST-0182,Female,53,Michigan,Midwest,$30K-$50K,Direct Mail,Home & Garden,56.36,5,2024-01-05,2024-09-14,331.87,No,4
+CUST-0183,Female,28,Washington,West,$30K-$50K,Direct Mail,Home & Garden,136.56,2,2023-12-04,2025-03-26,255.07,No,5
+CUST-0184,Female,42,Washington,West,$75K-$100K,Web,Electronics,57.44,2,2023-11-23,2024-10-25,125.67,No,5
+CUST-0185,Female,39,North Carolina,Southeast,$100K-$150K,Email,Apparel,178.97,3,2024-07-12,2024-07-03,575.94,No,5
+CUST-0186,Female,73,Arizona,Southwest,$50K-$75K,Web,Outdoor,162.2,2,2024-05-26,2024-05-22,341.7,Yes,4
+CUST-0187,Male,50,Oklahoma,Southwest,Over $150K,Email,Home & Garden,217.45,7,2024-12-09,2025-03-04,1548.72,No,4
+CUST-0188,Male,28,Utah,West,$100K-$150K,Web,Home & Garden,202.04,1,2024-10-22,2024-10-22,216.38,No,5
+CUST-0189,Male,28,Texas,Southwest,$50K-$75K,Email,Electronics,122.4,3,2024-04-01,2025-01-18,351.21,No,4
+CUST-0190,Female,23,Washington,West,$75K-$100K,Direct Mail,Books & Media,37.06,6,2023-05-26,2024-12-22,205.63,No,3
+CUST-0191,Female,28,New Mexico,Southwest,$50K-$75K,Web,Home & Garden,70.55,5,2023-04-28,2024-01-24,402.02,No,4
+CUST-0192,Male,57,Georgia,Southeast,$30K-$50K,Web,Books & Media,46.31,2,2023-07-08,2024-07-09,97.82,No,1
+CUST-0193,Female,59,Washington,West,$50K-$75K,Direct Mail,Apparel,66.49,4,2023-03-06,2025-08-14,223.59,No,3
+CUST-0194,Female,29,Ohio,Midwest,$50K-$75K,Phone,Electronics,133.24,3,2024-09-17,2025-02-05,413.63,Yes,5
+CUST-0195,Female,61,Washington,West,$75K-$100K,Web,Home & Garden,70.96,1,2024-01-18,2024-01-18,76.45,No,4
+CUST-0196,Female,49,Tennessee,Southeast,$30K-$50K,Web,Kitchen,107.5,10,2024-07-22,2024-06-19,1070.55,Yes,4
+CUST-0197,Male,44,Colorado,Southwest,Over $150K,Email,Apparel,172.06,3,2024-10-30,2025-05-21,497.42,No,5
+CUST-0198,Male,27,Oklahoma,Southwest,$75K-$100K,Phone,Apparel,25.26,1,2023-10-23,2023-10-23,21.91,No,5
+CUST-0199,Male,58,Colorado,Southwest,$30K-$50K,Phone,Outdoor,66.3,6,2023-02-12,2025-03-27,405.18,No,3
+CUST-0200,Male,50,North Carolina,Southeast,$50K-$75K,Phone,Apparel,175.08,1,2023-08-31,2023-08-31,154.76,No,4
+CUST-0201,Male,61,Nevada,West,$30K-$50K,Direct Mail,Apparel,20.78,2,2023-10-15,2025-09-03,42.2,Yes,5
+CUST-0202,Female,54,Indiana,Midwest,Over $150K,Web,Apparel,386.23,5,2023-03-02,2024-10-10,2214.68,Yes,5
+CUST-0203,Female,75,Georgia,Southeast,$50K-$75K,Phone,Home & Garden,41.3,4,2024-10-04,2025-02-28,156.95,Yes,5
+CUST-0204,Female,66,Connecticut,Northeast,Over $150K,Email,Books & Media,151.1,1,2023-04-06,2023-04-06,165.06,No,4
+CUST-0205,Female,35,Illinois,Midwest,Over $150K,Phone,Electronics,149.46,2,2024-07-14,2025-08-14,254.75,No,5
+CUST-0206,Male,62,New York,Northeast,$100K-$150K,Email,Apparel,260.5,2,2023-01-01,2025-03-14,458.96,No,3
+CUST-0207,Female,27,Ohio,Midwest,$75K-$100K,Direct Mail,Home & Garden,218.64,1,2024-02-10,2024-02-10,229.62,No,5
+CUST-0208,Male,22,Texas,Southwest,$50K-$75K,Direct Mail,Electronics,111.1,2,2023-01-09,2025-12-13,208.3,Yes,5
+CUST-0209,Male,36,Virginia,Southeast,$50K-$75K,Web,Apparel,72.97,6,2023-05-21,2025-01-26,485.71,No,3
+CUST-0210,Male,61,Florida,Southeast,$75K-$100K,Email,Kitchen,157.43,1,2024-02-26,2024-02-26,164.74,No,3
+CUST-0211,Male,59,Massachusetts,Northeast,$100K-$150K,Email,Home & Garden,242.02,1,2024-10-22,2024-10-22,201.77,No,4
+CUST-0212,Male,64,Oregon,West,$100K-$150K,Direct Mail,Kitchen,74.85,2,2024-10-23,2024-02-25,166.69,No,3
+CUST-0213,Male,53,Texas,Southwest,$75K-$100K,Direct Mail,Outdoor,20.68,2,2023-11-21,2024-05-15,39.49,No,4
+CUST-0214,Female,71,Washington,West,$30K-$50K,Web,Apparel,43.93,7,2024-02-12,2025-06-02,281.25,No,5
+CUST-0215,Male,62,Oklahoma,Southwest,$75K-$100K,Web,Home & Garden,86.8,3,2023-07-28,2024-06-08,264.19,No,4
+CUST-0216,Female,68,Pennsylvania,Northeast,Over $150K,Direct Mail,Apparel,372.11,1,2024-09-18,2024-09-18,388.31,Yes,5
+CUST-0217,Male,67,Florida,Southeast,$30K-$50K,Direct Mail,Electronics,63.31,3,2023-09-23,2024-06-19,180.2,No,5
+CUST-0218,Female,73,New York,Northeast,$50K-$75K,Email,Home & Garden,195.38,4,2024-05-23,2025-04-11,784.89,Yes,5
+CUST-0219,Male,38,North Carolina,Southeast,$100K-$150K,Phone,Kitchen,54.51,5,2023-01-03,2024-02-15,311.65,Yes,2
+CUST-0220,Male,33,Minnesota,Midwest,Over $150K,Phone,Electronics,368.16,5,2024-03-05,2024-08-17,1709.59,No,5
+CUST-0221,Female,29,Illinois,Midwest,$75K-$100K,Referral,Apparel,196.56,9,2024-02-15,2024-03-11,2035.81,No,5
+CUST-0222,Male,57,Michigan,Midwest,$75K-$100K,Email,Home & Garden,192.16,5,2023-09-06,2025-04-20,910.17,No,5
+CUST-0223,Male,31,Tennessee,Southeast,Under $30K,Email,Apparel,47.45,6,2023-01-10,2024-12-09,227.93,No,5
+CUST-0224,Male,55,Illinois,Midwest,Over $150K,Email,Books & Media,389.85,1,2023-10-14,2023-10-14,326.39,No,5
+CUST-0225,Female,51,Nevada,West,Over $150K,Direct Mail,Apparel,79.4,5,2023-03-18,2025-08-29,407.77,No,5
+CUST-0226,Female,42,North Carolina,Southeast,Over $150K,Email,Outdoor,150.71,3,2023-08-28,2024-03-17,532.35,Yes,5
+CUST-0227,Male,32,Massachusetts,Northeast,$50K-$75K,Email,Apparel,81.28,5,2024-04-07,2024-11-11,400.44,No,2
+CUST-0228,Male,35,Indiana,Midwest,$100K-$150K,Email,Apparel,91.38,2,2024-06-09,2024-02-20,195.71,Yes,5
+CUST-0229,Female,57,Connecticut,Northeast,$100K-$150K,Direct Mail,Electronics,245.58,1,2023-01-13,2023-01-13,202.52,No,3
+CUST-0230,Female,65,Virginia,Southeast,$75K-$100K,Web,Electronics,75.46,5,2023-01-23,2024-03-07,331.68,No,5
+CUST-0231,Male,24,Pennsylvania,Northeast,Over $150K,Direct Mail,Books & Media,190.27,5,2024-05-23,2024-01-31,906.72,No,4
+CUST-0232,Female,50,North Carolina,Southeast,$100K-$150K,Direct Mail,Kitchen,90.71,2,2024-02-26,2025-07-17,179.9,Yes,4
+CUST-0233,Male,62,Arizona,Southwest,Over $150K,Email,Apparel,171.52,4,2024-05-06,2025-07-11,763.31,Yes,4
+CUST-0234,Female,33,Minnesota,Midwest,Under $30K,Web,Apparel,98.99,2,2024-04-28,2025-06-26,186.69,No,3
+CUST-0235,Male,64,Florida,Southeast,$50K-$75K,Email,Outdoor,151.36,5,2023-08-13,2025-08-12,861.69,No,4
+CUST-0236,Male,59,Georgia,Southeast,$50K-$75K,Web,Home & Garden,124.44,4,2023-12-27,2025-08-04,510.42,No,3
+CUST-0237,Female,33,Colorado,Southwest,$75K-$100K,Direct Mail,Apparel,66.58,3,2023-01-01,2024-12-05,233.13,Yes,3
+CUST-0238,Male,23,North Carolina,Southeast,$30K-$50K,Web,Apparel,28.42,3,2024-01-09,2024-03-15,80.95,No,4
+CUST-0239,Female,42,Pennsylvania,Northeast,$30K-$50K,Direct Mail,Books & Media,129.19,8,2024-10-26,2024-11-20,898.83,No,4
+CUST-0240,Male,64,Oregon,West,$75K-$100K,Direct Mail,Home & Garden,170.85,1,2023-01-02,2023-01-02,201.52,No,4
+CUST-0241,Male,60,California,West,$50K-$75K,Phone,Kitchen,133.33,1,2024-05-23,2024-05-23,114.16,No,3
+CUST-0242,Male,74,Ohio,Midwest,$100K-$150K,Web,Outdoor,146.44,2,2023-09-13,2025-12-10,242.25,Yes,3
+CUST-0243,Female,50,New York,Northeast,$100K-$150K,Referral,Outdoor,159.33,2,2024-07-13,2025-01-19,267.86,No,5
+CUST-0244,Female,26,Georgia,Southeast,$100K-$150K,Direct Mail,Apparel,94.96,1,2023-12-17,2023-12-17,82.43,No,5
+CUST-0245,Female,60,California,West,Over $150K,Phone,Kitchen,189.59,4,2024-09-13,2025-03-20,654.34,Yes,3
+CUST-0246,Female,64,Virginia,Southeast,$50K-$75K,Direct Mail,Apparel,120.78,6,2023-06-07,2024-02-25,684.34,No,3
+CUST-0247,Male,28,Nevada,West,Under $30K,Direct Mail,Home & Garden,18.09,6,2023-11-12,2025-02-11,107.28,No,3
+CUST-0248,Male,45,Nevada,West,$100K-$150K,Email,Home & Garden,95.56,3,2023-08-20,2024-10-02,294.05,Yes,4
+CUST-0249,Female,73,New York,Northeast,$75K-$100K,Referral,Electronics,140.9,6,2024-06-19,2025-03-04,1002.86,No,5
+CUST-0250,Female,41,Washington,West,$30K-$50K,Referral,Kitchen,86.31,7,2024-08-08,2025-11-24,720.84,Yes,5
+CUST-0251,Male,35,Arizona,Southwest,$100K-$150K,Direct Mail,Home & Garden,296.75,2,2024-10-04,2024-05-31,672.82,Yes,5
+CUST-0252,Female,57,New York,Northeast,$50K-$75K,Email,Home & Garden,99.76,6,2024-12-18,2025-09-30,619.53,No,3
+CUST-0253,Male,28,Georgia,Southeast,$75K-$100K,Direct Mail,Home & Garden,136.91,2,2024-02-25,2024-09-27,261.01,No,4
+CUST-0254,Female,47,Massachusetts,Northeast,$30K-$50K,Web,Kitchen,17.74,6,2023-12-06,2025-12-08,95.27,No,5
+CUST-0255,Female,74,Illinois,Midwest,$100K-$150K,Email,Outdoor,260.66,4,2023-08-22,2024-05-17,959.43,No,5
+CUST-0256,Female,60,Michigan,Midwest,$75K-$100K,Direct Mail,Apparel,200.92,5,2024-06-12,2025-01-17,1133.6,No,3
+CUST-0257,Female,30,Indiana,Midwest,$100K-$150K,Email,Electronics,70.71,6,2023-07-25,2024-02-29,381.75,No,5
+CUST-0258,Female,74,North Carolina,Southeast,$75K-$100K,Email,Books & Media,169.22,1,2024-05-15,2024-05-15,175.59,Yes,5
+CUST-0259,Female,44,Utah,West,$30K-$50K,Phone,Kitchen,113.95,2,2024-01-31,2024-02-20,197.17,No,5
+CUST-0260,Male,39,Georgia,Southeast,$75K-$100K,Email,Outdoor,232.7,4,2024-04-30,2024-05-15,985.67,No,1
+CUST-0261,Female,67,Indiana,Midwest,Over $150K,Web,Home & Garden,169.3,2,2023-09-16,2024-08-11,334.09,No,5
+CUST-0262,Male,22,Colorado,Southwest,$75K-$100K,Web,Outdoor,101.08,4,2024-09-15,2024-10-16,371.73,Yes,2
+CUST-0263,Female,38,Michigan,Midwest,$75K-$100K,Referral,Kitchen,59.82,3,2023-09-04,2024-02-28,201.38,No,4
+CUST-0264,Male,63,Ohio,Midwest,$75K-$100K,Direct Mail,Books & Media,107.82,5,2024-08-20,2025-12-26,645.79,No,4
+CUST-0265,Female,64,Tennessee,Southeast,$50K-$75K,Email,Apparel,136.66,3,2023-10-28,2024-04-09,405.19,No,5
+CUST-0266,Female,63,Washington,West,$30K-$50K,Email,Kitchen,57.45,5,2023-12-06,2025-01-15,259.74,Yes,5
+CUST-0267,Male,52,Texas,Southwest,$100K-$150K,Email,Outdoor,128.41,2,2023-02-25,2024-06-03,219.57,Yes,4
+CUST-0268,Male,42,Nevada,West,$100K-$150K,Direct Mail,Apparel,114.8,9,2023-11-17,2025-10-11,850.54,No,3
+CUST-0269,Male,53,Tennessee,Southeast,$100K-$150K,Phone,Apparel,142.85,2,2024-03-15,2025-05-03,272.37,Yes,3
+CUST-0270,Female,70,Illinois,Midwest,$100K-$150K,Direct Mail,Kitchen,196.41,1,2024-12-11,2024-12-11,226.03,Yes,3
+CUST-0271,Female,32,Utah,West,$30K-$50K,Direct Mail,Books & Media,79.48,3,2024-06-20,2024-12-11,232.11,No,3
+CUST-0272,Male,32,New Mexico,Southwest,Over $150K,Referral,Home & Garden,114.51,5,2023-05-15,2024-08-04,626.16,No,3
+CUST-0273,Female,62,Illinois,Midwest,$50K-$75K,Email,Apparel,199.02,4,2024-10-31,2024-01-21,652.22,Yes,4
+CUST-0274,Female,52,New Jersey,Northeast,$100K-$150K,Direct Mail,Kitchen,25.08,2,2023-04-14,2025-11-09,50.57,No,5
+CUST-0275,Male,40,Texas,Southwest,$30K-$50K,Direct Mail,Apparel,41.56,2,2024-06-19,2024-07-25,78.4,No,3
+CUST-0276,Male,66,Nevada,West,Over $150K,Email,Apparel,278.5,7,2024-08-10,2025-11-16,1944.9,No,5
+CUST-0277,Female,63,New York,Northeast,$50K-$75K,Referral,Home & Garden,100.89,1,2023-06-28,2023-06-28,115.99,No,4
+CUST-0278,Male,28,Minnesota,Midwest,$100K-$150K,Phone,Apparel,60.9,4,2023-12-03,2025-01-01,282.04,No,3
+CUST-0279,Female,33,Pennsylvania,Northeast,$30K-$50K,Email,Electronics,135.68,4,2024-05-04,2025-03-07,575.03,No,3
+CUST-0280,Male,48,Massachusetts,Northeast,Over $150K,Email,Electronics,192.12,4,2024-01-03,2025-09-18,623.64,No,5
+CUST-0281,Female,29,Virginia,Southeast,$100K-$150K,Email,Apparel,204.26,1,2024-11-25,2024-11-25,206.29,No,5
+CUST-0282,Male,49,North Carolina,Southeast,$75K-$100K,Direct Mail,Home & Garden,168.14,2,2024-07-25,2025-09-19,276.36,No,3
+CUST-0283,Male,26,Oklahoma,Southwest,$100K-$150K,Email,Home & Garden,99.69,3,2024-07-17,2025-10-20,284.55,No,2
+CUST-0284,Female,27,Colorado,Southwest,$100K-$150K,Email,Apparel,160.52,4,2023-04-16,2025-02-17,619.57,No,1
+CUST-0285,Female,54,New Jersey,Northeast,$75K-$100K,Web,Electronics,93.67,6,2023-08-17,2025-04-10,524.25,No,4
+CUST-0286,Male,28,Minnesota,Midwest,$100K-$150K,Direct Mail,Home & Garden,252.79,8,2023-10-26,2025-07-14,2040.1,No,2
+CUST-0287,Male,74,Virginia,Southeast,$100K-$150K,Web,Apparel,192.01,1,2024-02-07,2024-02-07,170.17,No,3
+CUST-0288,Female,24,Illinois,Midwest,Over $150K,Phone,Electronics,315.69,3,2024-11-05,2025-08-26,1119.89,Yes,4
+CUST-0289,Female,75,California,West,$75K-$100K,Referral,Outdoor,220.06,4,2023-06-27,2024-05-11,740.65,No,4
+CUST-0290,Female,48,Indiana,Midwest,Over $150K,Referral,Kitchen,131.23,8,2023-10-29,2025-04-08,1177.84,Yes,4
+CUST-0291,Female,67,Oregon,West,$100K-$150K,Web,Apparel,80.7,4,2024-12-04,2024-12-19,377.18,Yes,5
+CUST-0292,Female,67,Tennessee,Southeast,$30K-$50K,Email,Electronics,96.45,4,2024-03-03,2025-11-21,424.05,No,3
+CUST-0293,Male,23,Texas,Southwest,$50K-$75K,Direct Mail,Apparel,64.39,5,2023-10-21,2025-11-30,289.83,No,4
+CUST-0294,Male,44,Ohio,Midwest,$100K-$150K,Direct Mail,Outdoor,227.71,6,2024-10-24,2025-07-28,1305.54,No,5
+CUST-0295,Female,46,Illinois,Midwest,$50K-$75K,Phone,Kitchen,193.68,1,2023-09-15,2023-09-15,170.68,No,5
+CUST-0296,Female,70,Arizona,Southwest,$75K-$100K,Web,Apparel,178.93,1,2024-04-04,2024-04-04,155.84,No,3
+CUST-0297,Male,46,Tennessee,Southeast,Under $30K,Direct Mail,Home & Garden,26.86,6,2023-01-06,2024-12-04,158.99,No,2
+CUST-0298,Male,71,Indiana,Midwest,Over $150K,Web,Kitchen,211.5,3,2024-01-02,2024-03-15,706.59,Yes,3
+CUST-0299,Male,72,Tennessee,Southeast,$75K-$100K,Email,Electronics,38.41,1,2023-08-07,2023-08-07,40.92,Yes,3
+CUST-0300,Female,57,Utah,West,$100K-$150K,Referral,Apparel,208.13,2,2024-10-19,2025-09-20,485.96,Yes,2
+CUST-0301,Male,46,Minnesota,Midwest,$50K-$75K,Web,Apparel,110.62,5,2024-06-10,2025-06-04,541.06,Yes,5
+CUST-0302,Male,28,North Carolina,Southeast,$30K-$50K,Referral,Electronics,13.08,1,2024-11-17,2024-11-17,13.76,Yes,4
+CUST-0303,Female,63,Massachusetts,Northeast,$100K-$150K,Direct Mail,Kitchen,29.09,4,2023-02-08,2024-03-30,96.5,Yes,3
+CUST-0304,Male,38,New Jersey,Northeast,$50K-$75K,Email,Home & Garden,73.53,2,2023-05-02,2025-07-01,117.99,No,2
+CUST-0305,Male,44,California,West,Over $150K,Direct Mail,Outdoor,141.5,1,2024-03-24,2024-03-24,134.79,No,2
+CUST-0306,Male,30,Tennessee,Southeast,$100K-$150K,Phone,Outdoor,104.36,4,2023-11-02,2025-11-24,482.06,No,5
+CUST-0307,Male,29,Illinois,Midwest,Under $30K,Web,Home & Garden,69.78,1,2023-08-04,2023-08-04,76.71,No,4
+CUST-0308,Male,32,Colorado,Southwest,$30K-$50K,Web,Home & Garden,28.96,4,2024-08-03,2024-02-25,132.12,No,5
+CUST-0309,Male,40,Colorado,Southwest,$75K-$100K,Direct Mail,Apparel,146.89,8,2024-01-01,2024-05-11,1255.64,Yes,3
+CUST-0310,Female,53,Massachusetts,Northeast,$75K-$100K,Web,Home & Garden,147.69,3,2024-01-09,2024-11-19,524.36,Yes,4
+CUST-0311,Female,75,Virginia,Southeast,$50K-$75K,Web,Home & Garden,103.79,2,2023-11-09,2025-05-13,211.87,Yes,4
+CUST-0312,Male,38,Ohio,Midwest,$100K-$150K,Web,Kitchen,270.06,6,2024-10-08,2024-02-01,1823.0,No,5
+CUST-0313,Female,56,Florida,Southeast,$100K-$150K,Email,Kitchen,63.75,2,2024-08-26,2024-10-24,108.83,No,2
+CUST-0314,Male,64,Indiana,Midwest,$50K-$75K,Referral,Books & Media,141.57,5,2023-05-24,2025-04-01,611.36,No,4
+CUST-0315,Female,24,Virginia,Southeast,$50K-$75K,Email,Apparel,83.35,1,2023-07-31,2023-07-31,83.95,No,4
+CUST-0316,Male,63,Texas,Southwest,$50K-$75K,Web,Electronics,168.48,6,2023-09-27,2025-08-15,1028.81,Yes,4
+CUST-0317,Male,55,Indiana,Midwest,$50K-$75K,Referral,Apparel,90.08,5,2023-12-20,2025-05-13,503.13,No,1
+CUST-0318,Male,36,Virginia,Southeast,$30K-$50K,Web,Apparel,39.66,2,2023-05-02,2025-11-07,70.76,No,5
+CUST-0319,Female,35,Oklahoma,Southwest,$75K-$100K,Web,Home & Garden,72.09,1,2024-08-29,2024-08-29,62.32,No,2
+CUST-0320,Male,32,Washington,West,$50K-$75K,Direct Mail,Books & Media,125.88,3,2023-01-20,2025-11-08,426.17,No,3
+CUST-0321,Female,32,Nevada,West,$50K-$75K,Email,Apparel,122.79,5,2024-09-30,2025-11-06,616.6,Yes,4
+CUST-0322,Male,36,Colorado,Southwest,$50K-$75K,Direct Mail,Apparel,111.7,7,2024-12-01,2025-03-05,884.02,No,3
+CUST-0323,Male,72,Utah,West,$75K-$100K,Phone,Apparel,164.39,7,2024-07-06,2024-01-02,1333.45,No,4
+CUST-0324,Female,24,Nevada,West,$75K-$100K,Email,Books & Media,125.03,5,2023-12-25,2025-08-26,701.32,No,5
+CUST-0325,Female,30,California,West,$50K-$75K,Phone,Books & Media,30.51,3,2024-07-10,2025-02-22,82.66,Yes,5
+CUST-0326,Male,55,New Jersey,Northeast,Under $30K,Web,Kitchen,44.07,2,2023-06-08,2025-03-12,93.48,Yes,5
+CUST-0327,Female,61,Colorado,Southwest,$50K-$75K,Web,Kitchen,91.45,5,2024-05-09,2024-07-02,433.51,No,3
+CUST-0328,Female,71,Indiana,Midwest,$100K-$150K,Web,Outdoor,205.45,5,2024-04-02,2025-12-17,1211.84,Yes,4
+CUST-0329,Male,32,Indiana,Midwest,$50K-$75K,Web,Outdoor,167.3,3,2024-09-06,2025-03-21,419.22,Yes,4
+CUST-0330,Female,47,California,West,$75K-$100K,Email,Kitchen,150.64,8,2023-06-29,2025-10-17,1202.41,Yes,5
+CUST-0331,Male,24,Oregon,West,$100K-$150K,Email,Kitchen,193.22,4,2024-01-04,2024-09-01,820.8,No,2
+CUST-0332,Female,64,Minnesota,Midwest,$50K-$75K,Web,Electronics,151.33,1,2023-04-03,2023-04-03,154.33,No,4
+CUST-0333,Female,74,Oregon,West,$50K-$75K,Web,Apparel,187.0,3,2023-09-25,2024-06-28,540.16,Yes,2
+CUST-0334,Male,73,Michigan,Midwest,$75K-$100K,Direct Mail,Electronics,194.13,2,2024-03-29,2025-01-21,398.07,No,5
+CUST-0335,Male,52,Oklahoma,Southwest,$30K-$50K,Direct Mail,Kitchen,159.14,4,2023-08-24,2024-11-19,614.26,No,4
+CUST-0336,Female,27,Ohio,Midwest,$50K-$75K,Web,Home & Garden,117.59,1,2023-11-18,2023-11-18,110.7,No,3
+CUST-0337,Male,37,Virginia,Southeast,$100K-$150K,Phone,Apparel,78.77,1,2024-09-25,2024-09-25,74.23,No,3
+CUST-0338,Male,70,Connecticut,Northeast,$100K-$150K,Referral,Outdoor,125.51,2,2024-08-11,2024-10-08,250.1,No,5
+CUST-0339,Male,70,Minnesota,Midwest,$75K-$100K,Direct Mail,Outdoor,124.19,3,2024-05-29,2024-12-21,356.73,No,3
+CUST-0340,Female,42,New Jersey,Northeast,$75K-$100K,Direct Mail,Apparel,146.98,2,2024-09-19,2024-09-22,257.17,Yes,3
+CUST-0341,Female,33,Oregon,West,$75K-$100K,Direct Mail,Kitchen,100.65,6,2023-10-14,2025-04-06,526.57,Yes,4
+CUST-0342,Female,73,Florida,Southeast,$50K-$75K,Email,Home & Garden,41.98,8,2023-06-03,2025-04-29,376.9,Yes,4
+CUST-0343,Female,72,Utah,West,$75K-$100K,Direct Mail,Outdoor,28.59,1,2023-06-17,2023-06-17,23.56,No,4
+CUST-0344,Female,38,Connecticut,Northeast,$50K-$75K,Web,Books & Media,62.68,1,2023-05-05,2023-05-05,58.95,No,4
+CUST-0345,Male,71,Utah,West,$50K-$75K,Email,Electronics,158.33,2,2023-03-22,2025-01-25,331.06,No,5
+CUST-0346,Female,62,North Carolina,Southeast,$75K-$100K,Email,Books & Media,35.56,2,2023-11-18,2024-11-20,75.47,No,4
+CUST-0347,Female,71,New Mexico,Southwest,$100K-$150K,Email,Electronics,290.43,2,2023-07-08,2024-01-24,493.74,Yes,3
+CUST-0348,Male,47,Massachusetts,Northeast,$30K-$50K,Direct Mail,Outdoor,93.17,1,2024-02-11,2024-02-11,94.06,No,3
+CUST-0349,Male,63,Washington,West,Over $150K,Email,Apparel,302.91,2,2023-05-10,2024-05-14,612.3,Yes,2
+CUST-0350,Female,51,Michigan,Midwest,Over $150K,Email,Home & Garden,194.59,8,2024-12-15,2025-07-06,1355.61,No,4
+CUST-0351,Female,44,Nevada,West,$75K-$100K,Direct Mail,Apparel,86.35,2,2023-06-09,2024-11-06,138.89,No,5
+CUST-0352,Female,52,North Carolina,Southeast,$75K-$100K,Web,Electronics,185.71,2,2024-03-16,2024-10-26,385.83,No,4
+CUST-0353,Female,47,Virginia,Southeast,$50K-$75K,Web,Kitchen,168.26,1,2023-03-23,2023-03-23,163.03,Yes,5
+CUST-0354,Female,63,Oregon,West,$100K-$150K,Phone,Home & Garden,259.34,1,2023-10-24,2023-10-24,218.92,No,4
+CUST-0355,Male,42,Nevada,West,Under $30K,Direct Mail,Electronics,29.64,1,2023-10-03,2023-10-03,25.19,No,1
+CUST-0356,Male,53,Massachusetts,Northeast,$50K-$75K,Email,Outdoor,107.2,2,2024-12-14,2024-02-02,199.84,No,5
+CUST-0357,Female,26,Pennsylvania,Northeast,$75K-$100K,Direct Mail,Outdoor,73.52,2,2023-01-13,2024-05-04,174.95,No,4
+CUST-0358,Male,34,Arizona,Southwest,$75K-$100K,Phone,Electronics,236.03,3,2024-11-28,2024-11-15,831.64,Yes,5
+CUST-0359,Male,38,Utah,West,$75K-$100K,Direct Mail,Home & Garden,29.56,4,2023-04-26,2024-08-29,124.53,Yes,3
+CUST-0360,Male,47,Indiana,Midwest,$100K-$150K,Direct Mail,Apparel,239.91,3,2024-09-02,2024-06-07,682.71,Yes,3
+CUST-0361,Female,70,New Jersey,Northeast,$75K-$100K,Direct Mail,Kitchen,173.69,5,2023-05-09,2025-05-14,775.59,No,5
+CUST-0362,Male,23,Minnesota,Midwest,$75K-$100K,Email,Apparel,217.5,3,2024-03-24,2025-07-26,598.92,No,3
+CUST-0363,Female,42,Tennessee,Southeast,$100K-$150K,Direct Mail,Outdoor,276.27,3,2023-03-12,2025-06-27,714.44,Yes,3
+CUST-0364,Male,71,Minnesota,Midwest,$75K-$100K,Email,Apparel,22.16,6,2024-09-27,2024-09-01,123.42,Yes,5
+CUST-0365,Female,71,Arizona,Southwest,$75K-$100K,Web,Home & Garden,160.28,1,2024-06-19,2024-06-19,170.47,Yes,5
+CUST-0366,Male,28,Florida,Southeast,$75K-$100K,Direct Mail,Electronics,203.66,4,2024-06-22,2025-09-30,880.24,Yes,4
+CUST-0367,Male,35,California,West,$75K-$100K,Referral,Outdoor,121.91,4,2024-01-05,2025-07-25,535.13,No,5
+CUST-0368,Female,55,New Jersey,Northeast,Under $30K,Direct Mail,Home & Garden,113.85,8,2023-04-10,2024-04-13,992.83,No,3
+CUST-0369,Male,57,Washington,West,$100K-$150K,Email,Apparel,199.72,2,2024-04-14,2025-12-20,425.84,No,3
+CUST-0370,Female,54,Tennessee,Southeast,$50K-$75K,Direct Mail,Books & Media,96.96,2,2023-11-19,2025-07-17,232.04,Yes,4
+CUST-0371,Male,58,New Mexico,Southwest,$75K-$100K,Email,Electronics,183.3,2,2024-04-08,2025-04-03,434.03,Yes,2
+CUST-0372,Male,55,Indiana,Midwest,$30K-$50K,Phone,Apparel,157.69,1,2023-11-19,2023-11-19,127.52,No,4
+CUST-0373,Male,28,Indiana,Midwest,Under $30K,Email,Apparel,49.75,3,2023-08-27,2024-09-19,167.82,Yes,4
+CUST-0374,Female,72,Florida,Southeast,$75K-$100K,Email,Outdoor,174.03,5,2023-04-08,2025-09-01,919.66,Yes,5
+CUST-0375,Male,71,Texas,Southwest,$50K-$75K,Phone,Home & Garden,187.1,1,2023-08-21,2023-08-21,205.64,No,5
+CUST-0376,Female,55,Texas,Southwest,Under $30K,Email,Apparel,64.77,1,2023-02-21,2023-02-21,69.27,No,5
+CUST-0377,Male,36,Utah,West,$50K-$75K,Phone,Apparel,77.19,3,2023-02-20,2025-07-15,222.23,Yes,4
+CUST-0378,Female,57,Georgia,Southeast,$30K-$50K,Email,Electronics,95.05,10,2024-06-20,2024-09-09,852.53,Yes,4
+CUST-0379,Male,64,California,West,$50K-$75K,Email,Apparel,78.74,4,2023-11-09,2024-06-22,376.4,No,5
+CUST-0380,Male,50,Colorado,Southwest,Under $30K,Phone,Apparel,50.49,5,2023-03-29,2024-04-25,276.64,Yes,4
+CUST-0381,Male,43,North Carolina,Southeast,$75K-$100K,Direct Mail,Electronics,23.05,1,2024-07-04,2024-07-04,20.39,No,5
+CUST-0382,Male,66,Nevada,West,$75K-$100K,Direct Mail,Electronics,165.3,1,2023-06-24,2023-06-24,136.21,Yes,4
+CUST-0383,Female,63,Illinois,Midwest,Over $150K,Direct Mail,Kitchen,275.3,7,2024-01-04,2024-04-20,1556.39,No,4
+CUST-0384,Male,42,Virginia,Southeast,$75K-$100K,Web,Apparel,62.15,8,2024-07-28,2025-12-30,402.03,Yes,4
+CUST-0385,Female,69,Minnesota,Midwest,$30K-$50K,Email,Home & Garden,104.53,1,2024-05-28,2024-05-28,95.16,Yes,3
+CUST-0386,Female,36,Texas,Southwest,$30K-$50K,Phone,Kitchen,24.99,2,2024-11-25,2025-09-19,57.43,No,4
+CUST-0387,Female,41,Washington,West,Over $150K,Email,Electronics,106.5,1,2024-07-08,2024-07-08,114.34,Yes,3
+CUST-0388,Female,71,Washington,West,$30K-$50K,Referral,Books & Media,58.99,3,2023-05-02,2024-07-07,164.06,No,5
+CUST-0389,Female,41,Minnesota,Midwest,$50K-$75K,Referral,Outdoor,187.65,2,2023-07-12,2024-04-19,319.99,Yes,5
+CUST-0390,Male,60,Oregon,West,$50K-$75K,Web,Home & Garden,142.31,3,2024-05-29,2025-09-11,421.6,No,3
+CUST-0391,Female,30,Oklahoma,Southwest,$30K-$50K,Direct Mail,Home & Garden,155.38,7,2024-02-27,2024-08-15,1193.11,No,5
+CUST-0392,Female,61,Massachusetts,Northeast,$75K-$100K,Email,Electronics,72.79,2,2023-02-12,2025-09-14,159.28,No,4
+CUST-0393,Male,55,Utah,West,$30K-$50K,Email,Outdoor,141.91,1,2024-07-04,2024-07-04,135.98,No,4
+CUST-0394,Male,40,California,West,$50K-$75K,Phone,Kitchen,67.89,1,2023-10-29,2023-10-29,70.96,Yes,4
+CUST-0395,Female,27,Virginia,Southeast,$100K-$150K,Direct Mail,Kitchen,282.75,4,2023-05-19,2025-02-06,1091.89,No,3
+CUST-0396,Female,27,Washington,West,$50K-$75K,Web,Books & Media,162.35,4,2023-05-07,2024-04-03,549.18,No,4
+CUST-0397,Male,46,Nevada,West,$75K-$100K,Direct Mail,Apparel,92.41,6,2023-06-03,2024-06-15,636.26,Yes,5
+CUST-0398,Female,68,New Mexico,Southwest,$100K-$150K,Email,Kitchen,55.12,1,2023-07-27,2023-07-27,44.17,No,1
+CUST-0399,Male,60,Oklahoma,Southwest,$100K-$150K,Direct Mail,Electronics,154.51,2,2023-03-23,2025-09-07,321.39,Yes,4
+CUST-0400,Male,25,Utah,West,$30K-$50K,Direct Mail,Home & Garden,33.52,1,2024-08-14,2024-08-14,38.05,Yes,5
+CUST-0401,Female,33,New York,Northeast,$30K-$50K,Direct Mail,Kitchen,115.58,3,2024-07-29,2024-06-30,411.41,No,4
+CUST-0402,Female,42,New York,Northeast,$50K-$75K,Email,Apparel,94.05,3,2023-10-27,2025-04-27,240.9,No,3
+CUST-0403,Male,66,Nevada,West,$50K-$75K,Direct Mail,Electronics,196.18,3,2023-03-31,2025-05-10,641.29,No,5
+CUST-0404,Female,38,Minnesota,Midwest,$75K-$100K,Referral,Home & Garden,46.8,3,2024-06-16,2025-10-09,140.27,No,5
+CUST-0405,Male,22,North Carolina,Southeast,$30K-$50K,Email,Outdoor,121.15,1,2024-09-22,2024-09-22,145.33,No,4
+CUST-0406,Male,62,Washington,West,$50K-$75K,Direct Mail,Outdoor,71.94,3,2023-11-28,2024-01-07,182.48,Yes,4
+CUST-0407,Male,75,Utah,West,$30K-$50K,Email,Home & Garden,111.53,7,2023-02-06,2025-10-23,666.96,Yes,4
+CUST-0408,Female,72,Oregon,West,$100K-$150K,Referral,Apparel,167.1,3,2024-11-25,2024-11-19,512.36,Yes,4
+CUST-0409,Male,31,Michigan,Midwest,$50K-$75K,Direct Mail,Books & Media,130.9,6,2024-08-07,2025-09-12,750.71,No,5
+CUST-0410,Male,39,Michigan,Midwest,$50K-$75K,Email,Apparel,98.6,8,2023-08-10,2025-06-21,726.43,Yes,5
+CUST-0411,Female,54,Florida,Southeast,Under $30K,Email,Electronics,30.11,7,2024-06-20,2024-11-13,234.0,Yes,5
+CUST-0412,Male,68,Washington,West,Under $30K,Email,Outdoor,21.86,2,2023-02-15,2025-12-04,49.81,No,4
+CUST-0413,Female,23,New York,Northeast,$75K-$100K,Email,Outdoor,89.24,1,2023-10-11,2023-10-11,90.39,No,4
+CUST-0414,Male,39,Ohio,Midwest,$30K-$50K,Referral,Electronics,27.15,3,2024-07-16,2024-11-22,73.99,No,5
+CUST-0415,Male,26,Washington,West,$50K-$75K,Phone,Electronics,24.38,1,2024-11-22,2024-11-22,20.0,No,2
+CUST-0416,Female,61,Arizona,Southwest,$50K-$75K,Email,Apparel,155.3,5,2023-03-22,2025-04-21,797.56,Yes,5
+CUST-0417,Female,41,Texas,Southwest,$75K-$100K,Web,Electronics,69.44,1,2024-09-23,2024-09-23,62.72,No,3
+CUST-0418,Female,53,Michigan,Midwest,Under $30K,Email,Home & Garden,60.2,1,2023-12-23,2023-12-23,62.71,Yes,3
+CUST-0419,Male,72,Pennsylvania,Northeast,$50K-$75K,Email,Electronics,59.14,1,2023-06-12,2023-06-12,70.35,No,4
+CUST-0420,Female,58,Nevada,West,$100K-$150K,Email,Apparel,206.37,1,2024-12-29,2024-12-29,212.49,No,4
+CUST-0421,Male,74,New Mexico,Southwest,$50K-$75K,Email,Home & Garden,125.68,4,2024-09-02,2025-01-23,468.01,No,2
+CUST-0422,Male,70,Georgia,Southeast,$30K-$50K,Direct Mail,Electronics,69.72,3,2023-07-20,2024-07-29,224.35,Yes,4
+CUST-0423,Female,27,Minnesota,Midwest,$75K-$100K,Web,Electronics,206.18,6,2023-03-05,2025-01-13,1435.55,No,1
+CUST-0424,Male,40,Oregon,West,$100K-$150K,Direct Mail,Kitchen,131.91,2,2024-01-27,2025-02-19,251.32,No,4
+CUST-0425,Male,57,Arizona,Southwest,$50K-$75K,Referral,Outdoor,43.54,10,2024-11-17,2024-05-08,371.71,Yes,1
+CUST-0426,Male,27,Oklahoma,Southwest,$30K-$50K,Phone,Outdoor,144.25,4,2024-03-11,2025-09-30,503.1,No,4
+CUST-0427,Female,36,Oklahoma,Southwest,$30K-$50K,Web,Electronics,137.33,1,2024-05-28,2024-05-28,124.65,No,4
+CUST-0428,Female,67,New York,Northeast,$50K-$75K,Web,Books & Media,29.81,5,2024-06-23,2024-10-13,146.96,Yes,5
+CUST-0429,Female,62,Massachusetts,Northeast,$100K-$150K,Referral,Apparel,198.35,5,2023-11-16,2025-09-19,814.34,Yes,5
+CUST-0430,Female,58,Oklahoma,Southwest,$100K-$150K,Email,Books & Media,244.01,2,2023-02-06,2025-12-12,570.57,No,5
+CUST-0431,Male,62,Oregon,West,$75K-$100K,Direct Mail,Apparel,237.86,5,2024-10-01,2024-01-28,1087.88,Yes,4
+CUST-0432,Male,61,Michigan,Midwest,$50K-$75K,Phone,Apparel,35.64,1,2024-08-28,2024-08-28,39.05,No,4
+CUST-0433,Male,53,North Carolina,Southeast,$30K-$50K,Email,Apparel,157.64,8,2024-09-01,2024-06-06,1431.43,No,4
+CUST-0434,Female,68,Arizona,Southwest,$75K-$100K,Direct Mail,Kitchen,94.61,4,2023-04-29,2024-02-23,328.12,No,4
+CUST-0435,Female,65,Washington,West,$100K-$150K,Email,Apparel,264.0,1,2024-04-04,2024-04-04,251.54,Yes,4
+CUST-0436,Female,49,New York,Northeast,$75K-$100K,Web,Home & Garden,78.01,5,2023-09-19,2025-11-01,403.18,No,4
+CUST-0437,Male,55,Tennessee,Southeast,$50K-$75K,Web,Apparel,116.31,4,2023-03-11,2024-01-13,448.72,No,4
+CUST-0438,Female,38,Ohio,Midwest,$30K-$50K,Direct Mail,Apparel,150.9,4,2023-08-11,2025-09-05,636.94,No,3
+CUST-0439,Female,64,Washington,West,$100K-$150K,Web,Outdoor,73.77,1,2023-07-08,2023-07-08,66.49,No,5
+CUST-0440,Female,66,New Mexico,Southwest,Over $150K,Phone,Home & Garden,89.93,1,2023-03-05,2023-03-05,85.71,Yes,2
+CUST-0441,Female,26,Ohio,Midwest,$75K-$100K,Referral,Kitchen,57.61,3,2023-05-28,2025-07-07,191.41,Yes,4
+CUST-0442,Male,24,New Mexico,Southwest,$30K-$50K,Web,Home & Garden,77.99,7,2023-06-02,2025-10-30,576.58,No,4
+CUST-0443,Female,47,Ohio,Midwest,$75K-$100K,Email,Books & Media,126.93,2,2023-03-13,2025-07-07,226.02,No,4
+CUST-0444,Female,43,Texas,Southwest,$75K-$100K,Email,Kitchen,230.86,1,2024-07-01,2024-07-01,263.49,Yes,5
+CUST-0445,Male,57,Ohio,Midwest,Under $30K,Email,Apparel,86.24,7,2024-10-07,2025-12-06,569.7,Yes,4
+CUST-0446,Male,34,Georgia,Southeast,Under $30K,Referral,Apparel,52.15,5,2024-10-20,2024-11-11,260.72,No,5
+CUST-0447,Female,25,New York,Northeast,$50K-$75K,Web,Home & Garden,54.16,4,2024-06-19,2025-04-14,254.78,No,4
+CUST-0448,Male,24,Washington,West,$100K-$150K,Email,Apparel,274.24,4,2023-09-06,2025-12-19,1162.25,Yes,4
+CUST-0449,Female,61,Illinois,Midwest,$30K-$50K,Web,Outdoor,27.74,3,2024-09-22,2024-08-13,68.68,Yes,4
+CUST-0450,Male,65,New Mexico,Southwest,$75K-$100K,Direct Mail,Outdoor,194.07,5,2024-08-30,2024-06-26,906.5,Yes,3
+CUST-0451,Female,57,Arizona,Southwest,$30K-$50K,Direct Mail,Electronics,31.74,5,2024-10-09,2025-09-19,150.84,Yes,5
+CUST-0452,Male,33,New York,Northeast,Over $150K,Web,Electronics,134.98,4,2024-05-02,2025-12-09,459.34,Yes,3
+CUST-0453,Male,33,Oklahoma,Southwest,$75K-$100K,Direct Mail,Apparel,128.98,8,2024-10-04,2024-11-04,969.04,Yes,3
+CUST-0454,Male,61,New Jersey,Northeast,$50K-$75K,Phone,Electronics,55.57,5,2024-11-06,2024-08-01,253.0,Yes,5
+CUST-0455,Male,32,Oklahoma,Southwest,$75K-$100K,Direct Mail,Kitchen,81.28,2,2023-12-09,2025-09-23,182.4,No,2
+CUST-0456,Male,32,New Jersey,Northeast,$100K-$150K,Email,Apparel,270.88,5,2024-08-29,2025-08-16,1260.12,Yes,4
+CUST-0457,Male,42,Ohio,Midwest,$50K-$75K,Direct Mail,Home & Garden,51.99,7,2023-03-17,2025-04-27,376.32,Yes,4
+CUST-0458,Female,33,Tennessee,Southeast,$50K-$75K,Direct Mail,Kitchen,131.92,9,2023-07-27,2024-12-09,1010.24,No,2
+CUST-0459,Female,51,Florida,Southeast,$50K-$75K,Phone,Apparel,69.6,1,2024-10-15,2024-10-15,82.2,No,4
+CUST-0460,Male,48,Washington,West,$100K-$150K,Email,Books & Media,186.66,6,2023-10-13,2024-01-15,1223.0,No,3
+CUST-0461,Male,59,Minnesota,Midwest,Over $150K,Referral,Outdoor,184.58,1,2024-04-26,2024-04-26,201.82,No,4
+CUST-0462,Male,50,Oklahoma,Southwest,$75K-$100K,Direct Mail,Kitchen,171.88,2,2023-08-12,2024-05-15,324.29,Yes,5
+CUST-0463,Female,32,Connecticut,Northeast,$100K-$150K,Phone,Kitchen,29.27,3,2023-05-22,2025-12-21,84.49,No,4
+CUST-0464,Male,46,Texas,Southwest,$100K-$150K,Email,Apparel,140.69,2,2024-09-19,2025-07-09,289.85,Yes,4
+CUST-0465,Male,54,Oregon,West,Over $150K,Web,Outdoor,71.06,2,2024-09-25,2024-02-11,134.48,Yes,4
+CUST-0466,Male,30,New Jersey,Northeast,Over $150K,Direct Mail,Apparel,207.04,7,2024-08-17,2025-12-20,1281.04,No,3
+CUST-0467,Female,39,Michigan,Midwest,$30K-$50K,Email,Electronics,86.21,6,2024-04-26,2025-12-27,523.86,No,5
+CUST-0468,Female,73,Colorado,Southwest,$75K-$100K,Web,Books & Media,214.05,1,2024-04-13,2024-04-13,178.72,No,3
+CUST-0469,Male,39,New York,Northeast,$30K-$50K,Direct Mail,Apparel,42.23,8,2023-01-24,2024-10-27,326.56,No,5
+CUST-0470,Female,50,New Mexico,Southwest,$100K-$150K,Direct Mail,Apparel,28.62,5,2024-06-16,2025-10-22,133.71,No,4
+CUST-0471,Female,51,Minnesota,Midwest,$50K-$75K,Direct Mail,Outdoor,46.77,2,2024-05-10,2025-01-15,111.15,No,2
+CUST-0472,Female,32,Michigan,Midwest,$75K-$100K,Direct Mail,Electronics,58.47,1,2024-12-26,2024-12-26,62.98,No,3
+CUST-0473,Male,42,Florida,Southeast,$75K-$100K,Email,Home & Garden,63.54,4,2024-11-12,2024-11-20,302.76,Yes,4
+CUST-0474,Female,29,Tennessee,Southeast,Over $150K,Email,Electronics,83.79,3,2023-11-24,2024-06-08,201.53,No,5
+CUST-0475,Female,40,Michigan,Midwest,Over $150K,Phone,Books & Media,276.75,5,2024-03-28,2024-12-12,1488.44,No,5
+CUST-0476,Male,41,Tennessee,Southeast,Under $30K,Web,Apparel,48.67,2,2024-09-14,2025-10-18,85.47,No,5
+CUST-0477,Male,27,Ohio,Midwest,$75K-$100K,Email,Kitchen,37.4,3,2023-07-19,2025-05-17,104.02,No,5
+CUST-0478,Male,67,Minnesota,Midwest,$100K-$150K,Email,Home & Garden,101.49,2,2024-04-01,2025-07-28,169.5,No,4
+CUST-0479,Female,32,Oklahoma,Southwest,$100K-$150K,Referral,Home & Garden,271.26,1,2024-08-24,2024-08-24,281.89,Yes,4
+CUST-0480,Male,59,Oregon,West,$100K-$150K,Direct Mail,Home & Garden,276.25,2,2024-07-23,2025-04-18,598.96,No,3
+CUST-0481,Female,57,Virginia,Southeast,$75K-$100K,Phone,Home & Garden,147.92,3,2024-04-19,2024-08-17,359.77,Yes,3
+CUST-0482,Female,48,Texas,Southwest,$30K-$50K,Referral,Kitchen,16.21,5,2024-05-19,2024-03-09,84.26,No,4
+CUST-0483,Female,66,New Mexico,Southwest,$100K-$150K,Email,Kitchen,27.37,2,2024-08-18,2024-02-29,46.99,No,4
+CUST-0484,Male,39,Ohio,Midwest,$50K-$75K,Web,Books & Media,24.01,2,2024-10-16,2024-03-19,48.29,No,3
+CUST-0485,Male,56,New Jersey,Northeast,$50K-$75K,Email,Outdoor,162.98,2,2024-12-15,2025-12-05,308.04,No,4
+CUST-0486,Male,55,Florida,Southeast,$50K-$75K,Phone,Home & Garden,185.37,1,2023-08-12,2023-08-12,159.76,Yes,3
+CUST-0487,Male,48,Utah,West,$75K-$100K,Direct Mail,Outdoor,223.0,3,2023-11-16,2025-12-08,632.22,No,5
+CUST-0488,Female,33,Utah,West,$100K-$150K,Direct Mail,Outdoor,84.2,6,2023-05-26,2025-12-05,449.95,Yes,3
+CUST-0489,Male,26,Connecticut,Northeast,Under $30K,Email,Home & Garden,30.79,1,2024-11-06,2024-11-06,30.96,Yes,3
+CUST-0490,Male,41,Illinois,Midwest,$75K-$100K,Phone,Outdoor,222.26,1,2023-07-24,2023-07-24,194.24,No,2
+CUST-0491,Female,44,Indiana,Midwest,$30K-$50K,Email,Kitchen,47.79,3,2023-04-12,2025-08-15,158.47,No,5
+CUST-0492,Male,68,Ohio,Midwest,$30K-$50K,Direct Mail,Electronics,116.75,2,2024-08-26,2024-07-08,227.86,No,3
+CUST-0493,Female,35,Minnesota,Midwest,$75K-$100K,Email,Kitchen,87.77,3,2024-06-16,2024-05-19,262.87,No,3
+CUST-0494,Female,53,New York,Northeast,$30K-$50K,Direct Mail,Kitchen,58.18,9,2024-03-30,2024-08-19,534.91,Yes,5
+CUST-0495,Female,65,Florida,Southeast,$50K-$75K,Direct Mail,Kitchen,139.34,2,2024-06-19,2025-11-05,298.36,Yes,4
+CUST-0496,Male,26,California,West,$50K-$75K,Direct Mail,Apparel,171.15,2,2023-08-27,2025-03-10,373.13,Yes,5
+CUST-0497,Female,70,Utah,West,$100K-$150K,Web,Home & Garden,154.54,4,2024-02-19,2025-05-11,620.98,Yes,4
+CUST-0498,Female,53,Pennsylvania,Northeast,$50K-$75K,Referral,Apparel,151.49,6,2024-05-25,2025-11-25,736.88,Yes,4
+CUST-0499,Female,61,Ohio,Midwest,$75K-$100K,Phone,Kitchen,133.43,3,2024-04-22,2024-07-25,367.24,No,4
+CUST-0500,Male,70,Oregon,West,Under $30K,Email,Books & Media,51.58,2,2024-01-21,2025-03-29,101.5,Yes,4
