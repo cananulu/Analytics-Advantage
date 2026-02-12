@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 1 — Direct Mail Customer Insights Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #1a365d; --accent: #2b6cb0; --accent2: #3182ce;
+    --bg: #f7fafc; --card: #ffffff; --text: #1a202c; --muted: #718096;
+    --border: #e2e8f0; --green: #38a169; --orange: #dd6b20; --red: #e53e3e;
+    --purple: #805ad5; --teal: #319795;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); }
+  header {
+    background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 60%, var(--accent2) 100%);
+    color:#fff; padding:32px; text-align:center;
+  }
+  header h1 { font-size:2rem; font-weight:800; letter-spacing:-0.5px; }
+  header p { opacity:.85; margin-top:6px; font-size:1rem; }
+  .tag { display:inline-block; background:rgba(255,255,255,.2); border-radius:20px; padding:4px 14px; font-size:.8rem; margin-top:8px; }
+  .container { max-width:1440px; margin:0 auto; padding:24px; }
+
+  .section-title {
+    font-size:1.15rem; font-weight:700; color:var(--primary); margin:28px 0 16px;
+    border-left:4px solid var(--accent); padding-left:12px;
+  }
+
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:14px; margin-bottom:8px; }
+  .kpi { background:var(--card); border-radius:10px; padding:18px 14px; text-align:center;
+          box-shadow:0 1px 6px rgba(0,0,0,.06); border-top:4px solid var(--accent); }
+  .kpi .val { font-size:1.6rem; font-weight:800; color:var(--primary); }
+  .kpi .lbl { font-size:.75rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:.6px; }
+
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:18px; margin-bottom:8px; }
+  .grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; margin-bottom:8px; }
+  .card { background:var(--card); border-radius:10px; padding:20px; box-shadow:0 1px 6px rgba(0,0,0,.06); }
+  .card h3 { font-size:.95rem; color:var(--primary); border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:12px; }
+  canvas { width:100%!important; }
+
+  .insight-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:14px; margin-bottom:28px; }
+  .insight { background:var(--card); border-radius:10px; padding:18px 20px;
+              box-shadow:0 1px 6px rgba(0,0,0,.06); border-left:4px solid var(--green); }
+  .insight.warn { border-left-color: var(--orange); }
+  .insight.action { border-left-color: var(--purple); }
+  .insight h4 { font-size:.92rem; color:var(--primary); margin-bottom:5px; }
+  .insight p { font-size:.85rem; color:var(--muted); line-height:1.55; }
+  .insight strong { color:var(--text); }
+
+  .corr-table { width:100%; border-collapse:collapse; font-size:.85rem; }
+  .corr-table th, .corr-table td { padding:10px 12px; text-align:center; border:1px solid var(--border); }
+  .corr-table th { background:var(--primary); color:#fff; font-weight:600; }
+
+  footer { text-align:center; padding:20px; color:var(--muted); font-size:.78rem; border-top:1px solid var(--border); margin-top:20px; }
+  @media(max-width:480px){ .grid2,.grid3{grid-template-columns:1fr;} .kpi-grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Week 1: Customer Insights Dashboard</h1>
+  <p>Direct Mail Catalog Company &mdash; Customer Analytics for Managerial Decision-Making</p>
+  <span class="tag">MBA Analytics &bull; 1,000 Customers</span>
+</header>
+
+<div class="container">
+
+<!-- ===== KPIs ===== -->
+<div class="section-title">Key Performance Indicators</div>
+<div class="kpi-grid">
+  <div class="kpi"><div class="val">1,000</div><div class="lbl">Total Customers</div></div>
+  <div class="kpi"><div class="val">$1,216,770</div><div class="lbl">Total Revenue</div></div>
+  <div class="kpi"><div class="val">$1,217</div><div class="lbl">Avg Amount Spent</div></div>
+  <div class="kpi"><div class="val">$962</div><div class="lbl">Median Spent</div></div>
+  <div class="kpi"><div class="val">$56,104</div><div class="lbl">Avg Salary</div></div>
+  <div class="kpi"><div class="val">15</div><div class="lbl">Avg Catalogs Sent</div></div>
+  <div class="kpi"><div class="val">52%</div><div class="lbl">Homeowners</div></div>
+  <div class="kpi"><div class="val">50%</div><div class="lbl">Married</div></div>
+  <div class="kpi"><div class="val">0.9</div><div class="lbl">Avg Children</div></div>
+  <div class="kpi"><div class="val">26%</div><div class="lbl">High-History Buyers</div></div>
+</div>
+
+<!-- ===== Customer Demographics ===== -->
+<div class="section-title">Customer Demographics</div>
+<div class="grid2">
+  <div class="card"><h3>Age Group Distribution</h3><canvas id="ageChart"></canvas></div>
+  <div class="card"><h3>Gender Distribution</h3><canvas id="genderChart"></canvas></div>
+  <div class="card"><h3>Homeownership</h3><canvas id="homeChart"></canvas></div>
+  <div class="card"><h3>Marital Status</h3><canvas id="marriedChart"></canvas></div>
+  <div class="card"><h3>Location (Proximity to Store)</h3><canvas id="locationChart"></canvas></div>
+  <div class="card"><h3>Number of Children</h3><canvas id="childrenChart"></canvas></div>
+  <div class="card"><h3>Salary Distribution</h3><canvas id="salaryChart"></canvas></div>
+  <div class="card"><h3>Spending Distribution</h3><canvas id="spendChart"></canvas></div>
+</div>
+
+<!-- ===== Purchasing Behavior ===== -->
+<div class="section-title">Purchasing Behavior</div>
+<div class="grid2">
+  <div class="card"><h3>Purchase History Level</h3><canvas id="historyChart"></canvas></div>
+  <div class="card"><h3>Catalogs Received</h3><canvas id="catalogChart"></canvas></div>
+</div>
+
+<!-- ===== Spending Drivers (Cross-Analysis) ===== -->
+<div class="section-title">What Drives Customer Spending?</div>
+<div class="grid2">
+  <div class="card"><h3>Avg Amount Spent by Age Group</h3><canvas id="spendAgeChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Gender</h3><canvas id="spendGenderChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Homeownership</h3><canvas id="spendHomeChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Marital Status</h3><canvas id="spendMarriedChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Location</h3><canvas id="spendLocationChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Purchase History</h3><canvas id="spendHistoryChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Number of Children</h3><canvas id="spendChildrenChart"></canvas></div>
+  <div class="card"><h3>Avg Amount Spent by Catalogs Received</h3><canvas id="spendCatalogsChart"></canvas></div>
+</div>
+
+<!-- ===== Advanced Analytics ===== -->
+<div class="section-title">Advanced Analytics</div>
+<div class="grid2">
+  <div class="card"><h3>Salary vs. Amount Spent (Scatter)</h3><canvas id="scatterChart"></canvas></div>
+  <div class="card"><h3>Avg Salary by Age Group</h3><canvas id="salaryAgeChart"></canvas></div>
+  <div class="card"><h3>Purchase History Breakdown by Age</h3><canvas id="historyAgeChart"></canvas></div>
+  <div class="card"><h3>Spending per Catalog by History Level</h3><canvas id="spendPerCatChart"></canvas></div>
+</div>
+
+<!-- ===== Correlation Matrix ===== -->
+<div class="section-title">Correlation Matrix (Key Numeric Variables)</div>
+<div class="grid3">
+  <div class="card" style="grid-column: span 1;">
+    <h3>Pearson Correlations</h3>
+    <table class="corr-table">
+      <tr><th></th><th>AmountSpent</th><th>Salary</th><th>Children</th><th>Catalogs</th></tr>
+      <tr><th>AmountSpent</th><td style="background:rgba(43,133,43,0.40)">1.000</td><td style="background:rgba(43,133,43,0.28)">0.700</td><td style="background:rgba(211,47,47,0.09)">-0.222</td><td style="background:rgba(43,133,43,0.19)">0.473</td></tr><tr><th>Salary</th><td style="background:rgba(43,133,43,0.28)">0.700</td><td style="background:rgba(43,133,43,0.40)">1.000</td><td style="background:rgba(43,133,43,0.02)">0.050</td><td style="background:rgba(43,133,43,0.07)">0.184</td></tr><tr><th>Children</th><td style="background:rgba(211,47,47,0.09)">-0.222</td><td style="background:rgba(43,133,43,0.02)">0.050</td><td style="background:rgba(43,133,43,0.40)">1.000</td><td style="background:rgba(211,47,47,0.05)">-0.113</td></tr><tr><th>Catalogs</th><td style="background:rgba(43,133,43,0.19)">0.473</td><td style="background:rgba(43,133,43,0.07)">0.184</td><td style="background:rgba(211,47,47,0.05)">-0.113</td><td style="background:rgba(43,133,43,0.40)">1.000</td></tr>
+    </table>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:10px;">
+      Green = positive correlation; Red = negative. Darker = stronger relationship.
+    </p>
+  </div>
+</div>
+
+<!-- ===== Managerial Insights ===== -->
+<div class="section-title">Managerial Insights &amp; Discussion Questions</div>
+<div class="insight-grid">
+  <div class="insight">
+    <h4>1. Catalog Volume Drives Spending</h4>
+    <p>Customers who received <strong>more catalogs spent significantly more</strong>. This is the single most actionable lever — but managers must weigh catalog printing/mailing costs against incremental revenue. <em>Discussion: At what point do marginal catalog costs exceed marginal revenue?</em></p>
+  </div>
+  <div class="insight">
+    <h4>2. Purchase History Predicts Future Value</h4>
+    <p>Customers with <strong>High purchase history</strong> spend far more than Low or New customers. This suggests a strong case for <strong>customer segmentation</strong> — target high-history customers with premium catalogs and new customers with introductory offers.</p>
+  </div>
+  <div class="insight warn">
+    <h4>3. The "New Customer" Opportunity</h4>
+    <p><strong>30.3%</strong> of customers have no prior purchase history. These are first-time buyers. Their conversion into repeat customers is critical. <em>What onboarding strategies would you recommend?</em></p>
+  </div>
+  <div class="insight">
+    <h4>4. Salary and Spending Relationship</h4>
+    <p>The scatter plot shows a <strong>positive correlation between salary and spending</strong>. Higher-income customers are more valuable. Consider whether the company should focus acquisition on higher-income demographics.</p>
+  </div>
+  <div class="insight warn">
+    <h4>5. Children Reduce Spending</h4>
+    <p>Customers with <strong>more children tend to spend less</strong>. Household budget competition from child-related expenses likely reduces discretionary catalog spending. <em>Should the product mix be adjusted for family customers?</em></p>
+  </div>
+  <div class="insight action">
+    <h4>6. Location Matters</h4>
+    <p>Compare spending by location (Close vs. Far). Does proximity to a physical store affect catalog purchasing behavior? This has implications for <strong>where to target direct mail campaigns geographically</strong>.</p>
+  </div>
+  <div class="insight action">
+    <h4>7. Age Group Strategy</h4>
+    <p>Middle-aged and older customers tend to have <strong>higher salaries and spending</strong>. The young segment earns less but may have long-term value. <em>How should marketing budgets be allocated across age segments?</em></p>
+  </div>
+  <div class="insight">
+    <h4>8. Homeownership as a Proxy</h4>
+    <p>Homeowners tend to spend differently than renters. Homeownership may serve as a <strong>useful proxy variable</strong> for financial stability in targeting models. <em>What other demographic proxies could improve targeting?</em></p>
+  </div>
+</div>
+
+</div>
+
+<footer>Week 1 — Customer Insights Dashboard &bull; MBA Analytics Course &bull; 1,000 customers analyzed</footer>
+
+<script>
+const P = ['#2b6cb0','#38a169','#dd6b20','#e53e3e','#805ad5','#d69e2e','#319795','#d53f8c','#3182ce','#68d391'];
+const P2 = ['#2b6cb0','#38a169','#dd6b20','#e53e3e'];
+
+function bar(id, d, lbl, clr) {
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels:d.labels, datasets:[{ label:lbl, data:d.values, backgroundColor:clr||P[0], borderRadius:5 }] },
+    options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } }
+  });
+}
+
+function pie(id, d) {
+  new Chart(document.getElementById(id), {
+    type:'doughnut',
+    data:{ labels:d.labels, datasets:[{ data:d.values, backgroundColor:P.slice(0,d.labels.length) }] },
+    options:{ responsive:true, plugins:{ legend:{ position:'bottom' } } }
+  });
+}
+
+function hbar(id, d, lbl, clr) {
+  new Chart(document.getElementById(id), {
+    type:'bar',
+    data:{ labels:d.labels, datasets:[{ label:lbl, data:d.values, backgroundColor:clr||P.slice(0,d.labels.length), borderRadius:5 }] },
+    options:{ indexAxis:'y', responsive:true, plugins:{ legend:{ display:false } }, scales:{ x:{ beginAtZero:true } } }
+  });
+}
+
+// Demographics
+bar('ageChart', {"labels": ["Young", "Middle", "Old"], "values": [287, 508, 205]}, 'Customers', P.slice(0,3));
+pie('genderChart', {"labels": ["Female", "Male"], "values": [506, 494]});
+pie('homeChart', {"labels": ["Own", "Rent"], "values": [516, 484]});
+pie('marriedChart', {"labels": ["Married", "Single"], "values": [502, 498]});
+pie('locationChart', {"labels": ["Close", "Far"], "values": [710, 290]});
+bar('childrenChart', {"labels": ["0", "1", "2", "3"], "values": [462, 267, 146, 125]}, 'Customers', '#805ad5');
+bar('salaryChart', {"labels": ["<$25K", "$25K-$50K", "$50K-$75K", "$75K-$100K", "$100K-$125K", "$125K+"], "values": [205, 254, 274, 169, 86, 12]}, 'Customers', '#319795');
+bar('spendChart', {"labels": ["<$250", "$250-$500", "$500-$1K", "$1K-$1.5K", "$1.5K-$2K", "$2K-$3K", "$3K+"], "values": [105, 152, 262, 167, 133, 125, 56]}, 'Customers', '#2b6cb0');
+
+// Purchasing behavior
+bar('historyChart', {"labels": ["New", "Low", "Medium", "High"], "values": [303, 230, 212, 255]}, 'Customers', P2);
+bar('catalogChart', {"labels": ["6", "12", "18", "24"], "values": [252, 282, 233, 233]}, 'Customers', '#dd6b20');
+
+// Spending drivers
+bar('spendAgeChart', {"labels": ["Young", "Middle", "Old"], "values": [558.62, 1501.69, 1432.13]}, 'Avg $', P.slice(0,3));
+bar('spendGenderChart', {"labels": ["Female", "Male"], "values": [1025.34, 1412.85]}, 'Avg $', ['#2b6cb0','#d53f8c']);
+bar('spendHomeChart', {"labels": ["Own", "Rent"], "values": [1543.14, 868.83]}, 'Avg $', ['#38a169','#dd6b20']);
+bar('spendMarriedChart', {"labels": ["Married", "Single"], "values": [1672.07, 757.81]}, 'Avg $', ['#805ad5','#319795']);
+bar('spendLocationChart', {"labels": ["Close", "Far"], "values": [1061.69, 1596.46]}, 'Avg $', ['#2b6cb0','#e53e3e']);
+bar('spendHistoryChart', {"labels": ["New", "Low", "Medium", "High"], "values": [1239.9, 357.09, 950.4, 2186.14]}, 'Avg $', P2);
+bar('spendChildrenChart', {"labels": ["0", "1", "2", "3"], "values": [1406.64, 1219.54, 940.75, 831.49]}, 'Avg $', '#805ad5');
+bar('spendCatalogsChart', {"labels": ["6", "12", "18", "24"], "values": [616.67, 1017.85, 1495.55, 1827.77]}, 'Avg $', '#dd6b20');
+
+// Advanced
+new Chart(document.getElementById('scatterChart'), {
+  type:'scatter',
+  data:{ datasets:[{ label:'Customer', data:[{"x": 24400, "y": 491}, {"x": 21900, "y": 486}, {"x": 37100, "y": 653}, {"x": 10600, "y": 114}, {"x": 42500, "y": 798}, {"x": 10900, "y": 407}, {"x": 28900, "y": 905}, {"x": 58700, "y": 1479}, {"x": 93000, "y": 2644}, {"x": 21400, "y": 326}, {"x": 61000, "y": 975}, {"x": 60600, "y": 307}, {"x": 55600, "y": 984}, {"x": 56200, "y": 1546}, {"x": 52600, "y": 1773}, {"x": 77600, "y": 2004}, {"x": 72200, "y": 2492}, {"x": 83000, "y": 726}, {"x": 112800, "y": 1861}, {"x": 25900, "y": 242}, {"x": 51400, "y": 694}, {"x": 81200, "y": 2693}, {"x": 12100, "y": 90}, {"x": 18800, "y": 170}, {"x": 56900, "y": 1857}, {"x": 68700, "y": 2763}, {"x": 42200, "y": 1753}, {"x": 63200, "y": 1507}, {"x": 14400, "y": 390}, {"x": 63800, "y": 1622}, {"x": 53300, "y": 508}, {"x": 17400, "y": 332}, {"x": 37500, "y": 1578}, {"x": 48100, "y": 1640}, {"x": 108300, "y": 2224}, {"x": 16900, "y": 247}, {"x": 34500, "y": 802}, {"x": 53700, "y": 2491}, {"x": 128700, "y": 3995}, {"x": 33700, "y": 614}, {"x": 69700, "y": 584}, {"x": 110400, "y": 1093}, {"x": 30900, "y": 862}, {"x": 45500, "y": 754}, {"x": 50600, "y": 713}, {"x": 47500, "y": 847}, {"x": 94200, "y": 1211}, {"x": 19800, "y": 209}, {"x": 49900, "y": 1631}, {"x": 93700, "y": 1521}, {"x": 54700, "y": 1404}, {"x": 23200, "y": 534}, {"x": 12700, "y": 87}, {"x": 71200, "y": 392}, {"x": 43500, "y": 808}, {"x": 39700, "y": 573}, {"x": 62800, "y": 177}, {"x": 43700, "y": 927}, {"x": 98400, "y": 3305}, {"x": 95800, "y": 2581}, {"x": 59700, "y": 1422}, {"x": 46600, "y": 906}, {"x": 17800, "y": 589}, {"x": 23600, "y": 161}, {"x": 85600, "y": 3380}, {"x": 30300, "y": 1062}, {"x": 27200, "y": 446}, {"x": 118000, "y": 581}, {"x": 15600, "y": 468}, {"x": 13800, "y": 368}, {"x": 27900, "y": 1184}, {"x": 36500, "y": 1140}, {"x": 73000, "y": 1534}, {"x": 28200, "y": 224}, {"x": 54600, "y": 2163}, {"x": 14500, "y": 183}, {"x": 51600, "y": 1082}, {"x": 20100, "y": 576}, {"x": 45600, "y": 1322}, {"x": 130700, "y": 2070}, {"x": 82400, "y": 2122}, {"x": 72500, "y": 2595}, {"x": 103300, "y": 3378}, {"x": 13200, "y": 358}, {"x": 55800, "y": 821}, {"x": 15800, "y": 147}, {"x": 79000, "y": 671}, {"x": 14100, "y": 153}, {"x": 33600, "y": 573}, {"x": 20900, "y": 296}, {"x": 39600, "y": 610}, {"x": 17900, "y": 446}, {"x": 66500, "y": 286}, {"x": 42300, "y": 856}, {"x": 19700, "y": 535}, {"x": 49200, "y": 210}, {"x": 35100, "y": 421}, {"x": 39000, "y": 643}, {"x": 14600, "y": 468}, {"x": 64100, "y": 1332}, {"x": 38700, "y": 1009}, {"x": 97900, "y": 2149}, {"x": 25500, "y": 636}, {"x": 19800, "y": 991}, {"x": 64800, "y": 574}, {"x": 55900, "y": 788}, {"x": 97500, "y": 1280}, {"x": 40700, "y": 232}, {"x": 84800, "y": 2624}, {"x": 60100, "y": 1430}, {"x": 26600, "y": 245}, {"x": 29200, "y": 556}, {"x": 96800, "y": 2299}, {"x": 12700, "y": 65}, {"x": 48700, "y": 528}, {"x": 35200, "y": 827}, {"x": 45800, "y": 489}, {"x": 93000, "y": 1046}, {"x": 140700, "y": 1001}, {"x": 39600, "y": 1085}, {"x": 74900, "y": 1804}, {"x": 45100, "y": 794}, {"x": 41900, "y": 654}, {"x": 15900, "y": 503}, {"x": 33200, "y": 1037}, {"x": 12600, "y": 164}, {"x": 75600, "y": 1541}, {"x": 34200, "y": 523}, {"x": 69700, "y": 1432}, {"x": 45200, "y": 699}, {"x": 51000, "y": 1025}, {"x": 19500, "y": 571}, {"x": 97200, "y": 1634}, {"x": 19400, "y": 384}, {"x": 72100, "y": 3052}, {"x": 69800, "y": 2764}, {"x": 12000, "y": 344}, {"x": 101700, "y": 2551}, {"x": 92300, "y": 655}, {"x": 71500, "y": 964}, {"x": 49600, "y": 844}, {"x": 54400, "y": 342}, {"x": 70400, "y": 2610}, {"x": 107600, "y": 1512}, {"x": 67900, "y": 1418}, {"x": 105600, "y": 304}, {"x": 26700, "y": 1120}, {"x": 79900, "y": 1165}, {"x": 74500, "y": 824}, {"x": 96700, "y": 1231}, {"x": 58600, "y": 624}, {"x": 11900, "y": 143}, {"x": 84900, "y": 3072}, {"x": 73300, "y": 1694}, {"x": 102500, "y": 548}, {"x": 108900, "y": 1841}, {"x": 118300, "y": 2502}, {"x": 52600, "y": 1307}, {"x": 62700, "y": 704}, {"x": 42400, "y": 1166}, {"x": 77100, "y": 568}, {"x": 82400, "y": 1779}, {"x": 65400, "y": 836}, {"x": 74400, "y": 1152}, {"x": 96100, "y": 1588}, {"x": 65800, "y": 1017}, {"x": 34700, "y": 1615}, {"x": 79300, "y": 2047}, {"x": 53900, "y": 1186}, {"x": 25600, "y": 426}, {"x": 103900, "y": 2666}, {"x": 35200, "y": 233}, {"x": 96400, "y": 1822}, {"x": 102700, "y": 3785}, {"x": 61600, "y": 1666}, {"x": 86100, "y": 1255}, {"x": 65300, "y": 1443}, {"x": 26100, "y": 494}, {"x": 96200, "y": 1457}, {"x": 40400, "y": 630}, {"x": 43300, "y": 1021}, {"x": 82300, "y": 580}, {"x": 40500, "y": 622}, {"x": 22000, "y": 736}, {"x": 49200, "y": 1078}, {"x": 53700, "y": 235}, {"x": 41800, "y": 301}, {"x": 10200, "y": 199}, {"x": 52300, "y": 2034}, {"x": 79700, "y": 3384}, {"x": 22600, "y": 865}, {"x": 130600, "y": 3442}, {"x": 16300, "y": 360}, {"x": 13600, "y": 183}, {"x": 20200, "y": 500}, {"x": 43500, "y": 500}, {"x": 60300, "y": 2091}, {"x": 54700, "y": 848}, {"x": 58200, "y": 981}, {"x": 24400, "y": 220}, {"x": 21700, "y": 774}, {"x": 90300, "y": 1944}, {"x": 42500, "y": 918}, {"x": 45500, "y": 1624}, {"x": 76400, "y": 2216}, {"x": 27500, "y": 571}, {"x": 51200, "y": 1293}, {"x": 87400, "y": 2729}, {"x": 76700, "y": 1431}, {"x": 12900, "y": 167}, {"x": 66700, "y": 1310}, {"x": 100100, "y": 3104}, {"x": 29200, "y": 636}, {"x": 46500, "y": 829}, {"x": 20300, "y": 304}, {"x": 48900, "y": 915}, {"x": 27900, "y": 576}, {"x": 13800, "y": 363}, {"x": 52800, "y": 926}, {"x": 22900, "y": 814}, {"x": 27800, "y": 408}, {"x": 106400, "y": 1757}, {"x": 99300, "y": 1504}, {"x": 83300, "y": 2574}, {"x": 62800, "y": 1403}, {"x": 13500, "y": 296}, {"x": 50500, "y": 940}, {"x": 82400, "y": 657}, {"x": 47000, "y": 963}, {"x": 95900, "y": 2585}, {"x": 124800, "y": 2537}, {"x": 17600, "y": 273}, {"x": 53900, "y": 2177}, {"x": 80800, "y": 1598}, {"x": 104100, "y": 2636}, {"x": 72200, "y": 2082}, {"x": 64000, "y": 1552}, {"x": 39100, "y": 1001}, {"x": 35300, "y": 1093}, {"x": 41600, "y": 1690}, {"x": 85600, "y": 2436}, {"x": 72900, "y": 252}, {"x": 76700, "y": 534}, {"x": 95900, "y": 3168}, {"x": 118600, "y": 1553}, {"x": 79600, "y": 1575}, {"x": 41300, "y": 1985}, {"x": 84300, "y": 1648}, {"x": 127000, "y": 1821}, {"x": 80600, "y": 2840}, {"x": 32400, "y": 920}, {"x": 11700, "y": 540}, {"x": 52000, "y": 2545}, {"x": 88500, "y": 1104}, {"x": 10100, "y": 93}, {"x": 26800, "y": 435}, {"x": 32400, "y": 515}, {"x": 31500, "y": 269}, {"x": 66200, "y": 1024}, {"x": 30400, "y": 495}, {"x": 34500, "y": 639}, {"x": 25100, "y": 592}, {"x": 21100, "y": 470}, {"x": 82400, "y": 2035}, {"x": 73000, "y": 490}, {"x": 59300, "y": 929}, {"x": 79500, "y": 1651}, {"x": 75800, "y": 1830}, {"x": 60200, "y": 1364}, {"x": 48600, "y": 1583}, {"x": 18900, "y": 184}, {"x": 59700, "y": 1857}, {"x": 19100, "y": 403}, {"x": 14500, "y": 222}, {"x": 72200, "y": 3069}, {"x": 80700, "y": 3034}, {"x": 113800, "y": 3273}, {"x": 84100, "y": 2362}, {"x": 74700, "y": 704}, {"x": 20700, "y": 550}, {"x": 18200, "y": 322}, {"x": 107300, "y": 1566}, {"x": 23200, "y": 770}, {"x": 68200, "y": 818}, {"x": 68700, "y": 1699}, {"x": 44100, "y": 1659}, {"x": 65300, "y": 193}, {"x": 108100, "y": 2632}, {"x": 97000, "y": 2599}, {"x": 14900, "y": 422}, {"x": 13200, "y": 512}, {"x": 108100, "y": 1133}, {"x": 63700, "y": 364}, {"x": 84100, "y": 2710}, {"x": 71900, "y": 1846}, {"x": 72200, "y": 715}, {"x": 67800, "y": 680}, {"x": 23200, "y": 788}, {"x": 68400, "y": 1155}, {"x": 41400, "y": 223}, {"x": 102400, "y": 1237}, {"x": 66900, "y": 1220}, {"x": 70400, "y": 1127}, {"x": 11500, "y": 157}, {"x": 17700, "y": 742}, {"x": 37300, "y": 673}, {"x": 73700, "y": 1274}, {"x": 100600, "y": 2838}, {"x": 58400, "y": 829}, {"x": 41500, "y": 1213}, {"x": 64300, "y": 239}, {"x": 55600, "y": 1786}, {"x": 98900, "y": 3126}, {"x": 37200, "y": 247}, {"x": 31600, "y": 476}, {"x": 74700, "y": 1699}, {"x": 29600, "y": 774}, {"x": 88400, "y": 3632}, {"x": 36700, "y": 1218}, {"x": 19300, "y": 308}, {"x": 22100, "y": 280}, {"x": 53700, "y": 1081}, {"x": 25500, "y": 139}, {"x": 54200, "y": 1405}, {"x": 110700, "y": 2458}, {"x": 20400, "y": 513}, {"x": 80800, "y": 2444}, {"x": 11000, "y": 393}, {"x": 17600, "y": 163}, {"x": 93400, "y": 3079}, {"x": 58600, "y": 989}, {"x": 63500, "y": 2321}, {"x": 107300, "y": 1194}, {"x": 102700, "y": 2381}, {"x": 47500, "y": 755}, {"x": 53400, "y": 886}, {"x": 52200, "y": 1909}, {"x": 15200, "y": 324}, {"x": 22400, "y": 947}, {"x": 45900, "y": 1645}, {"x": 48400, "y": 992}, {"x": 118400, "y": 3941}, {"x": 51900, "y": 780}, {"x": 14800, "y": 436}, {"x": 61400, "y": 1575}, {"x": 21900, "y": 276}, {"x": 21600, "y": 491}, {"x": 49600, "y": 770}, {"x": 67300, "y": 1513}, {"x": 97600, "y": 2902}, {"x": 61700, "y": 1161}, {"x": 82100, "y": 1308}, {"x": 99200, "y": 2796}, {"x": 72300, "y": 4182}, {"x": 36700, "y": 731}, {"x": 63300, "y": 633}, {"x": 106700, "y": 607}, {"x": 21900, "y": 576}, {"x": 41500, "y": 1314}, {"x": 81700, "y": 879}, {"x": 44600, "y": 236}, {"x": 38700, "y": 1506}, {"x": 45400, "y": 1203}, {"x": 43300, "y": 326}, {"x": 39700, "y": 238}, {"x": 66900, "y": 769}, {"x": 36500, "y": 747}, {"x": 10200, "y": 213}, {"x": 34600, "y": 748}, {"x": 76800, "y": 1061}, {"x": 140000, "y": 4894}, {"x": 131500, "y": 2840}, {"x": 14600, "y": 143}, {"x": 60200, "y": 1365}, {"x": 48100, "y": 782}, {"x": 75500, "y": 2450}, {"x": 45600, "y": 1388}, {"x": 14400, "y": 615}, {"x": 60400, "y": 791}, {"x": 117500, "y": 927}, {"x": 70900, "y": 690}, {"x": 21400, "y": 498}, {"x": 25900, "y": 582}, {"x": 20300, "y": 450}, {"x": 42800, "y": 759}, {"x": 88000, "y": 524}, {"x": 79400, "y": 1175}, {"x": 19100, "y": 176}, {"x": 123800, "y": 3537}, {"x": 86400, "y": 1713}, {"x": 77800, "y": 1813}, {"x": 96800, "y": 3082}, {"x": 102300, "y": 2438}, {"x": 70700, "y": 2150}, {"x": 73600, "y": 647}, {"x": 60300, "y": 1263}, {"x": 92300, "y": 2141}, {"x": 47900, "y": 1090}, {"x": 21500, "y": 445}, {"x": 44800, "y": 1417}, {"x": 41700, "y": 521}, {"x": 97100, "y": 1473}, {"x": 15000, "y": 341}, {"x": 14600, "y": 47}, {"x": 70000, "y": 785}, {"x": 86500, "y": 2690}, {"x": 15300, "y": 645}, {"x": 63300, "y": 679}, {"x": 87200, "y": 3604}, {"x": 52400, "y": 857}, {"x": 61500, "y": 968}, {"x": 48800, "y": 1271}, {"x": 44400, "y": 886}, {"x": 96100, "y": 316}, {"x": 77600, "y": 858}, {"x": 12800, "y": 365}, {"x": 52200, "y": 669}, {"x": 54200, "y": 486}, {"x": 21200, "y": 242}, {"x": 126300, "y": 1888}, {"x": 38600, "y": 542}, {"x": 52100, "y": 1668}, {"x": 36900, "y": 721}, {"x": 83100, "y": 586}, {"x": 13100, "y": 314}, {"x": 24000, "y": 357}, {"x": 11400, "y": 258}, {"x": 25900, "y": 449}, {"x": 12500, "y": 422}, {"x": 12000, "y": 264}, {"x": 51900, "y": 1148}, {"x": 66300, "y": 544}, {"x": 45100, "y": 448}, {"x": 68800, "y": 1658}, {"x": 31300, "y": 357}, {"x": 44100, "y": 704}, {"x": 46900, "y": 703}, {"x": 46700, "y": 983}, {"x": 82700, "y": 1753}, {"x": 59900, "y": 613}, {"x": 62200, "y": 1583}, {"x": 22200, "y": 275}, {"x": 25300, "y": 510}, {"x": 55000, "y": 1162}, {"x": 42000, "y": 232}, {"x": 64300, "y": 1325}, {"x": 21700, "y": 387}, {"x": 45700, "y": 724}, {"x": 23800, "y": 428}, {"x": 51900, "y": 1162}, {"x": 66600, "y": 1177}, {"x": 70500, "y": 2145}, {"x": 25000, "y": 264}, {"x": 59600, "y": 1217}, {"x": 84200, "y": 1654}, {"x": 23200, "y": 504}, {"x": 40200, "y": 1197}, {"x": 49700, "y": 613}, {"x": 70000, "y": 1227}, {"x": 82800, "y": 1544}, {"x": 15000, "y": 38}, {"x": 104900, "y": 450}, {"x": 41700, "y": 1398}, {"x": 36400, "y": 506}, {"x": 56600, "y": 1607}, {"x": 20900, "y": 550}, {"x": 56300, "y": 873}, {"x": 36900, "y": 1480}, {"x": 56300, "y": 1608}, {"x": 25700, "y": 173}, {"x": 97500, "y": 2837}, {"x": 75500, "y": 741}, {"x": 28400, "y": 182}, {"x": 12900, "y": 107}, {"x": 43700, "y": 950}, {"x": 32100, "y": 405}, {"x": 67900, "y": 356}, {"x": 44600, "y": 966}, {"x": 13400, "y": 424}, {"x": 13900, "y": 191}, {"x": 18000, "y": 303}, {"x": 16300, "y": 470}, {"x": 111800, "y": 2065}, {"x": 55100, "y": 1439}, {"x": 15100, "y": 274}, {"x": 81500, "y": 3655}, {"x": 76200, "y": 2437}, {"x": 61800, "y": 1156}, {"x": 122100, "y": 2408}, {"x": 56300, "y": 321}, {"x": 116100, "y": 2975}, {"x": 81800, "y": 919}, {"x": 25700, "y": 907}, {"x": 21700, "y": 708}, {"x": 74900, "y": 1474}, {"x": 60100, "y": 1594}, {"x": 32700, "y": 273}, {"x": 96900, "y": 1159}, {"x": 102600, "y": 2546}, {"x": 17000, "y": 659}],
+    backgroundColor:'rgba(43,108,176,0.4)', borderColor:'rgba(43,108,176,0.8)', pointRadius:3 }] },
+  options:{ responsive:true, plugins:{ legend:{ display:false } },
+    scales:{ x:{ title:{ display:true, text:'Salary ($)' } }, y:{ title:{ display:true, text:'Amount Spent ($)' }, beginAtZero:true } } }
+});
+
+bar('salaryAgeChart', {"labels": ["Young", "Middle", "Old"], "values": [27716.0, 72036.0, 56366.0]}, 'Avg Salary', P.slice(0,3));
+
+// Stacked bar: history by age
+new Chart(document.getElementById('historyAgeChart'), {
+  type:'bar',
+  data:{
+    labels: ["Young", "Middle", "Old"],
+    datasets: [
+      {label:'New', data:[122, 145, 36], backgroundColor:P2[0], borderRadius:3},
+      {label:'Low', data:[123, 69, 38], backgroundColor:P2[1], borderRadius:3},
+      {label:'Medium', data:[35, 127, 50], backgroundColor:P2[2], borderRadius:3},
+      {label:'High', data:[7, 167, 81], backgroundColor:P2[3], borderRadius:3}
+    ]
+  },
+  options:{ responsive:true, scales:{ x:{ stacked:true }, y:{ stacked:true, beginAtZero:true } }, plugins:{ legend:{ position:'bottom' } } }
+});
+
+bar('spendPerCatChart', {"labels": ["New", "Low", "Medium", "High"], "values": [101.42, 32.9, 71.91, 130.91]}, '$/Catalog', P2);
+</script>
+</body>
+</html>
