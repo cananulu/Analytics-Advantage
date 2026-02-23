@@ -1,0 +1,468 @@
+"""
+Week 1 — Marketing Campaign Efficiency Dashboard Generator
+============================================================
+Reads MarketingCampaignEfficiency.csv and produces dashboard.html —
+a self-contained interactive dashboard for MBA class discussion.
+
+Dataset: 548 observations across 137 store locations, 10 markets,
+3 promotions, and 4 weeks.
+
+Usage:
+    python3 generate_dashboard.py
+"""
+
+import json
+import os
+import sys
+
+import pandas as pd
+import numpy as np
+
+# ---------------------------------------------------------------------------
+# 1. Load data
+# ---------------------------------------------------------------------------
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(SCRIPT_DIR, "..", "MarketingCampaignEfficiency.csv")
+if not os.path.exists(csv_path):
+    csv_path = os.path.join(SCRIPT_DIR, "MarketingCampaignEfficiency.csv")
+if not os.path.exists(csv_path):
+    print("Error: MarketingCampaignEfficiency.csv not found.")
+    sys.exit(1)
+
+df = pd.read_csv(csv_path)
+print(f"Loaded {len(df)} rows from {csv_path}")
+
+# ---------------------------------------------------------------------------
+# 2. Compute all analytics
+# ---------------------------------------------------------------------------
+
+def sj(obj):
+    return json.dumps(obj, default=lambda x: int(x) if isinstance(x, (np.integer,)) else float(x) if isinstance(x, (np.floating,)) else str(x))
+
+# --- KPIs ---
+total_obs = len(df)
+num_locations = int(df["LocationID"].nunique())
+num_markets = int(df["MarketID"].nunique())
+total_sales = round(float(df["SalesInThousands"].sum()), 2)
+avg_sales = round(float(df["SalesInThousands"].mean()), 2)
+median_sales = round(float(df["SalesInThousands"].median()), 2)
+max_sales = round(float(df["SalesInThousands"].max()), 2)
+min_sales = round(float(df["SalesInThousands"].min()), 2)
+avg_store_age = round(float(df["AgeOfStore"].mean()), 1)
+
+# Best promotion
+promo_means = df.groupby("Promotion")["SalesInThousands"].mean()
+best_promo = int(promo_means.idxmax())
+best_promo_avg = round(float(promo_means.max()), 2)
+worst_promo = int(promo_means.idxmin())
+worst_promo_avg = round(float(promo_means.min()), 2)
+promo_lift = round(((best_promo_avg - worst_promo_avg) / worst_promo_avg) * 100, 1)
+
+# --- Distributions ---
+market_size_counts = df["MarketSize"].value_counts().reindex(["Small", "Medium", "Large"], fill_value=0)
+market_size_data = {"labels": market_size_counts.index.tolist(), "values": market_size_counts.values.tolist()}
+
+promo_counts = df["Promotion"].value_counts().sort_index()
+promo_counts_data = {"labels": [f"Promo {p}" for p in promo_counts.index.tolist()], "values": promo_counts.values.tolist()}
+
+week_counts = df["Week"].value_counts().sort_index()
+week_data_counts = {"labels": [f"Week {w}" for w in week_counts.index.tolist()], "values": week_counts.values.tolist()}
+
+# Sales distribution (binned)
+sales_bins = [0, 30, 40, 50, 60, 70, 80, 100]
+sales_labels = ["<$30K", "$30-40K", "$40-50K", "$50-60K", "$60-70K", "$70-80K", "$80K+"]
+df["sales_bin"] = pd.cut(df["SalesInThousands"], bins=sales_bins, labels=sales_labels, right=False)
+sales_dist = df["sales_bin"].value_counts().reindex(sales_labels, fill_value=0)
+sales_dist_data = {"labels": sales_dist.index.tolist(), "values": sales_dist.values.tolist()}
+
+# Store age distribution
+age_bins = [0, 3, 6, 10, 15, 30]
+age_labels = ["1-2 yrs", "3-5 yrs", "6-9 yrs", "10-14 yrs", "15+ yrs"]
+df["age_bin"] = pd.cut(df["AgeOfStore"], bins=age_bins, labels=age_labels, right=False)
+age_dist = df["age_bin"].value_counts().reindex(age_labels, fill_value=0)
+age_dist_data = {"labels": age_dist.index.tolist(), "values": age_dist.values.tolist()}
+
+# --- Core Analysis: Promotion Effectiveness ---
+promo_stats = df.groupby("Promotion")["SalesInThousands"].agg(["mean", "median", "std", "min", "max"]).round(2)
+promo_avg_data = {"labels": [f"Promotion {p}" for p in promo_stats.index.tolist()],
+                  "values": promo_stats["mean"].values.tolist()}
+promo_median_data = {"labels": [f"Promotion {p}" for p in promo_stats.index.tolist()],
+                     "values": promo_stats["median"].values.tolist()}
+
+# Sales by market size
+size_avg = df.groupby("MarketSize")["SalesInThousands"].mean().reindex(["Small", "Medium", "Large"]).round(2)
+size_avg_data = {"labels": size_avg.index.tolist(), "values": size_avg.values.tolist()}
+
+# Sales by week
+week_avg = df.groupby("Week")["SalesInThousands"].mean().round(2)
+week_avg_data = {"labels": [f"Week {w}" for w in week_avg.index.tolist()], "values": week_avg.values.tolist()}
+
+# --- Cross-Analysis ---
+
+# Promotion x Market Size (grouped bar)
+promo_size = df.groupby(["MarketSize", "Promotion"])["SalesInThousands"].mean().round(2).unstack()
+promo_size = promo_size.reindex(["Small", "Medium", "Large"])
+promo_size_data = {
+    "labels": promo_size.index.tolist(),
+    "datasets": [
+        {"label": f"Promotion {c}", "data": promo_size[c].values.tolist()}
+        for c in promo_size.columns
+    ]
+}
+
+# Promotion x Week (grouped bar)
+promo_week = df.groupby(["Week", "Promotion"])["SalesInThousands"].mean().round(2).unstack()
+promo_week_data = {
+    "labels": [f"Week {w}" for w in promo_week.index.tolist()],
+    "datasets": [
+        {"label": f"Promotion {c}", "data": promo_week[c].values.tolist()}
+        for c in promo_week.columns
+    ]
+}
+
+# Sales by Market ID
+market_avg = df.groupby("MarketID")["SalesInThousands"].mean().round(2)
+market_avg_data = {"labels": [f"Market {m}" for m in market_avg.index.tolist()],
+                   "values": market_avg.values.tolist()}
+
+# Store age vs sales (binned avg)
+sales_by_age = df.groupby("age_bin")["SalesInThousands"].mean().reindex(age_labels).round(2)
+sales_by_age_data = {"labels": sales_by_age.index.tolist(), "values": sales_by_age.values.tolist()}
+
+# Promotion effectiveness by store age
+promo_age = df.groupby(["age_bin", "Promotion"])["SalesInThousands"].mean().round(2).unstack()
+promo_age = promo_age.reindex(age_labels)
+promo_age_data = {
+    "labels": promo_age.index.tolist(),
+    "datasets": [
+        {"label": f"Promotion {c}", "data": [v if not pd.isna(v) else 0 for v in promo_age[c].values.tolist()]}
+        for c in promo_age.columns
+    ]
+}
+
+# Box-plot approximation: promotion sales quartiles
+promo_box = {}
+for p in [1, 2, 3]:
+    sub = df[df["Promotion"] == p]["SalesInThousands"]
+    promo_box[p] = {
+        "min": round(float(sub.min()), 2),
+        "q1": round(float(sub.quantile(0.25)), 2),
+        "median": round(float(sub.median()), 2),
+        "q3": round(float(sub.quantile(0.75)), 2),
+        "max": round(float(sub.max()), 2),
+    }
+
+# Top 10 and bottom 10 locations by avg sales
+loc_avg = df.groupby("LocationID")["SalesInThousands"].mean().round(2)
+top10_locs = loc_avg.nlargest(10)
+top10_data = {"labels": [f"Loc {l}" for l in top10_locs.index.tolist()], "values": top10_locs.values.tolist()}
+bot10_locs = loc_avg.nsmallest(10)
+bot10_data = {"labels": [f"Loc {l}" for l in bot10_locs.index.tolist()], "values": bot10_locs.values.tolist()}
+
+# Market size breakdown per market ID
+market_sizes = df.groupby("MarketID")["MarketSize"].first()
+market_size_map = market_sizes.to_dict()
+
+# Sales variability by promotion (coefficient of variation)
+promo_cv = (df.groupby("Promotion")["SalesInThousands"].std() / df.groupby("Promotion")["SalesInThousands"].mean() * 100).round(1)
+promo_cv_data = {"labels": [f"Promotion {p}" for p in promo_cv.index.tolist()], "values": promo_cv.values.tolist()}
+
+# ---------------------------------------------------------------------------
+# 3. Generate HTML
+# ---------------------------------------------------------------------------
+
+html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Campaign Efficiency Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {{
+    --primary:#1b2a4a; --accent:#2563eb; --accent2:#3b82f6;
+    --bg:#f1f5f9; --card:#fff; --text:#0f172a; --muted:#64748b;
+    --border:#e2e8f0; --green:#16a34a; --orange:#ea580c; --red:#dc2626;
+    --purple:#7c3aed; --teal:#0d9488; --amber:#d97706; --pink:#db2777;
+  }}
+  * {{ margin:0; padding:0; box-sizing:border-box; }}
+  body {{ font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); }}
+  header {{
+    background:linear-gradient(135deg, var(--primary) 0%, #1e40af 50%, var(--accent) 100%);
+    color:#fff; padding:36px 32px; text-align:center;
+  }}
+  header h1 {{ font-size:2rem; font-weight:800; letter-spacing:-.5px; }}
+  header p {{ opacity:.85; margin-top:6px; font-size:1rem; }}
+  .tags {{ margin-top:10px; }}
+  .tag {{ display:inline-block; background:rgba(255,255,255,.18); border-radius:20px; padding:4px 14px;
+          font-size:.78rem; margin:3px 4px; backdrop-filter:blur(4px); }}
+  .container {{ max-width:1440px; margin:0 auto; padding:24px; }}
+
+  .stitle {{
+    font-size:1.15rem; font-weight:700; color:var(--primary); margin:28px 0 14px;
+    border-left:4px solid var(--accent); padding-left:12px;
+  }}
+  .stitle span {{ font-size:.82rem; font-weight:400; color:var(--muted); margin-left:8px; }}
+
+  .kpi-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:8px; }}
+  .kpi {{ background:var(--card); border-radius:10px; padding:18px 14px; text-align:center;
+          box-shadow:0 1px 4px rgba(0,0,0,.06); border-top:4px solid var(--accent); transition:transform .15s; }}
+  .kpi:hover {{ transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.1); }}
+  .kpi .val {{ font-size:1.55rem; font-weight:800; color:var(--primary); }}
+  .kpi .lbl {{ font-size:.72rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:.6px; }}
+  .kpi.highlight {{ border-top-color:var(--green); }}
+  .kpi.warn {{ border-top-color:var(--orange); }}
+
+  .g2 {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:16px; margin-bottom:8px; }}
+  .g3 {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; margin-bottom:8px; }}
+  .cd {{ background:var(--card); border-radius:10px; padding:20px; box-shadow:0 1px 4px rgba(0,0,0,.06); }}
+  .cd h3 {{ font-size:.92rem; color:var(--primary); border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:12px; }}
+  canvas {{ width:100%!important; }}
+
+  .insight-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:14px; margin-bottom:28px; }}
+  .ins {{ background:var(--card); border-radius:10px; padding:18px 20px;
+          box-shadow:0 1px 4px rgba(0,0,0,.06); border-left:4px solid var(--green); }}
+  .ins.b {{ border-left-color:var(--accent); }}
+  .ins.w {{ border-left-color:var(--orange); }}
+  .ins.a {{ border-left-color:var(--purple); }}
+  .ins h4 {{ font-size:.9rem; color:var(--primary); margin-bottom:5px; }}
+  .ins p {{ font-size:.84rem; color:var(--muted); line-height:1.55; }}
+  .ins strong {{ color:var(--text); }}
+
+  .summary-table {{ width:100%; border-collapse:collapse; font-size:.85rem; margin-top:8px; }}
+  .summary-table th, .summary-table td {{ padding:10px 14px; text-align:center; border:1px solid var(--border); }}
+  .summary-table th {{ background:var(--primary); color:#fff; font-weight:600; }}
+  .summary-table tr:nth-child(even) {{ background:#f8fafc; }}
+  .winner {{ background:#dcfce7 !important; font-weight:700; }}
+
+  footer {{ text-align:center; padding:20px; color:var(--muted); font-size:.78rem; border-top:1px solid var(--border); margin-top:20px; }}
+  @media(max-width:480px){{ .g2,.g3{{grid-template-columns:1fr;}} .kpi-grid{{grid-template-columns:repeat(2,1fr);}} }}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Marketing Campaign Efficiency Dashboard</h1>
+  <p>Evaluating Promotion Effectiveness Across Markets, Locations &amp; Time</p>
+  <div class="tags">
+    <span class="tag">{total_obs} Observations</span>
+    <span class="tag">{num_locations} Locations</span>
+    <span class="tag">{num_markets} Markets</span>
+    <span class="tag">3 Promotions</span>
+    <span class="tag">4 Weeks</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ===== KPIs ===== -->
+<div class="stitle">Key Performance Indicators</div>
+<div class="kpi-grid">
+  <div class="kpi"><div class="val">{total_obs}</div><div class="lbl">Observations</div></div>
+  <div class="kpi"><div class="val">{num_locations}</div><div class="lbl">Store Locations</div></div>
+  <div class="kpi"><div class="val">${total_sales:,.0f}K</div><div class="lbl">Total Sales</div></div>
+  <div class="kpi"><div class="val">${avg_sales:,.1f}K</div><div class="lbl">Avg Sales / Store-Week</div></div>
+  <div class="kpi"><div class="val">${median_sales:,.1f}K</div><div class="lbl">Median Sales</div></div>
+  <div class="kpi highlight"><div class="val">Promo {best_promo}</div><div class="lbl">Best Promotion</div></div>
+  <div class="kpi highlight"><div class="val">${best_promo_avg:,.1f}K</div><div class="lbl">Best Promo Avg Sales</div></div>
+  <div class="kpi warn"><div class="val">+{promo_lift}%</div><div class="lbl">Best vs Worst Lift</div></div>
+  <div class="kpi"><div class="val">{avg_store_age:.0f} yrs</div><div class="lbl">Avg Store Age</div></div>
+  <div class="kpi"><div class="val">${max_sales:,.1f}K</div><div class="lbl">Highest Single Sale</div></div>
+</div>
+
+<!-- ===== Promotion Summary Table ===== -->
+<div class="stitle">Promotion Performance Summary</div>
+<div class="g3">
+  <div class="cd" style="grid-column:span 1;">
+    <h3>Statistical Comparison of All Three Promotions</h3>
+    <table class="summary-table">
+      <tr><th>Metric</th><th>Promotion 1</th><th>Promotion 2</th><th>Promotion 3</th></tr>
+      <tr><td><strong>Mean Sales ($K)</strong></td>
+          <td class="{'winner' if best_promo==1 else ''}">{promo_stats.loc[1,'mean']}</td>
+          <td class="{'winner' if best_promo==2 else ''}">{promo_stats.loc[2,'mean']}</td>
+          <td class="{'winner' if best_promo==3 else ''}">{promo_stats.loc[3,'mean']}</td></tr>
+      <tr><td><strong>Median Sales ($K)</strong></td>
+          <td>{promo_stats.loc[1,'median']}</td><td>{promo_stats.loc[2,'median']}</td><td>{promo_stats.loc[3,'median']}</td></tr>
+      <tr><td><strong>Std Dev ($K)</strong></td>
+          <td>{promo_stats.loc[1,'std']}</td><td>{promo_stats.loc[2,'std']}</td><td>{promo_stats.loc[3,'std']}</td></tr>
+      <tr><td><strong>Min ($K)</strong></td>
+          <td>{promo_stats.loc[1,'min']}</td><td>{promo_stats.loc[2,'min']}</td><td>{promo_stats.loc[3,'min']}</td></tr>
+      <tr><td><strong>Max ($K)</strong></td>
+          <td>{promo_stats.loc[1,'max']}</td><td>{promo_stats.loc[2,'max']}</td><td>{promo_stats.loc[3,'max']}</td></tr>
+      <tr><td><strong>CV (%)</strong></td>
+          <td>{promo_cv.loc[1]}%</td><td>{promo_cv.loc[2]}%</td><td>{promo_cv.loc[3]}%</td></tr>
+    </table>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Green highlight = best-performing promotion. CV = Coefficient of Variation (lower = more consistent).</p>
+  </div>
+  <div class="cd">
+    <h3>Quartile Ranges by Promotion</h3>
+    <table class="summary-table">
+      <tr><th>Quartile</th><th>Promo 1</th><th>Promo 2</th><th>Promo 3</th></tr>
+      <tr><td>Min</td><td>${promo_box[1]['min']}K</td><td>${promo_box[2]['min']}K</td><td>${promo_box[3]['min']}K</td></tr>
+      <tr><td>Q1 (25th)</td><td>${promo_box[1]['q1']}K</td><td>${promo_box[2]['q1']}K</td><td>${promo_box[3]['q1']}K</td></tr>
+      <tr><td>Median</td><td>${promo_box[1]['median']}K</td><td>${promo_box[2]['median']}K</td><td>${promo_box[3]['median']}K</td></tr>
+      <tr><td>Q3 (75th)</td><td>${promo_box[1]['q3']}K</td><td>${promo_box[2]['q3']}K</td><td>${promo_box[3]['q3']}K</td></tr>
+      <tr><td>Max</td><td>${promo_box[1]['max']}K</td><td>${promo_box[2]['max']}K</td><td>${promo_box[3]['max']}K</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== Distributions ===== -->
+<div class="stitle">Data Distributions</div>
+<div class="g2">
+  <div class="cd"><h3>Sales Distribution ($K)</h3><canvas id="salesDistChart"></canvas></div>
+  <div class="cd"><h3>Market Size Distribution</h3><canvas id="mktSizeChart"></canvas></div>
+  <div class="cd"><h3>Store Age Distribution</h3><canvas id="ageDistChart"></canvas></div>
+  <div class="cd"><h3>Observations by Promotion</h3><canvas id="promoCountChart"></canvas></div>
+</div>
+
+<!-- ===== Promotion Effectiveness ===== -->
+<div class="stitle">Promotion Effectiveness <span>Which promotion drives the most sales?</span></div>
+<div class="g2">
+  <div class="cd"><h3>Average Sales by Promotion</h3><canvas id="promoAvgChart"></canvas></div>
+  <div class="cd"><h3>Sales Variability by Promotion (CV %)</h3><canvas id="promoCvChart"></canvas></div>
+  <div class="cd"><h3>Promotion Effectiveness by Market Size</h3><canvas id="promoSizeChart"></canvas></div>
+  <div class="cd"><h3>Promotion Effectiveness by Week</h3><canvas id="promoWeekChart"></canvas></div>
+  <div class="cd"><h3>Promotion Effectiveness by Store Age</h3><canvas id="promoAgeChart"></canvas></div>
+  <div class="cd"><h3>Weekly Sales Trend</h3><canvas id="weekTrendChart"></canvas></div>
+</div>
+
+<!-- ===== Market Analysis ===== -->
+<div class="stitle">Market &amp; Location Analysis</div>
+<div class="g2">
+  <div class="cd"><h3>Average Sales by Market Size</h3><canvas id="sizeAvgChart"></canvas></div>
+  <div class="cd"><h3>Average Sales by Market ID</h3><canvas id="marketIdChart"></canvas></div>
+  <div class="cd"><h3>Average Sales by Store Age</h3><canvas id="salesAgeChart"></canvas></div>
+  <div class="cd"><h3>Top 10 Locations (Avg Sales)</h3><canvas id="top10Chart"></canvas></div>
+  <div class="cd"><h3>Bottom 10 Locations (Avg Sales)</h3><canvas id="bot10Chart"></canvas></div>
+</div>
+
+<!-- ===== Insights ===== -->
+<div class="stitle">Managerial Insights &amp; MBA Discussion Points</div>
+<div class="insight-grid">
+  <div class="ins">
+    <h4>1. Promotion {best_promo} Is the Clear Winner</h4>
+    <p>Promotion {best_promo} generates <strong>${best_promo_avg}K avg sales</strong> — a <strong>{promo_lift}% lift</strong> over the weakest promotion (Promo {worst_promo} at ${worst_promo_avg}K). This is the strongest signal for resource allocation. <em>Is this lift statistically significant? How would you test this?</em></p>
+  </div>
+  <div class="ins w">
+    <h4>2. Promotion 2 Consistently Underperforms</h4>
+    <p>Across <strong>all market sizes and all weeks</strong>, Promotion 2 produces the lowest average sales. Managers should consider <strong>discontinuing or redesigning</strong> this campaign. <em>What factors could explain why it underperforms?</em></p>
+  </div>
+  <div class="ins b">
+    <h4>3. Market Size Drives Baseline Sales</h4>
+    <p>Large markets average <strong>${size_avg['Large']}K</strong> vs. Medium at <strong>${size_avg['Medium']}K</strong>. Interestingly, Small markets (${size_avg['Small']}K) outperform Medium. <em>Is "market size" capturing something beyond just population? What confounders might exist?</em></p>
+  </div>
+  <div class="ins a">
+    <h4>4. Promotion Impact Varies by Market Size</h4>
+    <p>The Promotion x Market Size chart reveals <strong>interaction effects</strong>. The relative ranking of promotions is consistent, but the absolute gap varies. <em>Should you run different promotions in different market sizes?</em></p>
+  </div>
+  <div class="ins">
+    <h4>5. Sales Are Stable Across Weeks</h4>
+    <p>Average sales barely change from Week 1 to Week 4 (<strong>~$53-54K</strong>). This suggests <strong>no significant time trend or novelty effect</strong> — promotions maintain their impact over the study period.</p>
+  </div>
+  <div class="ins w">
+    <h4>6. Store Age Shows Interesting Patterns</h4>
+    <p>Examine how store age relates to sales. Newer stores and very mature stores may behave differently. <em>Should promotion strategy vary by store maturity?</em></p>
+  </div>
+  <div class="ins b">
+    <h4>7. High Location-Level Variance</h4>
+    <p>The Top 10 vs. Bottom 10 locations chart shows a <strong>wide gap</strong> in performance. Individual store factors (management, local competition, demographics) clearly matter beyond just which promotion is run.</p>
+  </div>
+  <div class="ins a">
+    <h4>8. Experimental Design Discussion</h4>
+    <p>This dataset is structured as a <strong>field experiment</strong>. Each location was assigned one promotion and measured over 4 weeks. <em>What are the strengths and limitations of this design? How would you improve it? What about randomization and control groups?</em></p>
+  </div>
+</div>
+
+</div>
+
+<footer>Marketing Campaign Efficiency Dashboard &bull; MBA Analytics Course &bull; {total_obs} observations &bull; {num_locations} locations &bull; {num_markets} markets</footer>
+
+<script>
+const C = ['#2563eb','#16a34a','#ea580c','#dc2626','#7c3aed','#d97706','#0d9488','#db2777','#3b82f6','#4ade80'];
+const C3 = ['#2563eb','#ea580c','#7c3aed'];
+
+function bar(id,d,lbl,clr) {{
+  new Chart(document.getElementById(id),{{
+    type:'bar',
+    data:{{labels:d.labels,datasets:[{{label:lbl,data:d.values,backgroundColor:clr||C[0],borderRadius:5}}]}},
+    options:{{responsive:true,plugins:{{legend:{{display:false}}}},scales:{{y:{{beginAtZero:true}}}}}}
+  }});
+}}
+
+function pie(id,d) {{
+  new Chart(document.getElementById(id),{{
+    type:'doughnut',
+    data:{{labels:d.labels,datasets:[{{data:d.values,backgroundColor:C.slice(0,d.labels.length)}}]}},
+    options:{{responsive:true,plugins:{{legend:{{position:'bottom'}}}}}}
+  }});
+}}
+
+function hbar(id,d,lbl,clr) {{
+  new Chart(document.getElementById(id),{{
+    type:'bar',
+    data:{{labels:d.labels,datasets:[{{label:lbl,data:d.values,backgroundColor:clr||C.slice(0,d.labels.length),borderRadius:5}}]}},
+    options:{{indexAxis:'y',responsive:true,plugins:{{legend:{{display:false}}}},scales:{{x:{{beginAtZero:true}}}}}}
+  }});
+}}
+
+function grouped(id,data,colors) {{
+  new Chart(document.getElementById(id),{{
+    type:'bar',
+    data:{{
+      labels:data.labels,
+      datasets:data.datasets.map((ds,i) => ({{
+        label:ds.label, data:ds.data,
+        backgroundColor:colors[i%colors.length],
+        borderRadius:4
+      }}))
+    }},
+    options:{{responsive:true,scales:{{y:{{beginAtZero:true}}}},plugins:{{legend:{{position:'bottom'}}}}}}
+  }});
+}}
+
+// Distributions
+bar('salesDistChart',{sj(sales_dist_data)},'Stores','#2563eb');
+pie('mktSizeChart',{sj(market_size_data)});
+bar('ageDistChart',{sj(age_dist_data)},'Stores','#0d9488');
+bar('promoCountChart',{sj(promo_counts_data)},'Observations',C3);
+
+// Promotion effectiveness
+bar('promoAvgChart',{sj(promo_avg_data)},'Avg Sales ($K)',C3);
+bar('promoCvChart',{sj(promo_cv_data)},'CV (%)',C3);
+grouped('promoSizeChart',{sj(promo_size_data)},C3);
+grouped('promoWeekChart',{sj(promo_week_data)},C3);
+grouped('promoAgeChart',{sj(promo_age_data)},C3);
+
+// Week trend
+new Chart(document.getElementById('weekTrendChart'),{{
+  type:'line',
+  data:{{labels:{sj(week_avg_data)}['labels'],
+    datasets:[{{label:'Avg Sales ($K)',data:{sj(week_avg_data)}['values'],
+      borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,.1)',fill:true,
+      tension:.3,pointRadius:5,pointBackgroundColor:'#2563eb'}}]}},
+  options:{{responsive:true,plugins:{{legend:{{display:false}}}},scales:{{y:{{beginAtZero:false}}}}}}
+}});
+
+// Market analysis
+bar('sizeAvgChart',{sj(size_avg_data)},'Avg Sales ($K)',['#ea580c','#2563eb','#16a34a']);
+bar('marketIdChart',{sj(market_avg_data)},'Avg Sales ($K)',C.slice(0,10));
+bar('salesAgeChart',{sj(sales_by_age_data)},'Avg Sales ($K)','#0d9488');
+hbar('top10Chart',{sj(top10_data)},'Avg Sales ($K)','#16a34a');
+hbar('bot10Chart',{sj(bot10_data)},'Avg Sales ($K)','#dc2626');
+</script>
+</body>
+</html>
+"""
+
+# ---------------------------------------------------------------------------
+# 4. Write output
+# ---------------------------------------------------------------------------
+
+out_path = os.path.join(SCRIPT_DIR, "dashboard.html")
+with open(out_path, "w") as f:
+    f.write(html)
+
+print(f"Dashboard written to {out_path}")
+print("Open this file in any web browser to view the interactive dashboard.")
