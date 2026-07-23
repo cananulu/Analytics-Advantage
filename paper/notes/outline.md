@@ -1,0 +1,40 @@
+# Outline (verbatim from Outline.docx, 2026-07-23)
+
+- Introduction
+- Partially observed Markov decision processes are pervasive in operations research (Krishnamurthy, 2016).
+- Give examples: Technology adoption (McCardle 1985, Lipmann and McCardle 1987, Ulu and Smith 2009), machine maintenance (White 1979, Maillart 2006), inventory control (Treharne and Sox, 2002 ) and examples from healthcare such as the prostate biopsy decision (Zhang et al., 2012) and patient-adaptive treatment (Skandari and Shechter, 2021). See Krishnamurthy (2016) for other examples.
+- There are many POMDP models that have monotone optimal policies in that the action increases as the beliefs increase (in a stochastic sense). In technology adoption models as the beliefs about the benefits of the technology improve, optimal policies move towards adoption (McCardle 1985, Ulu and Smith 2009). In machine maintenance models, as the beliefs about the state of the machine worsen, optimal policies move towards replacement (White 1979, Lovejoy 1987). As the beliefs point to cancer, optimal policies move to biopsy decisions (Zhang et al., 2012).
+- Previous literature has studied structural properties of POMDPs. Lovejoy (1987) provides sufficient conditions for the optimal value function to be monotone in the prior (using the likelihood ratio ordering) and the optimal policies to be bounded below by a monotone function as well as for the optimal policies in the machine replacement problem to be monotone. Note: Provide other papers (especially by Vikram Krishnamurthy in Cornell). Give me a list with summaries and I can decide which papers to include.
+- Blackwell ordering is generally used to compare information structures in POMDP models. If the information structure is garbled for each action in the sense of Blackwell (Blackwell, 1951) through a stochastic state independent garbling process, the resulting POMDP has a lower value than the original. Showing that the value function decreases when the information structure is garbled using Blackwell ordering uses the convexity of the value function in POMDPs (Smallwood and Sondik 1973) and does not require monotonicity of the value function or optimal policies. One criticism of Blackwell sufficiency is that it is a very strong requirement and not many information structures can be ordered using Blackwell sufficiency. Note1: Provide citations for this. Note2: Does Krishnamurthy have papers that use Lehmann’s order instead? Provide me with citations and summaries. Also, I would like to cite Athey and Levin (2018). Their set up is different in that the information order is prior dependent. Insert something appropriate here.
+- We will instead focus on POMDP models with monotone value functions and optimal policies. Because we are focusing on a smaller class of POMDPs we can obtain a weaker order among information structures which is implied by Blackwell sufficiency. We say an information structure X is LR-better than information structure Y if Y is obtained by adding a state-dependent garbling to X such that the garbling at a lower state likelihood ratio dominates the garbling at a higher state.  Kim (2023) studies monotone decision problems with a single decision and shows monotone quasi garbling is a necessary and sufficient condition for decision makers to obtain higher expected payoffs. LR-better order we develop implies monotone quasi garbling developed in Kim (2023) where the state-dependent garbling is such that the garbling  distribution at a lower state first order stochastically dominates the garbling at a higher state. Our notion of LR-better uses likelihood ratio dominance among garbling distributions which survives Bayesian updating in POMDP whereas first order stochastic dominance does not (see Ulu and Smith, 2009 for a discussion).
+- Section: Model
+- Monotone POMDPs
+- Note: Insert the set up from latex file with appropriate text.
+- LR better definition
+- Note: Insert the set up from latex file with appropriate text.
+- Main theorem
+- Note: Insert the main theorem and its proof from latex.
+- Section: Relationship between LR better Blackwell Lehman and MQG
+- 2 action models BW=Lehmann=LR-better=MQG under MLR
+- Given MLR,  LR Better  MQG =LehmannBW (provide and example where LR Better MQG but not the reverse, rest is from Kim (2023)
+- Section: Applications in 3 models:
+- Note: Insert the latex figure with the examples
+- Technology adoption model – Normal example – as the technology state improves
+- Using state increasing garbling does not work. Note: Insert explanation from text.
+- Extensions
+- Risk aversion
+- References
+- Athey, S., & Levin, J. (2018). The value of information in monotone decision problems. Research in Economics, 72(1), 101-116.
+- Blackwell, D. (1951). The comparison of experiments. Proc. Second Berkeley Sympos. Math. Statist. Probab., University of California Press, 93–102.
+- Kim, Y. (2023). Comparing information in general monotone decision problems. Journal of Economic Theory, 211, 105679.
+- Krishnamurthy, V. (2016). Partially observed Markov decision processes. Cambridge University Press.
+- Lippman, Steven A., and Kevin F. McCardle. "Does cheaper, faster, or better imply sooner in the timing of innovation decisions?." Management Science 33.8 (1987): 1058-1064.
+- Lovejoy, W. S. (1987). Some monotonicity results for partially observed Markov decision processes. Operations Research, 35(5), 736-743.
+- Maillart, L. M. (2006). Maintenance policies for systems with condition monitoring and obvious failures. Iie Transactions, 38(6), 463-475.
+- McCardle, K. F. (1985). Information acquisition and the adoption of new technology. Management science, 31(11), 1372-1389.
+- Skandari, M. R., & Shechter, S. M. (2021). Patient-type Bayes-adaptive treatment plans. Operations research, 69(2), 574-598.
+- Smallwood, R. D., &  Sondik, E. J. (1973). The optimal control of partially observable Markov processes over a finite horizon. Operations research, 21(5), 1071-1088.
+- Treharne, J. T., & Sox, C. R. (2002). Adaptive inventory control for nonstationary demand and partial information. Management Science, 48(5), 607-624.
+- Ulu, C., & Smith, J. E. (2009). Uncertainty, information acquisition, and technology adoption. Operations Research, 57(3), 740-752.
+- White, C. C. (1979). Optimal control-limit strategies for a partially observed replacement problem. International Journal of Systems Science, 10(3), 321-332.
+- Zhang, J., Denton, B. T., Balasubramanian, H., Shah, N. D., & Inman, B. A. (2012). Optimization of prostate biopsy referral decisions. Manufacturing & Service Operations Management, 14(4), 529-547.

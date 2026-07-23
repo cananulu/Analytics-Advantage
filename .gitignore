@@ -6,3 +6,6 @@ dist/
 build/
 .env
 venv/
+
+# LaTeX build artifacts
+paper/build/
