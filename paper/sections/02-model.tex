@@ -1,23 +1,280 @@
-\section{Model}\label{sec:model}
+% ---------------------------------------------------------------------
+% Section 2: Monotone POMDPs
+% Source: notes/source-material/LRMQG.tex, Sections "Setup", "Beliefs",
+% "The Dynamic Program"; guiding text drafted by Claude.
+% Propositions stated without proof per the authors' instruction;
+% surrounding text points the reader to the relevant literature.
+% ---------------------------------------------------------------------
+\section{Monotone POMDPs}\label{sec:model}
 
-\subsection{Monotone POMDPs}\label{sec:monotone-pomdp}
-% Source: LRMQG.tex "Setup", "Beliefs", "The Dynamic Program":
-%  - states, actions, prior, signal process, transitions, posteriors
-%  - Definition: LR-order and MLR-property
-%  - Proposition: monotonicity of beliefs
-%  - Definition: (LR-)increasing differences
-%  - Lemma: increasing differences results  [item (ii) still a stub in notes]
-%  - Proposition: monotone value functions; Proposition: monotone policies
-%  - Remark: comparison with Lovejoy (1987) [from CU/JS margin discussion]
-\Claude{To be drafted from notes/source-material/LRMQG.tex Sections 1--1.2.}
+\subsection{States, Actions, and Beliefs}\label{sec:setup}
 
-\subsection{Comparing Signal Processes}\label{sec:lr-better}
-% Source: LRMQG.tex "Comparing Signal Processes":
-%  - Definition: LR-better signal processes (LRI order)
-\Claude{To be drafted.}
+We consider a discrete-time, finite-horizon POMDP. The state of the
+world is denoted $\theta \in \Theta$, where $\Theta \subseteq \Re$ is a
+fully ordered set; for example, $\theta$ may represent the benefit of a
+new technology in a technology adoption model or the condition of a
+machine in a machine replacement model. In each period, the decision
+maker (DM) chooses an action $a$ from a finite and fully ordered set
+$A = \{a_0, a_1, \ldots, a_N\}$, where $a_0 \leq a_1 \leq \cdots \leq
+a_N$. The DM cannot observe the state directly. Her beliefs about
+$\theta$ are described by a probability distribution; for ease of
+notation, we assume that this distribution is continuous with a density
+$\pi$ over $\Theta$. For discrete state spaces, we can interpret $\pi$
+as a probability mass function and replace integrals with sums
+\citep{ulu2009uncertainty}.
 
-\subsection{Main Result}\label{sec:main-result}
-% Source: LRMQG.tex Lemma (LR-Better Continuation Values) + proof.
-% OPEN: statement of the main value-comparison theorem
-%       (V*_{X,k} >= V*_{Y,k} by induction on k) to be confirmed.
-\Claude{To be drafted; see notes/open-questions.md item 1.}
+We index periods by the number of periods remaining, $k$. The state may
+change over time: if the state in period $k$ is $\theta_k$ and the DM
+takes action $a$, the next-period state $\theta_{k-1}$ is drawn from the
+conditional distribution $g(\theta_{k-1}|\theta_k, a)$. Given a prior
+$\pi$ on the period-$k$ state, the DM's \emph{next-period prior} is
+\begin{equation}
+\eta(\theta_{k-1}; \pi, a)
+  = \int_{\theta_k \in \Theta} g(\theta_{k-1}|\theta_k, a)\,
+    \pi(\theta_k) \dif \theta_k \ . \label{eq:eta}
+\end{equation}
+Information arrives through a \emph{signal process} $\iX$ that generates
+signals $x \in X$, where $X$ is fully ordered, with likelihood function
+$L_\iX(x|\theta, a)$ describing the probability of observing signal $x$
+given (next-period) state $\theta$ and action $a$. The \emph{predictive
+distribution} for signals and the \emph{posterior distribution} on the
+state given a signal are then
+\begin{align}
+f_\iX(x;\pi, a) &= \int_\theta L_\iX(x|\theta,a)\, \eta(\theta; \pi, a)
+  \dif \theta \ , \label{eq:predictive}\\
+\Pi_\iX(\theta; \pi, x, a) &=
+  \frac{L_\iX(x|\theta,a)\, \eta(\theta; \pi, a)}{f_\iX(x;\pi, a)} \ .
+  \label{eq:posterior}
+\end{align}
+Thus, within a period, beliefs evolve from the prior $\pi$ to the
+next-period prior $\eta(\,\cdot\,; \pi, a)$ through the state
+transition, and then to the posterior $\Pi_\iX(\,\cdot\,; \pi, x, a)$
+after the signal $x$ is observed; this posterior serves as the prior for
+the next period. Because the distributions themselves will serve as
+arguments of value functions, we will frequently suppress the state
+argument and write, e.g., $\eta(\pi,a)$, $f_\iX(\pi,a)$, and
+$\Pi_\iX(\pi,x,a)$ when we consider these distributions as functions of
+the prior $\pi$, the signal $x$, and the action $a$.
+
+When studying monotonicity properties involving distributions, we focus
+on likelihood-ratio (LR) dominance as a stochastic order.
+
+\begin{definition}[LR order and MLR property]\label{def:LR}\quad
+\begin{enumerate}
+\item A distribution $\pi_2$ \emph{LR-dominates} $\pi_1$
+  ($\pi_2 \LR \pi_1$) if for all $\theta_2 \geq \theta_1$,
+  \begin{equation}
+  \frac{\pi_2(\theta_2)}{\pi_1(\theta_2)} \geq
+  \frac{\pi_2(\theta_1)}{\pi_1(\theta_1)} \ . \label{eq:LRdef}
+  \end{equation}
+\item $L_\iX(x|\theta, a)$ satisfies the \emph{MLR property} if
+  $L_\iX(\,\cdot\,|\theta_2, a) \LR L_\iX(\,\cdot\,|\theta_1, a)$
+  whenever $\theta_2 \geq \theta_1$. Similarly, $g(\theta_{k-1}|
+  \theta_k, a)$ satisfies the MLR property if
+  $g(\,\cdot\,|\theta_k^2, a) \LR g(\,\cdot\,|\theta_k^1, a)$ whenever
+  $\theta_k^2 \geq \theta_k^1$.
+\end{enumerate}
+\end{definition}
+
+The ratios in \eqref{eq:LRdef} may be interpreted as being infinite when
+the denominators are zero; equivalently, $\pi_2 \LR \pi_1$ if
+$\pi_2(\theta_2)\pi_1(\theta_1) \geq \pi_2(\theta_1)\pi_1(\theta_2)$
+for all $\theta_2 \geq \theta_1$. LR dominance implies first-order
+stochastic dominance (FOSD) and, unlike FOSD, LR dominance survives
+Bayesian updating and the state transition process, provided the
+likelihoods and state transitions satisfy the MLR property; see
+\citet{ulu2009uncertainty} for a discussion of this distinction and
+examples where FOSD fails to be preserved. The following proposition
+records these properties in our setting. The results are well known
+(see, e.g., \citealt{whitt1979note}; \citealt{lovejoy1987some},
+Lemma~1.2, for the finite-state case; and \citealt{ulu2009uncertainty},
+Propositions~3.2 and 3.4 and \S8), and we state them without proof.
+
+\begin{proposition}[Monotonicity of beliefs]\label{prop:monotone_beliefs}
+For any action $a$, if $L_\iX(x|\theta,a)$ and
+$g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR property, then:
+\begin{enumerate}
+\item $\pi_2 \LR \pi_1$ implies $\eta(\pi_2,a) \LR \eta(\pi_1,a)$,
+  $f_\iX(\pi_2,a) \LR f_\iX(\pi_1,a)$, and
+  $\Pi_\iX(\pi_2, x, a) \LR \Pi_\iX(\pi_1, x, a)$ for all $x$.
+\item For any $\pi$, $x_2 \geq x_1$ if and only if
+  $\Pi_\iX(\pi,x_2,a) \LR \Pi_\iX(\pi,x_1,a)$.
+\end{enumerate}
+\end{proposition}
+
+Part (i) says that more optimistic priors lead to more optimistic
+next-period priors, signal distributions, and posteriors; part (ii) says
+that more favorable signals lead to more optimistic posteriors. This
+``survival'' of the LR order through Bayesian updating and state
+transitions is the key property that drives the recursive arguments in
+the dynamic program below.
+\CU{Mention more properties of the order? e.g., single-crossing
+preservation/dominance??}
+
+\subsection{The Dynamic Program}\label{sec:dp}
+
+The DM earns a reward $r(\theta, a)$ when taking action $a$ in state
+$\theta$; given beliefs $\pi$, the expected reward is
+\begin{equation}
+r(\pi,a) = \int_{\theta \in \Theta} r(\theta,a)\, \pi(\theta)
+  \dif \theta \ . \label{eq:expreward}
+\end{equation}
+Rewards are discounted with a discount factor $\delta \in [0,1]$. The
+DM's optimal value function with $k$ periods remaining is defined by the
+dynamic programming recursion: let $V_{\iX,0}^*(\pi) = 0$ and, for
+$k > 0$,
+\begin{align}
+V_{\iX,k}(\pi,a) &= r(\pi,a) +
+  \delta \ev{V_{\iX,k-1}^*(\Pi_\iX(\pi,\tilde{x},a))} \ ,
+  \label{eq:Vka}\\
+V_{\iX,k}^*(\pi) &= \max_{a\in A} \left\{ V_{\iX,k}(\pi,a) \right\} \ ,
+  \label{eq:Vk}
+\end{align}
+where the expected continuation value is taken with respect to the
+predictive distribution,
+\begin{equation}
+\ev{V_{\iX,k-1}^*(\Pi_\iX(\pi,\tilde{x},a))}
+  = \int_{x\in X} V_{\iX,k-1}^*(\Pi_\iX(\pi,x,a))\,
+    f_\iX(x; \pi, a) \dif x \ . \label{eq:contval}
+\end{equation}
+An \emph{action selection} $\alpha_{k}(\pi)$ chooses an action
+$a \in A$ in period $k$ for a given prior $\pi$; a \emph{policy}
+$\boldsymbol{\alpha} = (\alpha_{k}, \ldots, \alpha_{0})$ is a sequence
+of action selections. An action selection $\alpha_{k}^*$ is optimal if
+$V_{\iX,k}^*(\pi) = V_{\iX,k}(\pi,\alpha_{k}^*(\pi))$ for all $\pi$,
+and a policy $\boldsymbol{\alpha}^*$ is optimal if each of its action
+selections is optimal.
+
+We say a function $u(\pi)$ defined on distributions is
+\emph{LR-increasing} if $u(\pi_2) \geq u(\pi_1)$ whenever
+$\pi_2 \LR \pi_1$. Our first structural result states that, with
+increasing rewards and MLR likelihoods and transitions, the value
+functions are LR-increasing: LR improvements in the DM's beliefs make
+the DM better off. The proof is by induction on $k$, mirroring the
+proof of Proposition~1 of \citet{lovejoy1987some} in the finite-state
+case and Proposition~3.6 of \citet{ulu2009uncertainty} in the technology
+adoption model: expected rewards \eqref{eq:expreward} are LR-increasing
+because $r(\theta,a)$ is increasing in $\theta$ and LR dominance implies
+FOSD; the expected continuation value \eqref{eq:contval} is
+LR-increasing by Proposition~\ref{prop:monotone_beliefs} and the
+induction hypothesis; and the maximum \eqref{eq:Vk} of LR-increasing
+functions is LR-increasing. We omit the details.
+
+\begin{proposition}[Monotonicity of value functions]\label{prop:monotone_values}
+If, for all actions $a$, $r(\theta, a)$ is increasing in $\theta$ and
+$L_\iX(x|\theta,a)$ and $g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR
+property, then:
+\begin{enumerate}
+\item $r(\pi,a)$ and $V_{\iX,k}(\pi,a)$ are LR-increasing for all $a$
+  and $k$, and
+\item $V_{\iX,k}^*(\pi)$ is LR-increasing for all $k$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Comparison with \citealt{lovejoy1987some}]\label{rem:lovejoy}
+Proposition~\ref{prop:monotone_values} is a general-state-space analog
+of Proposition~1 of \citet{lovejoy1987some}, and the assumptions map
+to his as follows. We assume that the state transition process
+$g(\theta_{k-1}|\theta_k,a)$ satisfies the MLR property; Lovejoy's
+Lemma~1.3(1) shows that this (his TP$_2$ condition on the transition
+matrix) is a sufficient condition for the monotonicity of next-period
+priors required in his Lemma~1.2(2)---a condition that is, in his
+finite-state setting, also necessary. Lovejoy's Lemma~1.3(2) provides
+conditions under which next-period priors are LR-increasing in the
+action; neither Lovejoy's Proposition~1 nor our
+Proposition~\ref{prop:monotone_values} requires this assumption.
+\end{remark}
+
+\subsection{Monotone Optimal Policies}\label{sec:policies}
+
+To establish the monotonicity of optimal policies, we introduce the
+notion of increasing differences, also known as supermodularity.
+
+\begin{definition}[Increasing differences]\label{def:incdiff}\quad
+\begin{enumerate}
+\item A function $u(\theta,a)$ has \emph{increasing differences} if
+  $u(\theta_2,a_2)-u(\theta_2,a_1) \geq u(\theta_1,a_2)-u(\theta_1,a_1)$
+  whenever $\theta_2 \geq \theta_1$ and $a_2 \geq a_1$.
+\item A function $u(\pi,a)$ has \emph{LR-increasing differences} if
+  $u(\pi_2,a_2)-u(\pi_2,a_1) \geq u(\pi_1,a_2)-u(\pi_1,a_1)$ whenever
+  $\pi_2 \LR \pi_1$ and $a_2 \geq a_1$.
+\item The state transitions defined by $L_\iX(x|\theta,a)$ and
+  $g(\theta_{k-1}|\theta_k,a)$ satisfy a \emph{stochastic version of
+  increasing differences} if
+  \begin{equation}
+  \ev{u(\Pi_\iX(\pi_2,\tilde{x},a_2))}-\ev{u(\Pi_\iX(\pi_2,\tilde{x},a_1))}
+  \geq
+  \ev{u(\Pi_\iX(\pi_1,\tilde{x},a_2))}-\ev{u(\Pi_\iX(\pi_1,\tilde{x},a_1))}
+  \label{eq:stochincdiff}
+  \end{equation}
+  for all LR-increasing functions $u(\pi)$, whenever $\pi_2 \LR \pi_1$
+  and $a_2 \geq a_1$.
+\end{enumerate}
+\end{definition}
+
+Note that the functions $u(\pi)$ in part (iii) are assumed to be
+LR-increasing; this could be replaced by other conditions, e.g.,
+LR-increasing and convex, or many other choices.
+
+The next lemma records two standard consequences of increasing
+differences. Part (i) shows that increasing differences in the state
+carry over to LR-increasing differences in beliefs when taking
+expectations. Part (ii) is the standard monotone comparative statics
+result---increasing differences imply increasing optimal
+selections---adapted to the LR order on beliefs; it is a special case
+of Lemma~6.1 of \citet{topkis1978minimizing}, and parallels Lemma~2.1
+of \citet{lovejoy1987some}. \Claude{The statement of part (ii) below
+was drafted by me---the notes contained only the placeholder
+``increasing differences to increasing policies.'' Please verify the
+statement (in particular, the use of the greatest maximizer to obtain a
+well-defined monotone selection).}
+
+\begin{lemma}\label{lemma:incdiff}\quad
+\begin{enumerate}
+\item If $u(\theta,a)$ has increasing differences, then
+  $u(\pi,a) = \int_{\theta \in \Theta} u(\theta,a) \pi(\theta)
+  \dif \theta$ has LR-increasing differences.
+\item If $u(\pi,a)$ has LR-increasing differences, then the greatest
+  maximizer $\alpha^u(\pi) = \max\, \mathrm{argmax}_{a \in A}\,
+  u(\pi,a)$ is LR-increasing: $\pi_2 \LR \pi_1$ implies
+  $\alpha^u(\pi_2) \geq \alpha^u(\pi_1)$. In particular, if
+  $L_\iX(x|\theta,a)$ and $g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR
+  property, then for any prior $\pi$ and action $a$, the induced signal
+  selection $\alpha^u(\Pi_\iX(\pi,x,a))$ is increasing in the observed
+  signal $x$.
+\end{enumerate}
+\end{lemma}
+
+The second claim in part (ii) follows by combining the first claim with
+Proposition~\ref{prop:monotone_beliefs}(ii): more favorable signals
+lead to LR-larger posteriors and hence to larger selected actions. We
+can now state the monotone policy result. As with
+Proposition~\ref{prop:monotone_values}, the proof of part (i) is by
+induction on $k$---the reward term has LR-increasing differences by
+Lemma~\ref{lemma:incdiff}(i) and the continuation term satisfies
+\eqref{eq:stochincdiff} with $u = V_{\iX,k-1}^*$, which is
+LR-increasing by Proposition~\ref{prop:monotone_values}---and part (ii)
+follows from part (i) via Lemma~\ref{lemma:incdiff}(ii). We omit the
+details. \Claude{Confirm you want this proof sketch in text rather
+than a full proof in an appendix; OR will ultimately expect complete
+proofs in an e-companion.}
+
+\begin{proposition}[Monotonicity of optimal policies]\label{prop:monotone_policies}
+Suppose (i) $r(\theta,a)$ is increasing in $\theta$ for all $a$ and has
+increasing differences, and (ii) $L_\iX(x|\theta,a)$ and
+$g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR property for all $a$ and
+satisfy the stochastic version of increasing differences. Then:
+\begin{enumerate}
+\item $V_{\iX,k}(\pi,a)$ has LR-increasing differences for all $k$.
+\item There exists an optimal policy $\boldsymbol{\alpha}_{\iX}^*$ that
+  is LR-increasing.
+\end{enumerate}
+\end{proposition}
+
+Propositions \ref{prop:monotone_values} and
+\ref{prop:monotone_policies} describe the class of models we will call
+\emph{monotone POMDPs}: models in which values increase and optimal
+actions shift upward as beliefs improve in the LR order. As discussed
+in the introduction, many POMDP models in operations research fall in
+this class. In the remainder of the paper, we study when one signal
+process is more valuable than another in such models.

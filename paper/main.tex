@@ -1,63 +1,53 @@
-% =====================================================================
-% On the Value of Information in Monotone POMDPs
-% Canan Ulu and Jim Smith
-%
-% Target venue: Operations Research (INFORMS).
-% Working draft uses the authors' article-style preamble (from
-% notes/source-material/LRMQG.tex); switch to informs4.cls for
-% submission (see notes/open-questions.md).
-%
-% Build:  latexmk -pdf -output-directory=build main.tex
-% =====================================================================
-\documentclass[11pt,onecolumn]{article}
+%% =====================================================================
+%% On the Value of Information in Monotone POMDPs
+%% Canan Ulu and James E. Smith
+%%
+%% Working draft in the INFORMS OPRE author template (informs4.cls).
+%% Build:  latexmk -pdf main.tex   (run from paper/; outputs to build/
+%%         via latexmkrc if configured, or pass -output-directory=build)
+%%
+%% Draft conventions:
+%%   \CU{...} purple  - comments by Canan Ulu (carried from notes)
+%%   \JS{...} blue    - comments by Jim Smith (carried from notes)
+%%   \Claude{...} teal - drafting notes by Claude: items needing the
+%%                       authors' verification. Remove before submission.
+%% =====================================================================
+\documentclass[opre]{informs4}
 
-\usepackage{fullpage}
-\usepackage{graphicx}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{enumerate}
-\usepackage{verbatim}
-\usepackage{authblk}
+\usepackage{eqndefns-left}
+% Draft setting: relax the equation-width check from the published
+% two-column width (240pt) to the manuscript width (470pt). Before
+% submission, remove the two lines below and break any equations the
+% checker then flags. (Tracked in notes/review-log.md.)
+\setlength{\maxdseq}{470pt}
+\EquationErrorBoxdimen=470pt
+\RequirePackage{tgtermes}
+\RequirePackage{newtxtext}
+\RequirePackage{newtxmath}
+\RequirePackage{bm}
+
+\OneAndAHalfSpacedXII
+
 \usepackage{array}
-\usepackage[authoryear,round]{natbib}
-\usepackage{setspace}
-\usepackage{color}
-\usepackage[plainpages=false]{hyperref}
-\usepackage{dsfont}
-\usepackage{sectsty}
-\usepackage{algorithm2e}
-\usepackage{secdot}
-\usepackage[hang,flushmargin]{footmisc}
-\usepackage{rotating}
+\usepackage{booktabs}
 \usepackage{multirow}
-\usepackage[left=1in,right=1in,top=1in,bottom=1in,footnotesep=0.5cm]{geometry}
 \usepackage{pdflscape}
-\usepackage{color,soul}
+\usepackage{color}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric}
-\usepackage{subcaption}
-\usepackage{booktabs}
-\usepackage{autonum}
-\usepackage[normalem]{ulem}
-\sectionpunct{section}{. }
-\sectionpunct{subsection}{. }
-\usepackage{cleveref}
 
-% ---------------------------------------------------------------------
-% Theorem environments
-% ---------------------------------------------------------------------
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{assumption}{Assumption}[section]
-\newtheorem{corollary}{Corollary}[section]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{example}{Example}[section]
-\theoremstyle{remark}
-\newtheorem{remark}{Remark}[section]
+% Natbib setup for author-year style (template default)
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+\EquationsNumberedThrough
+\TheoremsNumberedThrough
+\ECRepeatTheorems
 
 % ---------------------------------------------------------------------
 % Notation macros (carried over from the authors' notes)
@@ -70,9 +60,15 @@
 \newcommand{\iXY}[0]{{\mathbb{XY}}}
 \newcommand{\cev}[2]{\hspace{+0.20ex}\mathbb{E}\!\left[ \, #1 \, \middle| \, #2 \, \right]}
 \newcommand\dif{\mathop{}\!\mathrm{d}}
+\newcommand{\LR}{\succeq_{LR}}
+\newcommand{\LRI}{\succeq_{LRI}}
+\newcommand{\FOSD}{\succeq_{FOSD}}
+\newcommand{\MQG}{\succeq_{MQG}}
+\newcommand{\BW}{\succeq_{B}}
+\newcommand{\Leh}{\succeq_{L}}
 
 % ---------------------------------------------------------------------
-% TikZ decision-tree styles (for the technology adoption figure)
+% TikZ decision-tree styles (technology adoption figure)
 % ---------------------------------------------------------------------
 \tikzset{
   chance/.style={circle, draw, minimum size=4.5mm, inner sep=0pt},
@@ -116,34 +112,67 @@
 % ---------------------------------------------------------------------
 \def\CU#1{\textcolor{purple}{#1}}
 \def\JS#1{\textcolor{blue}{#1}}
-\def\Claude#1{\textcolor{teal}{[Claude: #1]}}
+\def\Claude#1{{\color[rgb]{0,0.5,0.5}[Claude: #1]}}
 \renewcommand{\labelenumi}{\normalfont(\roman{enumi})}
 
-\doublespacing
-
+%%%%%%%%%%%%%%%%
 \begin{document}
+%%%%%%%%%%%%%%%%
 
-\title{On the Value of Information in Monotone POMDPs}
-\author{Canan Ulu\thanks{McDonough School of Business, Georgetown University. \Claude{confirm affiliations, ordering, and contact footnotes}} }
-\author{James E. Smith\thanks{\Claude{affiliation to confirm}}}
-\date{\today}
+\RUNAUTHOR{Ulu and Smith}
+\RUNTITLE{Value of Information in Monotone POMDPs}
+\TITLE{On the Value of Information in Monotone POMDPs}
+
+\ARTICLEAUTHORS{%
+\AUTHOR{Canan Ulu}
+\AFF{McDonough School of Business, Georgetown University, \EMAIL{cu50@georgetown.edu}}
+\AUTHOR{James E. Smith}
+\AFF{\Claude{Affiliation and email to confirm}}
+}
+
+\ABSTRACT{%
+Partially observed Markov decision processes (POMDPs) in operations
+research frequently possess monotone structure: value functions increase
+and optimal actions shift upward as beliefs about the underlying state
+improve. We study when one signal process is more valuable than another
+in such monotone POMDPs. The classical answer, based on Blackwell's
+comparison of experiments, requires one signal process to be a
+state-independent garbling of the other---a demanding condition that
+ranks few signal processes. Focusing on monotone POMDPs allows us to
+relax this requirement. We say a signal process is \emph{LR-better} than
+another if the latter can be obtained from the former by a
+state-dependent garbling whose distributions are ordered by likelihood
+ratios: the garbling in a lower state likelihood-ratio dominates the
+garbling in a higher state. This order is implied by Blackwell
+sufficiency and, in turn, implies the monotone quasi-garbling order of
+\citet{kim2023comparing}, which uses first-order stochastic dominance
+and characterizes the value of information in static monotone decision
+problems. Likelihood-ratio dominance, unlike first-order stochastic
+dominance, survives Bayesian updating and state transitions, which is
+what makes the stronger order the appropriate one for dynamic problems:
+we show that in a monotone POMDP, an LR-better signal process yields a
+higher optimal value function at every horizon. We illustrate the
+results with technology adoption, machine replacement, and medical
+decision-making examples. \Claude{Abstract drafted; to be revised with
+the paper.}
+}%
+
+\KEYWORDS{partially observed Markov decision processes; value of
+information; Blackwell comparison of experiments; likelihood-ratio
+dominance; monotone policies; garbling}
+
 \maketitle
-
-\begin{abstract}
-\Claude{Abstract to be drafted once the introduction is in place.}
-\end{abstract}
 
 \input{sections/01-introduction}
 \input{sections/02-model}
-\input{sections/03-orders}
-\input{sections/04-applications}
-\input{sections/05-extensions}
+\input{sections/03-comparison}
+\input{sections/04-orders}
+\input{sections/05-applications}
 \input{sections/06-conclusion}
 
-\bibliographystyle{plainnat} % switch to informs2014 style for submission
-\bibliography{refs}
+% Acknowledgments to be added.
 
-\appendix
-\input{sections/99-appendix-proofs}
+\bibliographystyle{informs2014}
+\bibliography{refs}
 
 \end{document}

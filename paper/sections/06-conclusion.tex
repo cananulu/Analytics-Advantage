@@ -1,2 +1,39 @@
+% ---------------------------------------------------------------------
+% Section 6: Conclusion. Drafted by Claude; the outline's "Extensions:
+% risk aversion" item is folded in as future work pending material.
+% ---------------------------------------------------------------------
 \section{Conclusion}\label{sec:conclusion}
-\Claude{To be drafted last.}
+
+Blackwell's comparison of experiments ranks information structures for
+all decision problems, but ranks few pairs of information structures.
+This paper develops a comparison tailored to monotone POMDPs---the
+class of partially observed dynamic programs, common in operations
+research, in which value functions and optimal policies are monotone
+in likelihood-ratio-ordered beliefs. The LR-better order permits the
+garbling that degrades a signal process to depend on the state,
+requiring only that the garbling in a lower state likelihood-ratio
+dominate the garbling in a higher state. The order is implied by
+Blackwell sufficiency, implies the monotone quasi-garbling order that
+characterizes the value of information in static monotone decision
+problems \citep{kim2023comparing}, and---because likelihood-ratio
+dominance survives Bayesian updating and state transitions---delivers
+value-function comparisons at every horizon of a monotone POMDP. Our
+examples show that the reversely monotone structure of the garbling is
+essential: when noise instead intensifies with the state, value
+functions can cross and no prior-free ranking exists.
+
+Several extensions merit further study. First, our analysis assumes a
+risk-neutral DM maximizing expected discounted rewards; extending the
+comparison to risk-averse DMs would require tracking how the LR-better
+order interacts with concave utility, paralleling the way
+\citet{athey2018value} treat payoff functions with concave incremental
+returns in static problems. \Claude{The outline lists ``risk
+aversion'' as an extension but no material was provided; this sentence
+is a placeholder framing---replace or expand when you decide the
+scope.} Second, the exact gap between the LR-better and monotone
+quasi-garbling orders in dynamic problems remains to be
+characterized: is the stronger order necessary for value comparisons
+in monotone POMDPs, or merely sufficient? Third, it would be useful to
+develop further families of signal processes---beyond the Normal,
+Poisson, and Uniform families presented here---for which the
+LR-better comparison can be verified directly from model primitives.

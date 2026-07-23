@@ -1,0 +1,159 @@
+% ---------------------------------------------------------------------
+% Section 4: Relationships among information orders.
+% Drafted by Claude from Kim (2023, JET), per the authors' instruction,
+% with \Claude{} comments flagging items for the authors to verify.
+% Kim's definitions and results are restated in this paper's notation:
+% states theta, signal processes X (better) and Y (worse); Kim's F and
+% G correspond to our L_X and L_Y. Static comparison: the action/period
+% arguments are suppressed throughout this section.
+% ---------------------------------------------------------------------
+\section{Relationships Among Information Orders}\label{sec:orders}
+
+In this section, we relate the LR-better order to three information
+orders from the literature: Blackwell's garbling order
+\citep{blackwell1951comparison}, Lehmann's accuracy order
+\citep{lehmann1988comparing}, and the monotone quasi-garbling order of
+\citet{kim2023comparing}. Throughout this section, we compare the
+signal processes in a single period and suppress the action argument;
+in the dynamic model, the comparisons are assumed to hold for each
+action. We write $F_\iX(x|\theta)$ for the cumulative distribution
+function associated with the likelihood $L_\iX(x|\theta)$, and
+similarly for $\iY$.
+
+We begin by recalling the three orders. \citet{kim2023comparing}
+introduces the monotone quasi-garbling order by relaxing Blackwell's
+requirement that the added noise be independent of the state, while
+restricting the state dependence to be \emph{reversely monotone} in
+the sense of FOSD.
+
+\begin{definition}[Garbling and monotone quasi-garbling]\label{def:BW-MQG}\quad
+\begin{enumerate}
+\item \citep{blackwell1951comparison} $\iX$ is \emph{Blackwell-better}
+  than $\iY$ ($\iX \BW \iY$) if there exists a conditional probability
+  distribution $P(y|x)$ such that
+  $L_\iY(y|\theta) = \int P(y|x) L_\iX(x|\theta) \dif x$ for all
+  $y \in Y$ and $\theta$.
+\item \citep[Definition~3]{kim2023comparing} $\iX$ is a \emph{monotone
+  quasi-garbling improvement} over $\iY$ ($\iX \MQG \iY$) if there
+  exists a conditional probability distribution $P(y|x,\theta)$ such
+  that (a) $L_\iY(y|\theta) = \int P(y|x,\theta) L_\iX(x|\theta)
+  \dif x$ for all $y \in Y$ and $\theta$, and (b)
+  $P(\,\cdot\,|x,\theta_1) \FOSD P(\,\cdot\,|x,\theta_2)$ for all
+  $x \in X$ and $\theta_2 \geq \theta_1$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Lehmann accuracy]\label{def:Lehmann}
+\citep{lehmann1988comparing, kim2023comparing} $\iX$ is \emph{more
+Lehmann accurate} than $\iY$ ($\iX \Leh \iY$) if, for all $y \in Y$,
+the function
+$\phi(\theta; y) = \sup\{x \,|\, F_\iX(x|\theta) \leq
+F_\iY(y|\theta)\}$ is increasing in $\theta$.
+\end{definition}
+
+Lehmann's order has a simple interpretation: $\phi(\,\cdot\,; y)$ maps
+a signal $y$ from $\iY$ to the signal from $\iX$ at the same
+conditional quantile; $\iX$ is more accurate if this
+quantile-matching map moves in the same direction as the state.
+\citet{lehmann1988comparing} shows that, when payoffs and likelihoods
+have appropriate monotone structure, more accurate experiments are
+more valuable in single-decision problems; \citet{persico2000information}
+and \citet{quah2009comparative} extend the reach of this result to
+broader classes of monotone decision problems.
+\citet{kim2023comparing} shows that, under the MLR property, Lehmann's
+order is \emph{equivalent} to the monotone quasi-garbling order, which
+gives Lehmann's condition a garbling interpretation.
+
+The definitions of the four orders differ only in what they require of
+the garbling kernel $P$ (or, for Lehmann's order, in avoiding a kernel
+altogether): Blackwell requires state independence, the LR-better
+order requires the state dependence to be reversely monotone in the LR
+sense, and monotone quasi-garbling requires it to be reversely
+monotone in the weaker FOSD sense. The following proposition collects
+the resulting relationships.
+
+\begin{proposition}[Relationships among the orders]\label{prop:orders}\quad
+\begin{enumerate}
+\item $\iX \BW \iY$ implies $\iX \LRI \iY$, and $\iX \LRI \iY$ implies
+  $\iX \MQG \iY$. Neither implication can be reversed.
+\item If $L_\iX$ satisfies the MLR property, then $\iX \MQG \iY$ if
+  and only if $\iX \Leh \iY$ \citep[Theorem~1]{kim2023comparing}.
+\item Without the MLR property on $L_\iX$, neither $\iX \BW \iY$ nor
+  $\iX \MQG \iY$ implies $\iX \Leh \iY$
+  \citep[Proposition~4]{kim2023comparing}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}{Proof of (i).}
+If $\iX \BW \iY$ with a state-independent kernel $P(y|x)$, then
+$P(y|x,\theta) = P(y|x)$ satisfies condition (ii) of
+Definition~\ref{def:LRI} with equality, so $\iX \LRI \iY$. If
+$\iX \LRI \iY$, then condition (ii) of Definition~\ref{def:LRI} states
+that $P(\,\cdot\,|x,\theta_1) \LR P(\,\cdot\,|x,\theta_2)$ for
+$\theta_2 \geq \theta_1$; since LR dominance implies FOSD, the same
+kernel satisfies Definition~\ref{def:BW-MQG}(ii), so $\iX \MQG \iY$.
+For the strictness of the first implication, the Normal example of
+Section~\ref{sec:examples} with a strictly decreasing bias function
+$d$ provides an LR-better garbling that is not a Blackwell garbling.
+\Claude{Strictness claims to be completed: (a) for
+$\BW \Rightarrow \LRI$, we should verify formally that the Normal
+example with decreasing $d$ is not Blackwell-comparable (intuitively
+the noise is state dependent, but a different state-independent kernel
+could conceivably generate the same $L_\iY$---this needs an argument);
+(b) for $\LRI \Rightarrow \MQG$, we need an example of a garbling
+kernel that is reversely FOSD-monotone but not reversely
+LR-monotone---and, ideally, such that no LR-monotone kernel generates
+the same $\iY$. Your note at the end of the Uniform example in the
+source file (mixtures of deterministic garblings, and uniform
+garblings on $[x, x+d(\theta)]$) suggests candidate constructions.
+Please advise which example you would like to develop.}
+\Halmos
+\end{proof}
+
+Under the MLR property, then, the orders are nested:
+\begin{equation}
+\iX \BW \iY \ \Rightarrow\ \iX \LRI \iY \ \Rightarrow\
+\iX \MQG \iY \ \Leftrightarrow\ \iX \Leh \iY \ .
+\label{eq:nesting}
+\end{equation}
+\citet{kim2023comparing} shows that, in \emph{static} monotone
+decision problems, the monotone quasi-garbling order characterizes the
+value of information: it is sufficient for one signal process to yield
+a higher expected payoff for all decision makers with monotone
+decision problems (his Theorem~2), and it is also necessary when the
+class of decision problems is rich enough to include all simple
+hypothesis-testing problems (his Theorem~3 and Corollary~1). In view
+of \eqref{eq:nesting}, one might hope that the same order would
+suffice for \emph{dynamic} monotone decision problems. The reason we
+work with the stronger LR-better order is the same reason the LR order
+replaces FOSD throughout Section~\ref{sec:model}: an FOSD comparison
+between garbling distributions need not survive Bayesian updating and
+state transitions, while the LR comparison does. The two-state
+example of Section~\ref{sec:tech-example} illustrates what can go
+wrong when the reversely monotone structure fails; whether the
+monotone quasi-garbling order itself is sufficient for value
+comparisons in monotone POMDPs---or whether the gap between
+$\LRI$ and $\MQG$ is essential in dynamic problems---is an open
+question we intend to settle. \Claude{This last sentence states the
+research question implied by your outline; if you already have a
+counterexample showing MQG is \emph{not} sufficient in the dynamic
+model, it belongs here and would sharpen the paper's contribution
+considerably. Please advise.}
+
+Two special cases deserve mention. First, when there are only two
+states, every pair of MLR signal processes ordered by any of the above
+criteria is comparable in a particularly transparent way;
+\citet{jewitt2007information} shows that, under the MLR property,
+Lehmann's order is equivalent to Blackwell dominance holding on all
+dichotomies (all two-state restrictions) of the model. Second, your
+outline records the claim that in models with \emph{two actions}, the
+four orders coincide under the MLR property.
+\Claude{I have not found this two-action equivalence stated in Kim
+(2023)---his results connect MQG, Lehmann, and Blackwell but not in a
+form specific to binary-action problems; the dichotomy result of
+Jewitt (2007) concerns two \emph{states}, not two actions. If the
+two-action claim is a result you intend to prove, I will set it up as
+a proposition with a proof to be supplied; please clarify the intended
+statement (e.g., ``for two-action monotone decision problems, $\iX$
+yields a higher value than $\iY$ for all priors and payoffs if and
+only if $\iX \MQG \iY$'') and its provenance.}

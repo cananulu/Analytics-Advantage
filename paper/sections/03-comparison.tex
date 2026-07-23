@@ -1,0 +1,292 @@
+% ---------------------------------------------------------------------
+% Section 3: Comparing signal processes; LR-better order; main theorem.
+% Source: LRMQG.tex "Comparing Signal Processes" (definition, lemma,
+% and the authors' proof of the lemma). The main theorem statement and
+% its induction proof were drafted by Claude per the authors'
+% instruction and are flagged for verification.
+% ---------------------------------------------------------------------
+\section{Comparing Signal Processes}\label{sec:comparison}
+
+We now turn to the central question of the paper: when is one signal
+process more valuable than another in a monotone POMDP? Consider two
+signal processes $\iX$ and $\iY$ generating signals $x \in X$ and
+$y \in Y$ with likelihoods $L_\iX(x|\theta,a)$ and $L_\iY(y|\theta,a)$,
+respectively, where $X$ and $Y$ are fully ordered. The two processes
+provide information about the same underlying states, and the two
+POMDPs are otherwise identical: they share the same state space,
+actions, rewards, state transitions $g$, and discount factor, and the
+value functions $V_{\iY,k}(\pi,a)$ and $V_{\iY,k}^*(\pi)$ are defined
+by the recursion \eqref{eq:Vka}--\eqref{eq:Vk} with $\iY$ in place of
+$\iX$. If the DM observes signals from $\iX$ instead of $\iY$, when is
+she better off?
+
+The classical answer is given by Blackwell's comparison of experiments
+\citep{blackwell1951comparison}: if $\iY$ can be obtained from $\iX$ by
+adding noise that is independent of the state---that is, if $\iY$ is a
+\emph{garbling} of $\iX$---then $\iX$ is more valuable in \emph{every}
+decision problem. In the POMDP setting, the corresponding result---that
+garbling the signal process for each action lowers the optimal value
+function---follows from the convexity of the value function in the
+prior \citep{smallwood1973optimal} and requires no monotonicity
+structure. The price of this generality is that the Blackwell order is
+very incomplete: most pairs of signal processes cannot be ranked. By
+restricting attention to monotone POMDPs, we can obtain a weaker
+order---one that ranks more signal processes---that is implied by
+Blackwell sufficiency.
+
+\subsection{LR-Better Signal Processes}\label{sec:lr-better}
+
+\begin{definition}[LR-better signal processes]\label{def:LRI}
+We say that a signal process $\iX$ is \emph{LR-better} than signal
+process $\iY$ (denoted $\iX \LRI \iY$) if there exists a conditional
+probability distribution $P(y|x,\theta)$ such that
+\begin{enumerate}
+\item $L_\iY(y|\theta) = \int P(y|x,\theta) L_\iX(x|\theta) \dif x$
+  for all $y \in Y$ and $\theta$, and
+\item $P(\,\cdot\,|x,\theta_1) \LR P(\,\cdot\,|x,\theta_2)$ for all
+  $x \in X$ and $\theta_2 \geq \theta_1$.
+\end{enumerate}
+\end{definition}
+
+\Claude{In the dynamic model the likelihoods depend on the action $a$.
+I have stated the definition with $a$ suppressed, as in your notes; I
+assume the intended reading is that conditions (i)--(ii) hold for each
+action $a$, with a garbling kernel $P_a(y|x,\theta)$ that may depend on
+$a$. Please confirm, and I will make the dependence explicit if you
+prefer.}
+
+Condition (i) says that $\iY$ is obtained from $\iX$ by adding noise
+through the garbling kernel $P$; unlike in Blackwell's comparison, the
+noise may depend on the state $\theta$. Condition (ii) disciplines this
+state dependence: the garbling distribution in a lower state
+LR-dominates the garbling distribution in a higher state. In other
+words, the added noise is \emph{reversely monotone}---it tends to
+produce higher $y$ signals in lower states and lower $y$ signals in
+higher states, and thus degrades the information carried by the
+signal. When $P(y|x,\theta)$ does not depend on $\theta$, condition
+(ii) holds trivially (every distribution LR-dominates itself), and
+$\iX \LRI \iY$ reduces to Blackwell's garbling condition. We study the
+relationship between the LR-better order and other information orders
+in Section~\ref{sec:orders}.
+
+\subsection{Main Result}\label{sec:main-result}
+
+Our main result states that in a monotone POMDP, an LR-better signal
+process yields a higher optimal value function at every horizon. The
+key step is the following lemma, which compares the expected optimal
+continuation values under the two signal processes for a common payoff
+function with LR-increasing differences.
+
+\begin{lemma}[LR-better continuation values]\label{lemma:LRI-ContVal}
+Suppose
+\begin{enumerate}
+\item $u(\pi,a)$ has LR-increasing differences,
+\item $L_\iX(x|\theta,a)$, $L_\iY(y|\theta,a)$, and
+  $g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR property for all $a$,
+  and
+\item $\iX \LRI \iY$,
+\end{enumerate}
+and let $u^*(\pi) = \max_{a\in A} u(\pi, a)$. Then, for all $\pi$ and
+$a$,
+\begin{equation}
+\ev{u^*(\Pi_\iX(\pi,\tilde{x},a))} \geq
+\ev{u^*(\Pi_\iY(\pi,\tilde{y},a))} \ . \label{eq:lemma_result}
+\end{equation}
+\end{lemma}
+
+The idea of the proof is as follows. We construct a joint signal model
+in which the $\iY$ signal is generated from the $\iX$ signal through
+the garbling kernel $P$, so that observing $(x,y)$ is at least as
+informative as observing $y$ alone. An optimal action selection based
+on $y$ alone is feasible in the joint model, and---because the
+selection is monotone and the garbled posteriors move \emph{down} in
+the LR order as $y$ increases for a fixed $x$---we show that, given
+$x$, a \emph{constant} action outperforms it. Averaging over signals
+then delivers \eqref{eq:lemma_result}. The formal proof follows.
+
+\begin{proof}{Proof.}
+Fix $\pi$ and $a$ and let $\alpha_\iY^*(\Pi_\iY(\pi, y,a))$ be an
+optimal action selection that is increasing in $y$ and such that
+$$u^*(\Pi_\iY(\pi,\tilde{y},a)) =
+u(\Pi_\iY(\pi,\tilde{y},a),\alpha_\iY^*(\Pi_\iY(\pi, \tilde{y},a)))\ .$$
+Such an optimal increasing action selection exists because $u(\pi,a)$
+is assumed to have LR-increasing differences and the posteriors
+$\Pi_\iY(\pi,y,a)$ are LR-increasing in $y$; this follows from the
+supermodularity argument of Lemma~\ref{lemma:incdiff}(ii). Similarly,
+let $\alpha_\iX^*(\cdot)$ be an optimal action selection for $\iX$.
+
+We consider a joint signal model $\iXY$, taking
+$L_\iXY((x,y)|\theta) = P(y|x,\theta) L_\iX(x|\theta)$, with predictive
+and posterior distributions $f_\iXY((x,y); \pi,a)$ and
+$\Pi_\iXY(\theta; (x,y),\pi,a)$ defined as in
+\eqref{eq:predictive}--\eqref{eq:posterior}. Note that $\iX \LRI \iY$
+implies that $\Pi_\iXY(\theta; (x,y),\pi,a)$ is LR-decreasing in $y$
+for fixed $x$, $\pi$, and $a$.
+
+To ease the notation, we will suppress the fixed prior $\pi$ and the
+action $a$, as these are constant throughout, taking
+$\Pi_\iXY(x,y) = \Pi_\iXY(\pi,(x,y),a)$ and
+$f_\iXY(x,y) = f_\iXY((x,y); \pi,a)$ to be the posterior and predictive
+distributions for $\iXY$. Similarly, let
+$\Pi_\iX(x) = \Pi_\iX(\pi,x,a)$ and $\Pi_\iY(y) = \Pi_\iY(\pi,y,a)$ be
+the posteriors for $\iX$ and $\iY$, and denote the selection function
+$\alpha_\iY^*(y) = \alpha_\iY^*(\Pi_\iY(\pi, y,a))$.
+
+Since the action selection $\alpha_\iY^*$ ignores the $x$ signal,
+\begin{align}
+\ev{u^*(\Pi_\iY(\tilde{y}))}
+&= \ev{u(\Pi_\iY(\tilde{y}),\alpha_\iY^*(\tilde{y}))} \notag\\
+&= \ev{u(\Pi_\iXY(\tilde{x},\tilde{y}),\alpha_\iY^*(\tilde{y}))}
+  \notag\\
+&= \ev{\cev{u(\Pi_\iXY(\tilde{x},\tilde{y}),\alpha_\iY^*(\tilde{y}))}
+  {\tilde{x}}} \ , \label{eq:nested_expectation}
+\end{align}
+where in the last expression we condition on a given signal $\tilde{x}$
+in the inner expectation, and then take expectations over $\tilde{x}$.
+
+We will focus on the inner expectation in
+\eqref{eq:nested_expectation} with a given signal $x$ and show that,
+given this $x$, there exists a constant action $a'$ (i.e., independent
+of $y$) that outperforms $\alpha_\iY^*$. Because $\alpha_\iY^*$ is
+increasing, there are thresholds $y_0 \leq y_1 \leq \ldots \leq
+y_{N+1}$ such that action $a_i$ is chosen for signals in
+$[y_i,y_{i+1})$ (where the interval is empty if $y_i = y_{i+1}$). Then
+\begin{align}
+&\cev{u(\Pi_\iXY(x,\tilde{y}),\alpha_\iY^*(\tilde{y}))}{x} \notag\\
+&\qquad = \sum_{i=0}^N \int_{y_{i}}^{y_{i+1}} u(\Pi_\iXY(x,y),a_i)\,
+  f_\iXY(x,y) \dif y \ . \label{eq:regions}
+\end{align}
+We will identify an improving constant action $a'$ by sequentially
+considering the signal regions $[y_i,y_{i+1})$ for $i = 1, \ldots, N$
+and improving the action selection as we go. First, take $i=1$ and
+consider a candidate constant action $a' = a_0$, the action selected by
+$\alpha_\iY^*$ in region $[y_0,y_1)$. Consider the sign of the
+difference
+\begin{align}
+D_i = \int_{y_i}^{y_{i+1}}
+  &\left(u(\Pi_\iXY(x,y),a_i) - u(\Pi_\iXY(x,y),a')\right) \notag\\
+  &\quad \times f_\iXY(x,y) \dif y \ , \label{eq:Di}
+\end{align}
+where $a_i$ is the action selected by $\alpha_\iY^*$ in region $i$.
+First, if $D_i \leq 0$, then selecting action $a'$ instead of $a_i$ in
+region $i$ would lead to an improvement in the performance of the
+action selection. Second, consider the case where $D_i \geq 0$.
+Because $u(\pi,a)$ has LR-increasing differences and $\Pi_\iXY(x, y)$
+is LR-decreasing in $y$,
+$$u(\Pi_\iXY(x,y),a_i) - u(\Pi_\iXY(x,y),a')$$
+is decreasing in $y$. If $D_i \geq 0$, this implies that choosing
+action $a_i$ instead of action $a'$ over the interval $[y_0,y_i)$
+would lead to an improvement in performance; in this case, we replace
+$a'$ with $a_i$. Thus, considering both cases and selecting the
+corresponding $a'$, we have an action selection that chooses $a'$ over
+the regions $[y_0, y_{i+1})$ and improves on $\alpha_\iY^*$, for this
+given $x$. Repeating this process for regions $i+1, \ldots, N$, we
+arrive at a constant action $a'$ that implicitly depends on $x$ but is
+independent of $y$ and improves on $\alpha_\iY^*$. Making the implicit
+dependence on $x$ explicit, we write this action selection $a'(x)$ and
+have
+\begin{align}
+\cev{u(\Pi_\iXY(x,\tilde{y}),\alpha_\iY^*(\tilde{y}))}{x}
+&\leq \sum_{i=0}^N \int_{y=y_{i}}^{y_{i+1}}
+  u(\Pi_\iXY(x,y),a'(x))\, f_\iXY(x,y) \dif y \notag\\
+&= \cev{u(\Pi_\iXY(x,\tilde{y}),a'(x))}{x} \notag\\
+&= u(\Pi_\iX(x),a'(x)) \ , \label{eq:constant_action}
+\end{align}
+where the final equality follows because, with the action fixed at
+$a'(x)$, averaging the posteriors $\Pi_\iXY(x,\tilde y)$ over
+$\tilde{y}$ given $x$ recovers the posterior $\Pi_\iX(x)$.
+\Claude{I tightened the final step here: your notes wrote the last line
+as $\ev{u(\Pi_\iX(x),a'(x)) \mid x}$; since $u$ is linear in the
+belief argument (it is an expectation of a payoff under the belief),
+averaging the $\iXY$ posteriors over $y$ given $x$ yields
+$\Pi_\iX(x)$. This linearity deserves a check: if $u(\pi,a)$ is an
+arbitrary function with LR-increasing differences (e.g., a value
+function including continuation terms), it need not be linear in
+$\pi$, and this step instead requires the tower property
+$\ev{u(\Pi_\iXY(x,\tilde y), a')\,|\,x} = u(\Pi_\iX(x), a')$ to be
+justified---please verify how you want this argued.}
+Then taking expectations over $\tilde{x}$ and continuing from
+\eqref{eq:nested_expectation}, we have
+\begin{align}
+\ev{u^*(\Pi_\iY(\tilde{y}))}
+&= \ev{u(\Pi_\iY(\tilde{y}),\alpha_\iY^*(\tilde{y}))} \notag\\
+&= \ev{\cev{u(\Pi_\iXY(\tilde{x},\tilde{y}),
+  \alpha_\iY^*(\tilde{y}))}{\tilde{x}}} \notag\\
+&\leq \ev{u(\Pi_\iX(\tilde{x}),a'(\tilde{x}))} \notag\\
+&\leq \ev{u(\Pi_\iX(\tilde{x}),\alpha_\iX^*(\tilde{x}))} \notag\\
+&= \ev{u^*(\Pi_\iX(\tilde{x}))} \ ,
+\end{align}
+where the final inequality follows from the fact that $a'(\tilde{x})$
+is feasible but not necessarily an optimal action selection for $\iX$.
+\Halmos
+\end{proof}
+
+With Lemma~\ref{lemma:LRI-ContVal} in hand, the value comparison
+follows by induction on the horizon. \Claude{The statement and proof
+of Theorem~\ref{thm:main} below are my draft, per your instruction;
+please verify both. Note in particular that the stochastic
+increasing-differences condition is imposed only on the $\iX$ process:
+the induction applies Lemma~\ref{lemma:LRI-ContVal} with
+$u = V_{\iX,k-1}$, whose LR-increasing differences come from
+Proposition~\ref{prop:monotone_policies}(i) for $\iX$; the $\iY$
+process needs only the MLR property. Confirm this asymmetry is
+intended.}
+
+\begin{theorem}[Value of LR-better information]\label{thm:main}
+Suppose
+\begin{enumerate}
+\item $r(\theta,a)$ is increasing in $\theta$ for all $a$ and has
+  increasing differences,
+\item $L_\iX(x|\theta,a)$, $L_\iY(y|\theta,a)$, and
+  $g(\theta_{k-1}|\theta_k,a)$ satisfy the MLR property for all $a$,
+\item $L_\iX(x|\theta,a)$ and $g(\theta_{k-1}|\theta_k,a)$ satisfy the
+  stochastic version of increasing differences, and
+\item $\iX \LRI \iY$.
+\end{enumerate}
+Then, for all $k$ and all priors $\pi$,
+\begin{equation}
+V_{\iX,k}^*(\pi) \geq V_{\iY,k}^*(\pi) \ . \label{eq:main_result}
+\end{equation}
+\end{theorem}
+
+\begin{proof}{Proof.}
+We proceed by induction on $k$. For $k=0$,
+$V_{\iX,0}^*(\pi) = V_{\iY,0}^*(\pi) = 0$. Now suppose
+$V_{\iX,k-1}^*(\pi) \geq V_{\iY,k-1}^*(\pi)$ for all $\pi$. Fix a
+prior $\pi$ and an action $a$. By the induction hypothesis,
+\begin{equation}
+\ev{V_{\iY,k-1}^*(\Pi_\iY(\pi,\tilde{y},a))} \leq
+\ev{V_{\iX,k-1}^*(\Pi_\iY(\pi,\tilde{y},a))} \ .
+\label{eq:induction_step}
+\end{equation}
+Next, take $u(\pi',a') = V_{\iX,k-1}(\pi',a')$ in
+Lemma~\ref{lemma:LRI-ContVal}; this $u$ has LR-increasing differences
+by Proposition~\ref{prop:monotone_policies}(i), whose hypotheses hold
+for $\iX$ by assumptions (i)--(iii), and
+$u^*(\pi') = V_{\iX,k-1}^*(\pi')$. The lemma then gives
+\begin{equation}
+\ev{V_{\iX,k-1}^*(\Pi_\iY(\pi,\tilde{y},a))} \leq
+\ev{V_{\iX,k-1}^*(\Pi_\iX(\pi,\tilde{x},a))} \ .
+\label{eq:lemma_step}
+\end{equation}
+Combining \eqref{eq:induction_step} and \eqref{eq:lemma_step} with the
+recursion \eqref{eq:Vka}, we have, for every action $a$,
+\begin{align}
+V_{\iY,k}(\pi,a)
+&= r(\pi,a) + \delta\, \ev{V_{\iY,k-1}^*(\Pi_\iY(\pi,\tilde{y},a))}
+  \notag\\
+&\leq r(\pi,a) + \delta\, \ev{V_{\iX,k-1}^*(\Pi_\iX(\pi,\tilde{x},a))}
+  = V_{\iX,k}(\pi,a) \ .
+\end{align}
+Maximizing over $a \in A$ yields
+$V_{\iY,k}^*(\pi) \leq V_{\iX,k}^*(\pi)$, completing the induction.
+\Halmos
+\end{proof}
+
+Theorem~\ref{thm:main} is the monotone-POMDP counterpart of the
+classical Blackwell comparison: it trades the universal quantifier over
+decision problems for a larger set of comparable signal processes.
+Because a Blackwell garbling is a special case of an LR-better garbling
+(with a state-independent kernel), Theorem~\ref{thm:main} contains, for
+monotone POMDPs, the familiar result that garbling in the sense of
+Blackwell lowers the value function.

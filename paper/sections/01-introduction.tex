@@ -1,24 +1,133 @@
+% ---------------------------------------------------------------------
+% Section 1: Introduction.
+% Drafted by Claude following the paragraph plan in Outline.docx.
+% Literature items the outline asked Claude to research are flagged
+% with \Claude{} comments; candidates with summaries are in
+% notes/literature-candidates.md for the authors to select from.
+% ---------------------------------------------------------------------
 \section{Introduction}\label{sec:intro}
 
-% ------------------------------------------------------------------
-% Drafting map (from Outline.docx):
-%  P1. POMDPs are pervasive in OR \citep{krishnamurthy2016partially}.
-%      Examples: technology adoption \citep{mccardle1985information,
-%      lippman1987does, ulu2009uncertainty}, machine maintenance
-%      \citep{white1979optimal, maillart2006maintenance}, inventory
-%      control \citep{treharne2002adaptive}, healthcare
-%      \citep{zhang2012optimization, skandari2021patient}.
-%  P2. Many POMDPs have monotone optimal policies (examples above).
-%  P3. Structural results: \citet{lovejoy1987some}.
-%      TODO(Claude): candidate list of Krishnamurthy et al. papers with
-%      summaries for Canan to select from.
-%  P4. Blackwell ordering and its limitations; convexity-based garbling
-%      argument \citep{blackwell1951comparison, smallwood1973optimal}.
-%      TODO(Claude): citations for "Blackwell is too strong" criticism;
-%      check Krishnamurthy on Lehmann order; position vs.
-%      \citet{athey2018value} (prior-dependent order).
-%  P5. Our contribution: LR-better order for monotone POMDPs; relation
-%      to monotone quasi-garbling of \citet{kim2023comparing}.
-% ------------------------------------------------------------------
+Partially observed Markov decision processes (POMDPs) are pervasive in
+operations research \citep{krishnamurthy2016partially}. In a POMDP, a
+decision maker (DM) repeatedly chooses actions under uncertainty about
+an underlying state, observing signals that partially reveal the state
+and updating her beliefs over time. Examples include technology
+adoption, where a consumer or firm decides whether to adopt a new
+technology of uncertain benefit or wait and gather more information
+\citep{mccardle1985information, lippman1987does, ulu2009uncertainty};
+machine maintenance, where a DM decides when to inspect or replace
+equipment whose condition is only partially observed
+\citep{white1979optimal, maillart2006maintenance}; inventory control
+with unobserved demand states \citep{treharne2002adaptive}; and
+healthcare applications such as prostate biopsy referral decisions
+\citep{zhang2012optimization} and patient-type adaptive treatment
+planning \citep{skandari2021patient}. See
+\citet{krishnamurthy2016partially} for many other examples.
 
-\Claude{Introduction to be drafted per the outline map above.}
+Many POMDP models of interest have \emph{monotone} structure: the
+optimal action increases as the DM's beliefs increase in a stochastic
+sense. In technology adoption models, as beliefs about the benefits of
+the technology improve, optimal policies move toward adoption
+\citep{mccardle1985information, ulu2009uncertainty}. In machine
+maintenance models, as beliefs about the state of the machine worsen,
+optimal policies move toward replacement \citep{white1979optimal,
+lovejoy1987some}. And as beliefs point toward cancer, optimal policies
+move toward a biopsy \citep{zhang2012optimization}. A substantial
+literature provides sufficient conditions for such structure:
+\citet{lovejoy1987some} gives conditions for the optimal value
+function of a finite POMDP to be monotone in the prior, with priors
+ordered by likelihood ratios, for the optimal policy in a machine
+replacement problem to be monotone, and, in the general case, for the
+optimal policy to be bounded below by a monotone function.
+\Claude{Your outline asks for additional structural-results
+references, especially by Vikram Krishnamurthy. A candidate list with
+summaries is in notes/literature-candidates.md for you to select
+from; once you choose, I will fold them into this paragraph.}
+
+How should one compare information sources in a POMDP? The classical
+tool is Blackwell's comparison of experiments
+\citep{blackwell1951comparison}: if, for each action, the signal
+process is garbled by adding noise that is independent of the state,
+the resulting POMDP has a lower optimal value than the original.
+Establishing this value comparison uses the convexity of the POMDP
+value function in the prior \citep{smallwood1973optimal} and requires
+no monotonicity of the value function or optimal policies. Blackwell's
+order is powerful precisely because it is preference free---a garbling
+is worse in \emph{every} decision problem---but this universality
+makes it a very strong requirement, and few pairs of information
+structures can be ranked by it \citep{lehmann1988comparing,
+kim2023comparing}. A large literature has therefore sought weaker
+orders that rank more information structures by restricting the class
+of decision problems, most prominently to \emph{monotone} decision
+problems: \citet{lehmann1988comparing} introduces the accuracy order
+for single-decision problems with monotone likelihood-ratio signals;
+\citet{persico2000information} and \citet{quah2009comparative} extend
+the reach of Lehmann's comparison to broader classes of monotone
+payoffs; and \citet{jewitt2007information} connects Lehmann's order to
+Blackwell dominance on dichotomies. \citet{athey2018value} study
+monotone decision problems in a related but different setup, where
+information structures are compared for a \emph{fixed} prior belief:
+their orderings are prior dependent, which permits finer comparisons
+when the prior is known, whereas the orders we study---like Blackwell's
+and Lehmann's---rank signal processes uniformly across priors.
+\Claude{Two items to verify here: (i) the outline asks for citations
+supporting the ``Blackwell is too strong'' criticism---I cite Lehmann
+and Kim, both of whom make the point explicitly; add others if you
+have favorites. (ii) The outline asks whether Krishnamurthy has papers
+using Lehmann's order: I could not identify any---his structural
+POMDP results use Blackwell dominance of observation kernels (see
+notes/literature-candidates.md)---please confirm before we assert
+anything in text.}
+
+All of these weaker orders, however, were developed for static,
+single-decision problems. In this paper, we ask the corresponding
+question for dynamic problems: when is one signal process worth more
+than another in a \emph{monotone POMDP}? Because we focus on a smaller
+class of POMDPs, we can obtain a weaker order among information
+structures that is implied by Blackwell sufficiency. We say a signal
+process $\iX$ is \emph{LR-better} than a signal process $\iY$ if $\iY$
+can be obtained from $\iX$ by adding a state-dependent garbling such
+that the garbling distribution at a lower state likelihood-ratio (LR)
+dominates the garbling distribution at a higher state---that is, the
+added noise systematically pushes signals upward in low states and
+downward in high states, degrading the signal's ability to
+discriminate between states. Our order is a likelihood-ratio
+strengthening of the \emph{monotone quasi-garbling} order of
+\citet{kim2023comparing}, who studies monotone decision problems with
+a single decision and shows that monotone quasi-garbling---where the
+garbling distribution at a lower state first-order stochastically
+dominates the garbling at a higher state---is a necessary and
+sufficient condition for all decision makers with monotone decision
+problems to obtain higher expected payoffs. LR dominance implies
+first-order stochastic dominance, so the LR-better order implies
+monotone quasi-garbling. The strengthening is exactly what the dynamic
+setting demands: LR dominance survives Bayesian updating and state
+transitions in a POMDP, whereas first-order stochastic dominance does
+not \citep[see][for a discussion]{ulu2009uncertainty}.
+
+Our main result (Theorem~\ref{thm:main}) shows that in a monotone
+POMDP---one with monotone rewards, monotone likelihood-ratio signal
+and transition processes, and supermodular structure delivering
+monotone optimal policies---an LR-better signal process yields a
+higher optimal value function at every horizon. We also map the
+relationships among the orders (Section~\ref{sec:orders}): under the
+monotone likelihood ratio property, Blackwell's order implies the
+LR-better order, which implies monotone quasi-garbling, which is in
+turn equivalent to Lehmann's accuracy order. We illustrate the
+framework with technology adoption, machine replacement, and medical
+decision-making models, present Normal, Poisson, and Uniform families
+of examples in which LR-better comparisons arise naturally, and show
+by example that when the state dependence of the noise runs in the
+opposite direction---signals from better states are \emph{more} likely
+to be observed---the two signal processes may be genuinely
+incomparable, with value functions that cross as a function of the
+prior.
+
+The rest of the paper is organized as follows.
+Section~\ref{sec:model} presents the monotone POMDP model and its
+structural properties. Section~\ref{sec:comparison} introduces the
+LR-better order and establishes the main value-comparison theorem.
+Section~\ref{sec:orders} relates the LR-better order to the Blackwell,
+Lehmann, and monotone quasi-garbling orders.
+Section~\ref{sec:applications} presents applications and examples,
+and Section~\ref{sec:conclusion} concludes.

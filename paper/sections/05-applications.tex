@@ -1,0 +1,324 @@
+% ---------------------------------------------------------------------
+% Section 5: Applications and examples.
+% Sources: LRMQG.tex table of POMDP examples (inserted as-is per the
+% authors' instruction, including the authors' margin notes); Normal/
+% Poisson/Uniform garbling constructions; two-state technology adoption
+% example with primitives recovered from 2statesTechAdoptionClaude.xlsx.
+% ---------------------------------------------------------------------
+\section{Applications}\label{sec:applications}
+
+\subsection{Three Monotone POMDPs}\label{sec:three-models}
+
+Table~\ref{tab:pomdp-examples} illustrates the scope of the monotone
+POMDP framework with three models from the literature: the technology
+adoption model of \citet{ulu2009uncertainty}, the machine replacement
+model of \citet{white1979optimal} (see also \citealt{lovejoy1987some}),
+and the prostate biopsy referral model of \citet{zhang2012optimization}.
+In each model, the state, actions, and signals are ordered, the value
+function is monotone in the beliefs, and the optimal policy is
+monotone: as beliefs about the technology improve, the DM moves toward
+adoption; as beliefs about the machine's condition worsen, the DM moves
+toward replacement; and as beliefs point toward cancer, the DM moves
+toward biopsy. Theorem~\ref{thm:main} applies to each model: improving
+the signal process in the LR-better sense increases the optimal value
+function. \Claude{Transitional text drafted; the table is inserted
+as-is from your notes, including the two ``?'' cells and your margin
+notes, per your instruction.}
+
+\begin{landscape}
+\begin{table}[h!]
+\footnotesize
+\centering
+\caption{POMDP examples: \citet{ulu2009uncertainty},
+\citet{white1979optimal}, \citet{zhang2012optimization}.}
+\label{tab:pomdp-examples}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{2.5cm} p{6.5cm} p{6.5cm} p{5.5cm}}
+\toprule
+ & \textbf{Technology Adoption} & \textbf{Machine Replacement} & \textbf{Prostate Biopsy} \\
+State of the world
+    & $\theta_k \in \Theta \subseteq \Re, $ \newline technology benefit in period $k$
+    & $s_t \in S=\{0,\ldots,n=\text{good as new}\}$, \newline machine state in period $t$
+    & $s_t\in \{NC, C, T, M, D\}$, $NC$: no cancer, $C$: undetected prostate cancer,
+    $T$: Treated, nonmetastatic (obs.), \newline $M$: metastasis (obs.), $D$: Death (obs.)\\
+\midrule
+Prior
+  &$\pi(\theta_k)$, \newline continuous probability distn.
+  & $\pi(s_t)$, \newline discrete probability distn.
+  & $\pi_t \in [0,1]$, \newline probability of undetected cancer \\
+\midrule
+Signal process
+    & $L(x|\theta_k)$ probability of observing signal $x$ given technology state $\theta_k$ \newline
+    satisfies the MLR property
+    &$r_{jk}^a$: probability of observing $k\in O$ given state $s_{t+1}=j$ and action $a_t=a$
+  & $q_t(l_t|s_t)$: probability of observing PSA result $l_t \in \{1,\ldots,m\}$
+    given state $s_t$ \\
+\midrule
+Actions $(a_k)$
+  & $a_k = $ technology choice in period\newline
+    $\in \{$adopt, investigate, reject$\}$\newline
+    where adopt $\succ$ investigate $\succ$ reject
+  & $a_t \in \{a:$ produce, $a^\prime:$ replace$\}$\newline
+  where  $a^\prime\succ a$
+  & $a_t = $ biopsy decision in period  $\in \{B, W\}$\newline
+   where $W\succ B$\\
+\midrule
+Rewards\newline$(r_k(\theta_k, a_k))$
+  & $r_k(\theta_k, a_k)$\newline
+    $= \begin{cases} A\theta_k - K & \text{if } a_k = \text{adopt} \\ -c & \text{if } a_k = \text{investigate} \\ 0 & \text{if } a_k = \text{reject} \end{cases}$
+  & $g(i,a)$: reward from action $a$ in state $s_i$, \newline
+    has isotone differences
+  & $\bar{r}_t(s_t, a_t)$\newline
+    $= \begin{cases} 1 & \text{if } a_t = W \\ 1-\mu & \text{if } a_t = B, s_t=NC \\ 1-\mu-f_\epsilon & \text{if } a_t = B, s_t=C\end{cases}$ \newline{\CU{There are more states.}}\\
+\midrule
+Expected Rewards\newline$(r_k(\pi, a_k))$
+  & $r_k(\pi, a_k)=\int_{\theta \in \Theta} r_k(\theta,a_k) \pi(\theta) \dif \theta$
+  & $\sum_{i\in S} \pi_i g(i,a)$
+  & $r_t(\pi_t, a_t)$\newline
+    $= \begin{cases} 1 & \text{if } a_t = W \\ R_t(\pi_t) & \text{if } a_t = B\end{cases}$\\
+\midrule
+Transitions\newline$(\Pi(\theta_k;\pi, x,a_k))$
+  & $\Pi(\theta_k;\pi, x,a_k)$\newline
+    $= \begin{cases} ? & \text{if } a_k = \text{adopt or reject} \\ \frac{ L(x|\theta,a) \eta(\theta; \pi, a)}{f(x;\pi, a)}& \text{otherwise} \end{cases}$\newline
+    where $\eta(\theta_k; \pi, a)=\int_{\theta_k \in \Theta} g(\theta_{k-1}|\theta_k, a) \pi(\theta_k) \dif \theta_k$ and $f(x;\pi, a)= \int_\theta L(x|\theta,a) \eta(\theta; \pi, a)\,\dif \theta$
+  & $T(\pi, a, k)$\newline
+   $=\begin{cases} ? & \text{if } a_k = \text{produce} \\ e_n \footnotesize{\text{(a unit vector with a 1 in the $n^{th}$ position)}}& \text{if } a_k=\text{replace} \end{cases}$
+  & $\pi_{t+1}(s_{t+1})=\frac{q_{t+1}(l_{t+1}|s_{t+1})\sum_{s_t \in S}p_t(s_{t+1}|s_t, a_t)\pi_t(s_t)}{\sum_{s_{t+1}\in S}q_{t+1}(l_{t+1}|s_{t+1})\sum_{s_t \in S}p_t(s_{t+1}|s_t, a_t)\pi_t(s_t)}$\newline \CU{we can use something like our notation here.}\\
+\midrule
+Properties of the value function
+  & $V_k^*(\pi)$ is $LR$-increasing and convex in $\pi$, \newline
+    $V_k(\pi, a_k)$ satisfies $LR$ increasing differences.
+  & For each $s_k$, $v(s_k, p_k; \sigma)$ is increasing\newline
+    and convex in $p_k$ and increasing in\newline
+    $\sigma$
+  & $v_t(\pi_t)$ is decreasing and convex in $\pi_t$,\newline $R_t(\pi_t)$ linear and decreasing in $\pi_t$, \newline Control-limit type policy optimal \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+\subsection{Constructing LR-Better Signal Processes}\label{sec:examples}
+
+We next present three families of examples in which an LR-better
+garbling arises naturally: a Normal signal with a state-dependent
+bias, a Poisson signal with state-dependent thinning, and a Uniform
+signal with state-dependent scaling. In each case, the garbled process
+would typically \emph{not} be comparable to the original in
+Blackwell's order because the added noise depends on the state, yet
+the LR-better order applies and, by Theorem~\ref{thm:main}, a monotone
+POMDP has a higher value function with the original signal process.
+
+\subsubsection{Normal Likelihood with a State-Dependent Bias.}
+\label{sec:normal-example}
+Let $F(x|\mu, \sigma^2)$ be a Normal signal-generating process with
+mean $\mu$ and variance $\sigma^2$, where the state of the world is
+the unknown mean $\mu$. This likelihood satisfies the MLR property.
+Suppose that we add a bias term that depends on $\mu$ and observe
+\begin{equation}
+Y = X + d(\mu) + Z \label{eq:normal-garbling}
+\end{equation}
+instead, where $d(\mu)$ is a decreasing function of $\mu$ and $Z$ is a
+Normally distributed error term with mean $0$ and variance $\nu^2$,
+independent of $X$. The garbling kernel is then
+\begin{equation}
+H(y|x, \mu) \sim N(x+d(\mu),\, \nu^2) \ ,
+\end{equation}
+a conditional probability distribution that is LR-decreasing in $\mu$
+because $d(\mu)$ is decreasing; for example, $d(\mu) =
+-\delta\mu/\sigma$ for some $\delta > 0$. Given the definition of the
+biased signal process $\iY$, we have
+\begin{equation}
+G(y|\mu) \sim N(\mu+d(\mu),\, \sigma^2+\nu^2) \ ,
+\end{equation}
+which also satisfies the MLR property provided that $\mu + d(\mu)$ is
+increasing; with $d(\mu) = -\delta\mu/\sigma$, this holds if
+$\delta \leq \sigma$. Then $\iX \LRI \iY$: since both likelihoods
+satisfy the MLR property, Theorem~\ref{thm:main} implies that a
+monotone POMDP has a higher value function with likelihood $F$ than
+with $G$. If $d(\mu)$ is constant, the noise is state independent and
+$F$ Blackwell-dominates $G$; a strictly decreasing $d$ takes the
+comparison outside Blackwell's order but keeps it within the LR-better
+order.
+
+The bias term has a natural interpretation: signals about better
+technologies may be systematically dampened---for example, reviews of
+genuinely superior products may understate their advantage---and such
+skepticism-type distortions degrade information in exactly the
+reversely monotone way the LR-better order captures.
+\Claude{Interpretation sentence drafted by me---replace or delete if
+it does not match the story you want to tell.}
+
+\subsubsection{Poisson Likelihood with State-Dependent Thinning.}
+\label{sec:poisson-example}
+Let $F(x|\lambda)$ be a Poisson distribution with rate $\lambda$,
+which has the MLR property in $\lambda$. Suppose that, instead of
+observing the count $X$, each arrival is observed independently with
+probability $d(\lambda)$. The garbling distribution $H(y|x,\lambda)$
+is then Binomial with $x$ trials and success probability
+$d(\lambda)$; it is LR-decreasing in $\lambda$ if $d(\lambda)$ is
+decreasing. We now show that, after this thinning, the resulting
+signal distribution is Poisson with rate $d(\lambda)\lambda$:
+\begin{align}
+g(y|\lambda) &= \sum_{x=y}^\infty h(y|x, \lambda)\, f(x|\lambda) \\
+&= \sum_{x=y}^\infty \binom{x}{y}\, [d(\lambda)]^y
+  [1-d(\lambda)]^{x-y}\, \frac{e^{-\lambda}\lambda^x}{x!} \\
+&= \frac{e^{-\lambda}[d(\lambda)]^y}{y!} \sum_{x=y}^\infty
+  \frac{\lambda^x [1-d(\lambda)]^{x-y}}{(x-y)!} \\
+&= \frac{e^{-\lambda}[d(\lambda)]^y}{y!} \sum_{z=0}^\infty
+  \frac{\lambda^{z+y} [1-d(\lambda)]^{z}}{z!} \\
+&= \frac{e^{-\lambda}[d(\lambda)\lambda]^y}{y!} \sum_{z=0}^\infty
+  \frac{\left(\lambda[1-d(\lambda)]\right)^{z}}{z!} \\
+&= \frac{e^{-\lambda}[d(\lambda)\lambda]^y\,
+  e^{\lambda(1-d(\lambda))}}{y!} \\
+&= \frac{e^{-\lambda d(\lambda)}[d(\lambda)\lambda]^y}{y!} \ .
+\end{align}
+The second equality uses the definitions of the Binomial and Poisson
+distributions; the third uses $\binom{x}{y} = \frac{x!}{(x-y)!\,y!}$;
+the fourth substitutes $z = x-y$; the fifth collects the powers of
+$\lambda$; and the sixth uses $\sum_{z=0}^\infty x^z/z! = e^x$. The
+resulting Poisson distribution with rate $d(\lambda)\lambda$ has the
+MLR property if $d(\lambda)\lambda$ is increasing in $\lambda$. Thus,
+if $d$ is decreasing but $d(\lambda)\lambda$ is increasing, we have
+$\iX \LRI \iY$ with both processes satisfying the MLR property, and
+Theorem~\ref{thm:main} applies. This is a model of state-dependent
+undercounting: arrivals from better processes (higher $\lambda$) are
+individually less likely to be recorded.
+
+\subsubsection{Uniform Likelihood with State-Dependent Scaling.}
+\label{sec:uniform-example}
+Let $F(x|\theta)$ be a Uniform distribution on $[0, \theta]$, which
+has the MLR property in $\theta$. Suppose that instead of observing
+$X$ we observe
+\begin{equation}
+Y = d(\theta) X \ .
+\end{equation}
+Then $Y|\theta$ is Uniform on $[0, d(\theta)\theta]$, which has the
+MLR property if $d(\theta)\theta$ is increasing in $\theta$. For this
+transformation, the garbling distribution is deterministic:
+\begin{equation}
+H(y|x,\theta) = \left\{
+\begin{array}{cl}
+1 & \mbox{if } y = x\, d(\theta)\ , \\
+0 & \mbox{otherwise}\ .
+\end{array}\right.
+\end{equation}
+To see that $H(y|x,\theta)$ is LR-decreasing when $d(\theta)$ is
+decreasing in $\theta$, consider the inequality
+\begin{equation}
+H(y^2|x,\theta^2)\, H(y^1|x,\theta^1) \leq
+H(y^2|x,\theta^1)\, H(y^1|x,\theta^2) \label{eq:uniform-LR}
+\end{equation}
+for $y^1 \leq y^2$ and $\theta^1 \leq \theta^2$. If
+$y^1 = x\, d(\theta^2) \leq y^2 = x\, d(\theta^1)$, the inequality
+holds because the left side is $0$ and the right side is $1$; for any
+other selection of $y^1 \leq y^2$, both sides equal zero.
+\CU{I think the above example would work for $Y = X + d(\theta)$. I
+tried more general garbling distributions $H(y|x,\theta)$ that are not
+deterministic. For example, we can observe $x$ or $x\,d(\theta)$ with
+equal probability (does not satisfy the LR-decreasing property), or
+$H(y|x,\theta)$ uniform between $x$ and $x+d(\theta)$ (is
+LR-decreasing if $d(\theta)$ is decreasing, but the marginal for
+$y|\theta$ is a trapezoidal distribution and it is not clear if it can
+be made to have the MLR property).}
+
+\subsection{A Two-State Technology Adoption Example: When
+State-Increasing Garbling Yields No Ranking}\label{sec:tech-example}
+
+The reversely monotone structure of the LR-better order---noise that
+degrades the signal more in \emph{higher} states---is not a technical
+artifact: when the state dependence of the noise runs in the opposite
+direction, the two signal processes may genuinely be incomparable. We
+illustrate this with a simple two-state technology adoption example.
+
+The technology's benefit is $\theta \in \{0.1, 0.7\}$; we refer to
+these as the low and high states. The DM's prior probability on the
+high state is $0.4$. The DM either adopts the technology, earning
+$A\theta - K$ with $A = 1$ and adoption cost $K = 0.3$ (i.e., $-0.2$
+in the low state and $0.4$ in the high state), or rejects it, earning
+$0$. Before deciding, the DM observes the outcome of two independent
+trials of the technology, each of which succeeds with probability
+$\theta$.
+
+Under signal process $\iX$ (experiment $F$), the DM observes the
+number of successes $x \in \{0,1,2\}$, so $L_\iX(x|\theta)$ is
+Binomial with two trials and success probability $\theta$; this
+likelihood satisfies the MLR property. Under signal process $\iY$
+(experiment $G$), each success is \emph{recorded} only with
+probability $d(\theta)$, with $d(0.1) = 0.4$ and $d(0.7) = 0.7$: the
+probability that a success is observed \emph{increases} with the
+state. The DM observes the number of recorded successes
+$y \in \{0,1,2\}$, so $L_\iY(y|\theta)$ is Binomial with two trials
+and success probability $\theta\, d(\theta)$ ($0.04$ in the low state
+and $0.49$ in the high state), which also satisfies the MLR property.
+The garbling kernel taking $x$ to $y$ is Binomial with $x$ trials and
+success probability $d(\theta)$---exactly as in the Poisson thinning
+example of Section~\ref{sec:poisson-example}, except that here $d$ is
+\emph{increasing} in the state, so the kernel is LR-\emph{increasing}
+in $\theta$ and the LR-better condition (Definition~\ref{def:LRI}(ii))
+fails; indeed, even the weaker FOSD condition of monotone
+quasi-garbling fails.
+
+Figure~\ref{fig:tech-trees} shows the decision trees for the two
+experiments. At the prior of $0.4$, experiment $F$ is more valuable:
+the DM's expected value is $0.123$ under $F$ versus $0.109$ under $G$.
+But this ranking does not hold for all priors: for sufficiently
+pessimistic priors, $G$ is strictly more valuable (for example, at a
+prior of $0.01$ on the high state, the DM's value is $0.0006$ under
+$G$ and $0$ under $F$---under $F$, no signal is favorable enough to
+justify adoption, while under $G$ the strongest signal is). The two
+value functions cross as a function of the prior, so neither
+experiment dominates the other. \Claude{Values computed from your
+spreadsheet (2statesTechAdoptionClaude.xlsx): the value-by-prior table
+shows $G$ strictly better for priors around $0.01$ and $F$ strictly
+better for moderate priors, e.g., $0.1228$ vs.\ $0.10898$ at prior
+$0.4$.}
+
+Why does no ranking exist? When the observation probability increases
+with the state, the signal under the signal process $G$ carries two
+pieces of evidence rather than one: a recorded success indicates not
+only that the trial succeeded, but also that the state was one in
+which successes are more likely to be recorded. These two pieces of
+evidence point in the same direction and reinforce each other, so a
+favorable signal under $G$ is stronger evidence for the high state
+than the corresponding signal under $F$. The price is paid at the
+other end of the signal scale: silence becomes ambiguous, since it may
+reflect either a failed trial or an unobserved success, and therefore
+constitutes weaker evidence for the low state than it does under $F$.
+The effect on beliefs is a one-sided stretch: posteriors move farther
+than under $F$ after good news, but not as far after bad news. $G$ is
+thus genuinely more informative for decisions that hinge on confirming
+the high state and genuinely less informative for decisions that hinge
+on detecting the low state, and neither experiment can dominate the
+other: which one is more valuable depends on the prior beliefs.
+
+\begin{figure}[t]
+\FIGURE{%
+\begin{tabular}{c@{\qquad}c}
+\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}[x=1.15cm,y=1.15cm]
+\node[chance] (root) at (0,-3.6125) {};
+\node[nval] at (root.south) {$0.123$};
+\payoffheader{0.75}
+\sigblock{root}{0}{.522\ $x=0$}{.931}{.069}{$0$}{$-0.159$}{plain}{opt}
+\sigblock{root}{-2.55}{.276\ $x=1$}{.391}{.609}{$0.165$}{$0.165$}{opt}{plain}
+\sigblock{root}{-5.1}{.202\ $x=2$}{.030}{.970}{$0.382$}{$0.382$}{opt}{plain}
+\end{tikzpicture}}
+&
+\resizebox{0.45\textwidth}{!}{%
+\begin{tikzpicture}[x=1.15cm,y=1.15cm]
+\node[chance] (root) at (0,-3.6125) {};
+\node[nval] at (root.south) {$0.109$};
+\payoffheader{0.75}
+\sigblock{root}{0}{.657\ $y=0$}{.842}{.158}{$0$}{$-0.105$}{plain}{opt}
+\sigblock{root}{-2.55}{.246\ $y=1$}{.187}{.813}{$0.288$}{$0.288$}{opt}{plain}
+\sigblock{root}{-5.1}{.097\ $y=2$}{.010}{.990}{$0.394$}{$0.394$}{opt}{plain}
+\end{tikzpicture}}
+\\[4pt]
+(a) Experiment $F$. & (b) Experiment $G$.
+\end{tabular}}%
+{Decision trees for the two-state technology adoption example
+($\theta\in\{0.1,0.7\}$, prior on the high state $0.4$, adoption cost
+$0.3$).\label{fig:tech-trees}}%
+{Squares are decision nodes, circles are chance nodes, and bold
+branches mark optimal decisions; node values appear below each node.}
+\end{figure}
