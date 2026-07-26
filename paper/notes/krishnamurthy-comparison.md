@@ -218,6 +218,88 @@ and credit the example to Krishnamurthy 2021.)
   result is stronger, and flag "drop increasing differences?" as a
   question we either resolve or list as future work.
 
+## 8. The Normal example vs. Krishnamurthy's assumptions (added 2026-07-26)
+
+Setup (discretized to finitely many states, as his framework requires):
+states μ₁ < … < μ_X; better system F_i = N(μ_i, σ²); worse system
+G_i = N(m_i, σ² + ν²) with m(μ) = μ + d(μ) increasing. Signal space ℝ
+(his continuum case). Script: paper/analysis/check_normal.py.
+
+- **A3 (TP2 observations):** both hold — Gaussian location families
+  with increasing means are MLR.
+- **A6 (Lehmann precision):** holds if and only if m'(μ) ≤ s/σ where
+  s = √(σ²+ν²). Derivation: the Lehmann quantile map is
+  Φ(μ; y) = μ + (σ/s)(y − m(μ)), increasing in μ ⟺ m' ≤ s/σ; the
+  single-crossing form (A6) then follows because {G_i(j) ≥ F_i(l)} ⟺
+  {Φ(μ_i; j) ≥ l} is an upper set in i. Her conditions (d decreasing ⇒
+  m' ≤ 1 < s/σ) land strictly inside. Numerically confirmed, including
+  failure of A6 at m' = 1.35 > s/σ ≈ 1.221.
+- **A7 (ℝ-version, absolute continuity):** HOLDS — Gaussians have full
+  support, and with ν² > 0 the ratio f_F/f_G is even bounded (the
+  better system has thinner tails). Numerically: max ratio ≈ 1.58 in
+  her parameterization.
+- **A2:** whatever TP2 action-independent P is attached (identity for
+  a static state) — satisfiable.
+
+**Conclusion: the Normal example does NOT separate our setup from
+Krishnamurthy's.** After any finite discretization it satisfies every
+assumption of his Theorem 3.4(1). Its only escapes from his framework
+are (i) the continuous state space of the original example and (ii)
+embedding in a model with action-dependent transitions (e.g.,
+technology adoption). Among our three families, only the **Uniform**
+family (Section 5) breaks A7 itself.
+
+## 9. Byproduct: under MLR + continuity, LR-better = MQG = Lehmann?!
+
+Working through A6 for the Normal case surfaced something bigger.
+Kim's proof of Proposition 2 (Lehmann ⇒ MQG) constructs the garbling
+kernel Γ(y|x,ω) = 1{x ≤ Φ(ω;y)} — as a distribution over y given
+(x,ω), this is a **point mass** at the quantile-matching signal
+y(x,ω) solving Φ(ω; y) = x. Two observations:
+
+1. y(x,ω) is DECREASING in ω whenever Lehmann holds
+   (∂y/∂ω = −Φ_ω/Φ_y ≤ 0 since Φ_ω ≥ 0 = Lehmann, Φ_y > 0).
+2. For point masses, δ_a ⪰_LR δ_b ⟺ a ≥ b (the TP2 cross-product
+   condition holds vacuously except at the atoms). So a deterministic
+   kernel with atom decreasing in the state is reversely
+   LR-monotone — it witnesses **LR-better**, not just MQG.
+
+Hence, in Kim's continuum framework (continuous, strictly increasing
+conditional CDFs) with MLRP on F:
+
+   Lehmann ⇒ LR-better  (via the quantile kernel), and we already have
+   LR-better ⇒ MQG ⇒ Lehmann. So **all three orders coincide**.
+
+For the Normal family this is fully explicit: the quantile kernel is
+the affine map y(x,μ) = m(μ) + (s/σ)(x − μ), whose pushforward of
+N(μ,σ²) is exactly N(m(μ), s²) = G (verified to machine precision),
+and which is decreasing in μ exactly on the Lehmann region m' ≤ s/σ.
+Note this kernel is different from the natural additive-noise kernel
+N(x + d(μ), ν²) in the notes — and it certifies LR-better on a
+STRICTLY LARGER region (mildly increasing d, up to m' ≤ s/σ), where
+the additive kernel is monotone the wrong way. The LR-better order is
+about existence of SOME kernel; the natural one being non-monotone
+does not settle the comparison.
+
+Consequences if this holds up (please verify — the point-mass LR
+convention and the measure-theoretic care in Lemma 3.1's proof with
+deterministic kernels are exactly the places to poke):
+- The outline's hoped-for example "LR-better strictly inside MQG"
+  CANNOT exist under MLR + continuous signal distributions. Any
+  strictness must come from discrete/atomic signal structures, where
+  the quantile construction breaks. (Her Uniform garbling y = d(θ)x
+  IS the quantile kernel for the Uniform family, reassuringly.)
+- Section 4's nesting display should be revised: under MLR (and
+  continuity), LR-better is not a new order strictly between
+  Blackwell and MQG — it is an equivalent *garbling formulation* of
+  Lehmann/MQG whose LR-monotone form is what survives Bayesian
+  updating. The paper's contribution then rests cleanly on the
+  dynamic theorem for general monotone POMDPs (action-dependent
+  transitions, general state spaces), not on the novelty of the
+  order itself. This is arguably a BETTER story: "the right dynamic
+  formulation of Lehmann/MQG" + "value comparison beyond controlled
+  sensing."
+
 ## Follow-ups / to verify
 
 1. A6 ⇔ Kim's Lehmann accuracy under MLR: cite (Mizuno 2006 / Jewitt

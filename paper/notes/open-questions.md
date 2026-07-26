@@ -33,7 +33,14 @@ exact spot where it matters.
    argument that *no* state-independent kernel generates the same G);
    (b) construct an example separating LR-better from MQG (reversely
    FOSD- but not LR-monotone garbling); your uniform-example margin
-   note suggests candidates.
+   note suggests candidates. *Update (2026-07-26): (b) appears
+   IMPOSSIBLE under MLR + continuous signal distributions — Kim's
+   quantile-kernel construction is deterministic with atoms decreasing
+   in the state, which makes it reversely LR-monotone, giving
+   Lehmann ⇒ LR-better and hence LR-better = MQG = Lehmann there. Any
+   strict separation must come from discrete/atomic signal structures.
+   See krishnamurthy-comparison.md §9 — needs your verification, and
+   if it holds it reshapes Section 4's nesting display.*
 
 5. **Two-action equivalence claim.** The outline's claim "2-action
    models: BW = Lehmann = LR-better = MQG under MLR" is not (as far as
