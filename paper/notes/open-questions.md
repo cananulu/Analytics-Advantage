@@ -45,7 +45,27 @@ exact spot where it matters.
    as an open question whether the gap between LR-better and MQG is
    essential in monotone POMDPs. If you have a counterexample (MQG
    holds but value comparison fails at some horizon), it would sharpen
-   the contribution; please advise.
+   the contribution; please advise. *Update (2026-07-26): partially
+   answered — within finite-state controlled sensing, Krishnamurthy
+   (2021, Thm 3.4(1)) shows Lehmann precision (= MQG under MLR)
+   suffices; the question remains open for action-dependent
+   transitions and general state spaces. See item 14.*
+
+14. **Positioning vs. Krishnamurthy (2021).** Full analysis in
+    notes/krishnamurthy-comparison.md. Headlines: (a) in finite signal
+    spaces LR-better (even MQG) + MLR implies his (A7), so the hoped-for
+    "LR-better but not A7" example cannot exist there — proof sketch
+    and 2,000-instance numerical check included; (b) the genuine
+    separations are action-dependent transitions, general state
+    spaces, and the continuum absolute-continuity version of A7, which
+    the Uniform-scaling family violates; (c) his hierarchical-sensing
+    example is LR-better comparable (explicit kernel found by LP) —
+    usable as our Blackwell-strictness example; (d) on the overlap
+    (finite controlled sensing) his theorem is stronger — no
+    supermodularity needed — raising the question of whether our
+    Theorem 3.1 can drop increasing differences. Decisions needed:
+    adopt recommended positioning? verify the two-line q_F/q_G
+    computation? pursue dropping supermodularity?
 
 7. **Definition 3.1 action dependence.** LR-better is stated with the
    action suppressed (as in your notes); Claude assumes conditions hold

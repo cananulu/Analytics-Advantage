@@ -70,8 +70,8 @@ papers you uploaded and should be double-checked before citing.
    MLR order.
 
 8. **Rieder (1991), "Structural results for partially observed control
-   models."** [NOT verified — Claude is unsure of this reference;
-   please check before citing or drop]
+   models," Methods and Models of Operations Research 35(6):473–490.**
+   [verified against Krishnamurthy 2021's reference list]
 
 9. **Smallwood & Sondik (1973).** [already in refs.bib] Convexity of the
    POMDP value function — needed for the Blackwell-garbling argument
