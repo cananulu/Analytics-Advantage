@@ -41,6 +41,14 @@ exact spot where it matters.
    strict separation must come from discrete/atomic signal structures.
    See krishnamurthy-comparison.md §9 — needs your verification, and
    if it holds it reshapes Section 4's nesting display.*
+   *Update 2 (2026-07-26, after Canan's challenge): CONFIRMED that the
+   separation exists in discrete signal spaces — explicit 3-state
+   example (F MLR, binary X-signals, ternary Y-signals) that is MQG
+   and discrete-Lehmann but NOT LR-better and NOT Blackwell;
+   numerically certified, analytic proof pending. All discrete
+   counterexamples found have G non-MLR; open conjecture that MLR on
+   both processes restores the equivalence. See
+   krishnamurthy-comparison.md §9a and paper/analysis/.*
 
 5. **Two-action equivalence claim.** The outline's claim "2-action
    models: BW = Lehmann = LR-better = MQG under MLR" is not (as far as

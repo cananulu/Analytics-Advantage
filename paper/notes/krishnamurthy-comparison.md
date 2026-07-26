@@ -249,7 +249,60 @@ embedding in a model with action-dependent transitions (e.g.,
 technology adoption). Among our three families, only the **Uniform**
 family (Section 5) breaks A7 itself.
 
+## 9a. CORRECTION (2026-07-26, after Canan's challenge): the equivalence
+## is a continuum phenomenon ONLY — in discrete signal spaces
+## LR-better is STRICTLY stronger than MQG. Explicit counterexample:
+
+Canan challenged the §9 claim, and she was right to: a computational
+hunt (paper/analysis/hunt_mqg_not_lri.py, round_and_verify.py) produced
+an explicit discrete example that is MQG but NOT LR-better. Three
+states, binary X-signals, ternary Y-signals:
+
+    F = [ .787 .213 ]        G = [ .044 .282 .674 ]
+        [ .654 .346 ]            [ .065 .726 .209 ]
+        [ .515 .485 ]            [ .457 .351 .192 ]
+
+Verified properties of this instance:
+- F is MLR; G is NOT MLR.
+- F ⪰_MQG G: an explicit reversely-FOSD kernel exists (LP; printed by
+  the script).
+- F ⪰_B G FAILS (Blackwell LP infeasible).
+- Discrete Lehmann (Kim Def 4, sup version) HOLDS.
+- NO reversely-LR kernel exists: global search over the entire
+  6-dimensional feasible set (10 differential-evolution runs +
+  500 Nelder-Mead restarts on a nullspace parametrization) bottoms out
+  at LR-violation ≈ 4.6e-3, bounded away from zero; the same machinery
+  provably returns 0 on LR-generated control instances.
+  **Caveat: this is a strong numerical certificate, not yet an
+  analytic proof — worth proving by hand (6 unknowns after
+  elimination) before using in the paper.**
+
+Two structural observations from the search:
+- Every candidate found has THREE OR MORE states; two-state instances
+  were always LR-feasible (consistent with Canan's "unless there are
+  only two states" and with the Jewitt-dichotomy collapse).
+- Every candidate found has G NOT MLR. In all searched instances where
+  BOTH F and G are MLR (the assumption set of our Theorem 3.1), an
+  LR kernel always existed. **Open conjecture: MQG + MLR on both
+  processes ⇒ LR-better, even in discrete signal spaces.** If true,
+  the equivalence survives exactly on our theorem's assumption set; if
+  false, a counterexample with MLR G would be even more valuable.
+
+Refined picture (replaces the unqualified claim of §9):
+1. Atomless signal distributions + MLRP(F): LR-better = MQG = Lehmann
+   (the §9 quantile-kernel argument stands, per the letter of
+   Definition 3.1, which admits deterministic kernels — as does the
+   authors' own Uniform example).
+2. Discrete signal spaces: B ⇒ LR-better ⇒ MQG with BOTH inclusions
+   strict (the second by the example above) — the outline's original
+   nesting survives for discrete-signal models, which include the
+   Poisson-count and Binomial-trial applications.
+3. Whether MLR on G restores the equivalence in discrete spaces is
+   open (see conjecture above).
+
 ## 9. Byproduct: under MLR + continuity, LR-better = MQG = Lehmann?!
+## (SUPERSEDED in part — read §9a first; the argument below is correct
+## for atomless signal distributions only.)
 
 Working through A6 for the Normal case surfaced something bigger.
 Kim's proof of Proposition 2 (Lehmann ⇒ MQG) constructs the garbling
